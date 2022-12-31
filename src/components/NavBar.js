@@ -1,45 +1,69 @@
 import React, { Component } from 'react';
+import AddEventDialog from './AddEventDialog';
+import SettingsDialog from './SettingsDialog';
+import Modal from './Modal';
 
 class NavBar extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            inputText: ''
+            openDialog: null
         }
     }
 
-    addToList() {
-        this.props.EventAdd(this.state.inputText)
-    }
-
-    clearList() {
-        this.props.EventClear();
-    }
-
-    updateText = (event) => {
+    openAddEvent() {
+        // Check if any other dialog is open
+        if (this.state.openDialog) {
+            return;
+        }
         let newState = {
-            inputText: event.target.value
+            openDialog: 'events'
         }
         this.setState(newState);
-        console.log(this.state.inputText);
-    };
+    }
+
+    openSettings() {
+        // Check if any other dialog is open
+        if (this.state.openDialog) {
+            return;
+        }
+        let newState = {
+            openDialog: 'settings'
+        }
+        this.setState(newState);
+    }
+
+    resetModal() {
+        let newState = {
+            openDialog: null
+        }
+        this.setState(newState);
+    }
 
     render() {
         return (
             <div>
                 <button
-                    onClick={this.addToList.bind(this)}>
+                    onClick={this.openAddEvent.bind(this)}>
                     Add Event
                 </button>
                 <button
-                    onClick={this.clearList.bind(this)}>
-                    Clear Events
+                    onClick={this.openSettings.bind(this)}>
+                    Settings
                 </button>
-                <input
-                    onChange={this.updateText}
-                    value={this.state.inputText}>
-                </input>
+
+                <Modal
+                    closeModal={this.resetModal.bind(this)}
+                    openModal={this.state.openDialog !== null}>
+                </Modal>
+                <AddEventDialog
+                    eventAdd={this.props.eventAdd}
+                    showDialog={this.state.openDialog}>
+                </AddEventDialog>
+                <SettingsDialog
+                    showDialog={this.state.openDialog}>
+                </SettingsDialog>
             </div>
         )
     }

@@ -11,7 +11,7 @@ class Calendar extends Component {
         };
     }
 
-    addToEvents(item) {
+    addEvent(item) {
         let newList = this.state.Events
         newList.push(item)
         let newState = {
@@ -20,19 +20,11 @@ class Calendar extends Component {
         this.setState(newState);
     };
 
-    resetEvents() {
-        let newState = {
-            Events: []
-        }
-        this.setState(newState);
-    };
-
     render() {
         return (
             <div>
                 <NavBar
-                    EventAdd={this.addToEvents.bind(this)}
-                    EventClear={this.resetEvents.bind(this)}>
+                    eventAdd={this.addEvent.bind(this)}>
                 </NavBar>
                 <EventList
                     EventsList={this.state.Events}>

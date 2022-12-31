@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.blackBorder {
+  border: 2px solid black;
+}
+
+.blueBorder {
+  border: 2px solid blue;
+}
+
+.modal-bg {
+  height: 100px;
+  width: 100px;
+  background-color: green;
+}

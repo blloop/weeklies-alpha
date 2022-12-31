@@ -43,7 +43,7 @@ class NavBar extends Component {
 
     render() {
         return (
-            <div>
+            <div className='navbar' >
                 <button
                     onClick={this.openAddEvent.bind(this)}>
                     Add Event
@@ -64,7 +64,7 @@ class NavBar extends Component {
                 <SettingsDialog
                     showDialog={this.state.openDialog}>
                 </SettingsDialog>
-            </div>
+            </div >
         )
     }
 

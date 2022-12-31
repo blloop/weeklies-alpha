@@ -7,9 +7,8 @@ class Modal extends Component {
             <>
                 {this.props.openModal ?
 
-                    <div
-                        onClick={this.props.closeModal}
-                        className='modal-bg'>
+                    <div className='modal-bg'
+                        onClick={this.props.closeModal}>
                     </div>
 
                     : null}

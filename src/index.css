@@ -12,16 +12,105 @@ code {
     monospace;
 }
 
-.blackBorder {
+/* Universal Styling */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  box-sizing: border-box;
+}
+
+.fade-in {
+  opacity: 1;
+  animation: fade-in 0.5s;
+}
+
+.fade-out {
+  opacity: 0;
+  animation: fade-out 0.5s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* HTML Element Styling */
+
+button {
+  padding: 10px;
+  border-radius: 24px;
+  margin: 24px;
+}
+
+hr {
+  background-color: rgb(255, 174, 174);
+  border: 0px;
+  height: 4px;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+input {
+  margin-right: 24px;
+}
+
+/* Class Based Styling */
+
+.calendar {
+  width: 100vw;
+  height: 100vh;
+  border: 24px solid rgb(255, 174, 174);
+  background-color: rgb(255, 237, 237);
+}
+
+.addevents {
   border: 2px solid black;
 }
 
-.blueBorder {
+.settings {
   border: 2px solid blue;
+  padding: 24px;
+}
+
+.overlay {
+  position: fixed;
+  top: 30vh;
+  left: 40vw;
+  z-index: 5;
+  background-color: white;
+
 }
 
 .modal-bg {
-  height: 100px;
-  width: 100px;
-  background-color: green;
+  height: 100vw;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(100, 100, 100, 0.5);
+  z-index: 4;
+}
+
+.eventlist p {
+  margin: 24px;
+  padding: 12px 0;
+  border-radius: 24px;
+  background-color: rgb(255, 174, 174);
 }

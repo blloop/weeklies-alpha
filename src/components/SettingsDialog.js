@@ -14,7 +14,7 @@ class SettingsDialog extends Component {
         return (
             <>
                 {(this.props.showDialog === 'settings') &&
-                    <div className='blueBorder'>
+                    <div className='settings overlay'>
                         <p> Settings List! </p>
                     </div>
                 }

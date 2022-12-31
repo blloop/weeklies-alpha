@@ -22,10 +22,11 @@ class Calendar extends Component {
 
     render() {
         return (
-            <div>
+            <div className='calendar'>
                 <NavBar
                     eventAdd={this.addEvent.bind(this)}>
                 </NavBar>
+                <hr></hr>
                 <EventList
                     EventsList={this.state.Events}>
                 </EventList>

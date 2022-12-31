@@ -12,6 +12,11 @@ class AddEventDialog extends Component {
 
     addToList() {
         this.props.eventAdd(this.state.inputText)
+        let newState = {
+            showDialog: this.state.showDialog,
+            inputText: ''
+        }
+        this.setState(newState)
     }
 
     updateText = (event) => {
@@ -26,7 +31,7 @@ class AddEventDialog extends Component {
         return (
             <>
                 {(this.props.showDialog === 'events') &&
-                    <div className='blackBorder'>
+                    <div className='addevents overlay'>
                         <button
                             onClick={this.addToList.bind(this)}>
                             Add Event

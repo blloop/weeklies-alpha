@@ -34,7 +34,7 @@ class NavBar extends Component {
         this.setState(newState);
     }
 
-    resetModal() {
+    closeModal() {
         let newState = {
             openDialog: null
         }
@@ -54,15 +54,16 @@ class NavBar extends Component {
                 </button>
 
                 <Modal
-                    closeModal={this.resetModal.bind(this)}
+                    closeModal={this.closeModal.bind(this)}
                     openModal={this.state.openDialog !== null}>
                 </Modal>
                 <AddEventDialog
                     eventAdd={this.props.eventAdd}
-                    showDialog={this.state.openDialog}>
+                    showDialog={this.state.openDialog === 'events'}>
                 </AddEventDialog>
                 <SettingsDialog
-                    showDialog={this.state.openDialog}>
+                    eventClear={this.props.eventClear}
+                    showDialog={this.state.openDialog === 'settings'}>
                 </SettingsDialog>
             </div >
         )

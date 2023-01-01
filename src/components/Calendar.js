@@ -5,34 +5,46 @@ import EventList from './EventList';
 class Calendar extends Component {
 
     constructor(props) {
+        let jsonEvents = localStorage.getItem('weeklies-events');
         super(props);
         this.state = {
-            Events: []
+            Events: (jsonEvents ? JSON.parse(jsonEvents) : [])
         };
     }
 
-    addEvent(item) {
-        // Pseudocode: Check if list contains item by name already
-        // if (this.state.Events.contains(item.title)) {
-
-        // }
+    addEvent = (item) => {
+        if (this.state.Events.some(
+            curr => curr.title === item.title && curr.day === item.day)) {
+            alert("Cannot add duplicate event!");
+            return;
+        }
         let newList = this.state.Events
         newList.push(item)
         let newState = {
             Events: newList
         }
         this.setState(newState);
+        localStorage.setItem('weeklies-events', JSON.stringify(this.state.Events));
     };
+
+    clearEvents() {
+        let newState = {
+            Events: []
+        }
+        this.setState(newState);
+        localStorage.setItem('weeklies-events', JSON.stringify(this.state.Events));
+    }
 
     render() {
         return (
             <div className='calendar'>
                 <NavBar
-                    eventAdd={this.addEvent.bind(this)}>
+                    eventAdd={this.addEvent.bind(this)}
+                    eventClear={this.clearEvents.bind(this)}>
                 </NavBar>
                 <hr></hr>
                 <EventList
-                    EventsList={this.state.Events}>
+                    allEvents={this.state.Events}>
                 </EventList>
             </div>
         )

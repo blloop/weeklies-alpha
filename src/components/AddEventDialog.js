@@ -6,7 +6,7 @@ class AddEventDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showDialog: (this.props.showDialog === 'events'),
+            showDialog: this.props.showDialog,
             inputText: '',
             dayOfWeek: 'Sunday',
         }
@@ -48,7 +48,7 @@ class AddEventDialog extends Component {
     render() {
         return (
             <>
-                {(this.props.showDialog === 'events') &&
+                {this.props.showDialog &&
                     <div className='addevents overlay'>
                         <button
                             onClick={this.addToList.bind(this)}>

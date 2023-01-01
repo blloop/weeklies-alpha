@@ -49,19 +49,23 @@ class AddEventDialog extends Component {
         return (
             <>
                 {this.props.showDialog &&
-                    <div className='addevents overlay'>
-                        <button
-                            onClick={this.addToList.bind(this)}>
-                            Add Event
-                        </button>
+                    <div className='addevents overlay rounded'>
                         <DayDropdown
                             changeDay={this.changeDay}
                             dayOfWeek={this.state.dayOfWeek}>
                         </DayDropdown>
-                        <input
-                            onChange={this.updateText}
-                            value={this.state.inputText}>
-                        </input>
+                        <div className='text-container'>
+                            <p> Name of Event: </p>
+                            <input
+                                onChange={this.updateText}
+                                value={this.state.inputText}>
+                            </input>
+                        </div>
+                        <button
+                            className='contrast add-button'
+                            onClick={this.addToList.bind(this)}>
+                            Add Event
+                        </button>
                     </div>
                 }
             </>

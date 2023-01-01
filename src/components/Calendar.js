@@ -13,6 +13,10 @@ class Calendar extends Component {
     }
 
     addEvent = (item) => {
+        if (item.title === '') {
+            alert('Event title cannot be empty!');
+            return;
+        }
         if (this.state.Events.some(
             curr => curr.title === item.title && curr.day === item.day)) {
             alert("Cannot add duplicate event!");
@@ -28,11 +32,11 @@ class Calendar extends Component {
     };
 
     clearEvents() {
+        localStorage.removeItem('weeklies-events');
         let newState = {
             Events: []
         }
         this.setState(newState);
-        localStorage.setItem('weeklies-events', JSON.stringify(this.state.Events));
     }
 
     render() {

@@ -45,12 +45,17 @@ class NavBar extends Component {
         return (
             <div className='navbar' >
                 <button
+                    type='button'
+                    className='accent'
                     onClick={this.openAddEvent.bind(this)}>
                     Add Event
                 </button>
+                <p className='title'> Weeklies </p>
                 <button
+                    type='button'
+                    className='contrast settings-button'
                     onClick={this.openSettings.bind(this)}>
-                    Settings
+                    &#9881;
                 </button>
 
                 <Modal

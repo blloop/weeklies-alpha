@@ -16,6 +16,9 @@ class SettingsDialog extends Component {
                 {(this.props.showDialog === 'settings') &&
                     <div className='settings overlay'>
                         <p> Settings List! </p>
+                        <li> 12 / 24 Hour Time </li>
+                        <li> Theme Color </li>
+                        <li> First Day of Week Sun / Mon </li>
                     </div>
                 }
             </>

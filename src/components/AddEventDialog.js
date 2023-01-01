@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DayDropdown from './DayDropdown';
 
 class AddEventDialog extends Component {
 
@@ -6,26 +7,43 @@ class AddEventDialog extends Component {
         super(props);
         this.state = {
             showDialog: (this.props.showDialog === 'events'),
-            inputText: ''
+            inputText: '',
+            dayOfWeek: 'Sunday',
         }
     }
 
     addToList() {
-        this.props.eventAdd(this.state.inputText)
+        let newEvent = {
+            title: this.state.inputText,
+            day: this.state.dayOfWeek
+        };
+        this.props.eventAdd(newEvent);
         let newState = {
             showDialog: this.state.showDialog,
-            inputText: ''
+            inputText: '',
+            dayOfWeek: this.state.dayOfWeek
         }
         this.setState(newState)
     }
 
     updateText = (event) => {
         let newState = {
-            inputText: event.target.value
+            showDialog: this.state.showDialog,
+            inputText: event.target.value,
+            dayOfWeek: this.state.dayOfWeek
         }
         this.setState(newState);
-        console.log(this.state.inputText);
     };
+
+    changeDay = (day) => {
+        let newState = {
+            showDialog: this.state.showDialog,
+            inputText: this.state.inputText,
+            dayOfWeek: day
+        }
+        this.setState(newState);
+
+    }
 
     render() {
         return (
@@ -36,6 +54,10 @@ class AddEventDialog extends Component {
                             onClick={this.addToList.bind(this)}>
                             Add Event
                         </button>
+                        <DayDropdown
+                            changeDay={this.changeDay}
+                            dayOfWeek={this.state.dayOfWeek}>
+                        </DayDropdown>
                         <input
                             onChange={this.updateText}
                             value={this.state.inputText}>

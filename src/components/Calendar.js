@@ -12,6 +12,10 @@ class Calendar extends Component {
     }
 
     addEvent(item) {
+        // Pseudocode: Check if list contains item by name already
+        // if (this.state.Events.contains(item.title)) {
+
+        // }
         let newList = this.state.Events
         newList.push(item)
         let newState = {

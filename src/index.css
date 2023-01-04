@@ -16,6 +16,7 @@ code {
 
 :root {
   --base-white: rgb(237, 237, 237);
+  --base-lightgrey: rgb(201, 201, 201);
   --base-grey: rgb(160, 160, 160);
   --light-red: rgb(255, 158, 158);
   --dark-red: rgb(255, 89, 89);
@@ -87,6 +88,16 @@ input {
   padding: 24px;
 }
 
+.row-items {
+  display: flex;
+  flex-direction: row;
+}
+
+.column-items {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Component Class Styling */
 
 .calendar {
@@ -143,11 +154,11 @@ input {
 }
 
 .settings-button {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: bold;
   vertical-align: bottom;
-  padding: 0 12px;
-  margin-left: 80px;
+  padding: 0 16px 4px;
+  margin-left: 70px;
 }
 
 .settings p,
@@ -159,11 +170,10 @@ input {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 24px;
 }
 
-.addevents p,
-.add-button {
+.addevents p {
   height: 50px;
 }
 
@@ -182,45 +192,64 @@ input {
   margin-top: -2px;
 }
 
-.dropdown-row {
-  display: flex;
-}
-
-.drop-open {
+.drop-box {
   width: 100%;
   height: 50px;
   padding: 4px;
   text-align: left;
-  border-radius: 0;
   border: none;
+  border-collapse: collapse;
+  border-radius: 0;
   font: inherit;
-  cursor: pointer;
+}
+
+.scroll-box {
+  width: 120px;
+  height: 50px;
+  padding: 4px;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+.scroll-box:hover {
+  cursor: default;
+  /* text-decoration: underline; */
   background-color: var(--base-white);
 }
 
-.dropdown,
-.top-level {
-  width: 150px;
-  border: 2px solid var(--base-grey);
-  border-collapse: collapse;
+.drop-box:hover,
+.time-button:hover {
+  background-color: var(--base-lightgrey);
 }
 
-.drop-open:hover {
-  background-color: var(--base-grey);
+.dropdown,
+.top-button {
+  width: 150px;
+  border: 2px solid var(--base-grey);
+}
+
+.time-button {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border-radius: 0;
+  border: 2px solid var(--base-grey);
+  font: inherit;
+  font-size: 16px;
 }
 
 .eventlist {
   width: 100%;
+  padding-top: 24px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* overflow-x: auto; */
 }
 
 .column {
   width: 150px;
   height: 700px;
-  margin-top: 24px;
   border-radius: 12px;
   background-color: var(--light-red);
 }
@@ -246,7 +275,8 @@ input {
   }
 
   .column {
-    width: 100%;
+    width: 80%;
     height: 200px;
+    margin: 12px 10%;
   }
 }

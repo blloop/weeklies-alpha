@@ -28,7 +28,7 @@ class DayDropdown extends Component {
     render() {
         return (
             <div className='drop-container'>
-                <button className='drop-open top-level' onClick={this.toggleOpen.bind(this)}> {this.props.dayOfWeek} </button>
+                <button className='drop-box top-button' onClick={this.toggleOpen.bind(this)}> {this.props.dayOfWeek} </button>
                 {
                     this.state.open ? (
                         <ul className='dropdown'>
@@ -36,7 +36,7 @@ class DayDropdown extends Component {
                                 (day) => (day === this.props.dayOfWeek ? null :
                                     <button
                                         key={day}
-                                        className='drop-open'
+                                        className='drop-box'
                                         onClick={() => this.setDay(day)}>
                                         {day}
                                     </button>)

@@ -18,7 +18,11 @@ class Calendar extends Component {
             return;
         }
         if (this.state.Events.some(
-            curr => curr.title === item.title && curr.day === item.day)) {
+            curr =>
+                curr.title === item.title &&
+                curr.day === item.day &&
+                curr.time === item.time
+        )) {
             alert("Cannot add duplicate event!");
             return;
         }

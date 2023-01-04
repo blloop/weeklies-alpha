@@ -26,8 +26,8 @@ class AddEventDialog extends Component {
             showDialog: this.state.showDialog,
             inputText: '',
             dayOfWeek: this.state.dayOfWeek,
-            timeOfDay: 0,
-            useMilitary: false
+            timeOfDay: this.state.timeOfDay,
+            useMilitary: this.state.useMilitary
         }
         this.setState(newState)
     }
@@ -55,6 +55,18 @@ class AddEventDialog extends Component {
 
     }
 
+    changeTime = (time) => {
+        let newTime = (this.state.timeOfDay + time) % 48;
+        let newState = {
+            showDialog: this.state.showDialog,
+            inputText: this.state.inputText,
+            dayOfWeek: this.state.dayOfWeek,
+            timeOfDay: (newTime !== -1 ? newTime : 47),
+            useMilitary: this.state.useMilitary
+        }
+        this.setState(newState);
+    }
+
     render() {
         return (
             <>
@@ -72,14 +84,15 @@ class AddEventDialog extends Component {
                                 value={this.state.inputText}>
                             </input>
                         </div>
-                        <div className='dropdown-row'>
+                        <div className='row-items'>
                             <DayDropdown
                                 changeDay={this.changeDay}
                                 dayOfWeek={this.state.dayOfWeek}>
                             </DayDropdown>
                             <TimeDropdown
-                                changeDay={this.changeDay}
-                                dayOfWeek={this.state.dayOfWeek}>
+                                useMilitary={this.state.useMilitary}
+                                changeTime={this.changeTime}
+                                timeOfDay={this.state.timeOfDay}>
                             </TimeDropdown>
                         </div>
                         <button

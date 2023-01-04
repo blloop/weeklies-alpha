@@ -17,19 +17,33 @@ class EventList extends Component {
 
         this.props.allEvents.map((value) => (
             value.day === 'Sunday' ?
-                Sunday.push(<li key={value.title}>{value.title}</li>) :
+                Sunday.push(<li key={value.title}>
+                    {value.title}
+                </li>) :
                 (value.day === 'Monday' ?
-                    Monday.push(<li key={value.title}>{value.title}</li>) :
+                    Monday.push(<li key={value.title}>
+                        {value.title}
+                    </li>) :
                     (value.day === 'Tuesday' ?
-                        Tuesday.push(<li key={value.title}>{value.title}</li>) :
+                        Tuesday.push(<li key={value.title}>
+                            {value.title}
+                        </li>) :
                         (value.day === 'Wednesday' ?
-                            Wednesday.push(<li key={value.title}>{value.title}</li>) :
+                            Wednesday.push(<li key={value.title}>
+                                {value.title}
+                            </li>) :
                             (value.day === 'Thursday' ?
-                                Thursday.push(<li key={value.title}>{value.title}</li>) :
+                                Thursday.push(<li key={value.title}>
+                                    {value.title}
+                                </li>) :
                                 (value.day === 'Friday' ?
-                                    Friday.push(<li key={value.title}>{value.title}</li>) :
+                                    Friday.push(<li key={value.title}>
+                                        {value.title}
+                                    </li>) :
                                     (value.day === 'Saturday' ?
-                                        Saturday.push(<li key={value.title}>{value.title}</li>) : null))))))
+                                        Saturday.push(<li key={value.title}>
+                                            {value.title}
+                                        </li>) : null))))))
         ))
 
         return (

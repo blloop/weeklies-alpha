@@ -15,6 +15,11 @@ class SettingsDialog extends Component {
             <>
                 {this.props.showDialog &&
                     <div className='settings overlay rounded'>
+                        <button
+                            onClick={this.props.closeModal}
+                            className='close-button'>
+                            &#10005;
+                        </button>
                         <p> Settings List! </p>
                         <hr></hr>
                         <li> 12 / 24 Hour Time </li>

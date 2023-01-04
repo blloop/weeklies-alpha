@@ -35,37 +35,37 @@ class EventList extends Component {
         return (
             <div className='eventlist'>
                 <div className='column' id='Sunday'>
-                    <p> Sunday </p>
+                    <p> SUN </p>
                     <hr></hr>
                     {Sunday}
                 </div>
                 <div className='column' id='Monday'>
-                    <p> Monday </p>
+                    <p> MON </p>
                     <hr></hr>
                     {Monday}
                 </div>
                 <div className='column' id='Tuesday'>
-                    <p> Tuesday </p>
+                    <p> TUE </p>
                     <hr></hr>
                     {Tuesday}
                 </div>
                 <div className='column' id='Wednesday'>
-                    <p> Wednesday </p>
+                    <p> WED </p>
                     <hr></hr>
                     {Wednesday}
                 </div>
                 <div className='column' id='Thursday'>
-                    <p> Thursday </p>
+                    <p> THU </p>
                     <hr></hr>
                     {Thursday}
                 </div>
                 <div className='column' id='Friday'>
-                    <p> Friday </p>
+                    <p> FRI </p>
                     <hr></hr>
                     {Friday}
                 </div>
                 <div className='column' id='Saturday'>
-                    <p> Saturday </p>
+                    <p> SAT </p>
                     <hr></hr>
                     {Saturday}
                 </div>

@@ -64,10 +64,12 @@ class NavBar extends Component {
                 </Modal>
                 <AddEventDialog
                     eventAdd={this.props.eventAdd}
+                    closeModal={this.closeModal.bind(this)}
                     showDialog={this.state.openDialog === 'events'}>
                 </AddEventDialog>
                 <SettingsDialog
                     eventClear={this.props.eventClear}
+                    closeModal={this.closeModal.bind(this)}
                     showDialog={this.state.openDialog === 'settings'}>
                 </SettingsDialog>
             </div >

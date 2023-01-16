@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DayDropdown from './DayDropdown';
-import TimeDropdown from './TimeDropdown';
+import HourDropdown from './HourDropdown';
+import MinDropdown from './MinDropdown';
+import ToggleAM from './ToggleAM';
 
 class AddEventDialog extends Component {
 
@@ -10,7 +12,9 @@ class AddEventDialog extends Component {
             showDialog: this.props.showDialog,
             inputText: '',
             dayOfWeek: 'Sunday',
-            timeOfDay: 0,
+            newHour: 0,
+            isZero: true,
+            isAM: false,
             useMilitary: false
         }
     }
@@ -19,7 +23,8 @@ class AddEventDialog extends Component {
         let newEvent = {
             title: this.state.inputText,
             day: this.state.dayOfWeek,
-            time: this.state.timeOfDay
+            hour: this.state.newHour,
+            min: (this.state.isZero ? 0 : 30)
         };
         this.props.eventAdd(newEvent);
         let newState = {
@@ -46,13 +51,30 @@ class AddEventDialog extends Component {
 
     }
 
-    changeTime = (time) => {
-        let newTime = (this.state.timeOfDay + time) % 48;
+    changeHour = (hour) => {
         let newState = {
             ...this.state,
-            timeOfDay: (newTime !== -1 ? newTime : 47)
+            newHour: hour,
+            isAM: hour > 11
         }
         this.setState(newState);
+    }
+
+    changeMin = () => {
+        let newState = {
+            ...this.state,
+            isZero: !this.state.isZero
+        }
+        this.setState(newState);
+    }
+
+    changeAM = () => {
+        let newState = {
+            ...this.state,
+            isAM: !this.state.isAM
+        }
+        this.setState(newState);
+        console.log("CHANGEAM" + this.state.isAM);
     }
 
     render() {
@@ -77,11 +99,21 @@ class AddEventDialog extends Component {
                                 changeDay={this.changeDay}
                                 dayOfWeek={this.state.dayOfWeek}>
                             </DayDropdown>
-                            <TimeDropdown
-                                useMilitary={this.state.useMilitary}
-                                changeTime={this.changeTime}
-                                timeOfDay={this.state.timeOfDay}>
-                            </TimeDropdown>
+                            <div style={{ width: '12px' }}></div>
+                            <HourDropdown
+                                changeHour={this.changeHour}
+                                newHour={this.state.newHour}
+                                useMilitary={this.state.useMilitary}>
+                            </HourDropdown>
+                            <MinDropdown
+                                isZero={this.state.isZero}
+                                changeMin={this.changeMin}>
+                            </MinDropdown>
+                            <ToggleAM
+                                changeAM={this.changeAM}
+                                isAM={this.state.isAM}
+                                useMilitary={this.state.useMilitary}>
+                            </ToggleAM>
                         </div>
                         <button
                             className='contrast add-button'

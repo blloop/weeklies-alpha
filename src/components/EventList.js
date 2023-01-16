@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 class EventList extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
-
     render() {
         let Sunday = [];
         let Monday = [];

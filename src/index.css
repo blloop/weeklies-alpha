@@ -15,15 +15,11 @@ code {
 /* HTML Element Styling */
 
 :root {
+  --light-accent: rgb(255, 158, 158);
+  --dark-accent: rgb(255, 89, 89);
   --base-white: rgb(237, 237, 237);
   --base-lightgrey: rgb(201, 201, 201);
   --base-grey: rgb(160, 160, 160);
-  --light-red: rgb(255, 158, 158);
-  --dark-red: rgb(255, 89, 89);
-  --light-blue: rgb(117, 149, 255);
-  --dark-blue: rgb(53, 100, 255);
-  --light-green: rgb(140, 255, 117);
-  --dark-green: rgb(79, 255, 43);
 }
 
 * {
@@ -67,16 +63,16 @@ input {
 
 .accent,
 .contrast:hover {
-  background-color: var(--dark-red);
+  background-color: var(--dark-accent);
   color: var(--base-white);
-  border: 4px solid var(--dark-red);
+  border: 4px solid var(--dark-accent);
 }
 
 .contrast,
 .accent:hover {
   background-color: var(--base-white);
-  color: var(--dark-red);
-  border: 4px solid var(--dark-red);
+  color: var(--dark-accent);
+  border: 4px solid var(--dark-accent);
 }
 
 .rounded {
@@ -106,11 +102,12 @@ input {
   margin: 0 auto;
   padding: 0 0 24px;
   background-color: var(--base-white);
+  text-align: center;
 }
 
 .title {
   font-size: 48px;
-  color: var(--dark-red);
+  color: var(--dark-accent);
 }
 
 .overlay {
@@ -136,6 +133,22 @@ input {
   padding: 24px 0;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+}
+
+.subbar {
+  display: flex;
+  height: 65px;
+}
+
+.logo {
+  height: 65px;
+  border-radius: 100%;
+  transition: all 0.2s ease-in-out;
+}
+
+.logo:hover {
+  background-color: var(--dark-accent);
 }
 
 .close-button {
@@ -149,7 +162,7 @@ input {
 }
 
 .close-button:hover {
-  background-color: var(--dark-red);
+  background-color: var(--dark-accent);
   color: var(--base-white);
 }
 
@@ -158,12 +171,13 @@ input {
   font-weight: bold;
   vertical-align: bottom;
   padding: 0 16px 4px;
-  margin-left: 70px;
+  margin-left: 40px;
 }
 
 .settings p,
-.settings li {
-  margin: 12px 0;
+.settings li,
+.settings hr {
+  margin: 0 0 12px;
 }
 
 .addevents {
@@ -214,7 +228,6 @@ input {
 
 .scroll-box:hover {
   cursor: default;
-  /* text-decoration: underline; */
   background-color: var(--base-white);
 }
 
@@ -251,7 +264,7 @@ input {
   width: 150px;
   height: 700px;
   border-radius: 12px;
-  background-color: var(--light-red);
+  background-color: var(--light-accent);
 }
 
 .column p,
@@ -262,6 +275,8 @@ input {
 .column li {
   font-size: 18px;
 }
+
+/* Responsive Styling */
 
 @media only screen and (max-width: 1400px) {
   .column {

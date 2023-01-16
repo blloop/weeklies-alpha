@@ -20,7 +20,7 @@ class SettingsDialog extends Component {
                             className='close-button'>
                             &#10005;
                         </button>
-                        <p> Settings List! </p>
+                        <p> Settings </p>
                         <hr></hr>
                         <li> 12 / 24 Hour Time </li>
                         <li> Accent Color </li>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from '../img/github-mark.svg';
 import AddEventDialog from './AddEventDialog';
 import SettingsDialog from './SettingsDialog';
 import Modal from './Modal';
@@ -51,12 +52,24 @@ class NavBar extends Component {
                     Add Event
                 </button>
                 <p className='title'> Weeklies </p>
-                <button
-                    type='button'
-                    className='contrast settings-button'
-                    onClick={this.openSettings.bind(this)}>
-                    &#9881;
-                </button>
+                <div className='subbar'>
+                    <a
+                        href='https://github.com/blloop/weeklies'
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <img
+                            src={logo}
+                            alt='GitHub Link'
+                            className='logo'>
+                        </img>
+                    </a>
+                    <button
+                        type='button'
+                        className='contrast settings-button'
+                        onClick={this.openSettings.bind(this)}>
+                        &#9881;
+                    </button>
+                </div>
 
                 <Modal
                     closeModal={this.closeModal.bind(this)}

@@ -23,33 +23,24 @@ class AddEventDialog extends Component {
         };
         this.props.eventAdd(newEvent);
         let newState = {
-            showDialog: this.state.showDialog,
-            inputText: '',
-            dayOfWeek: this.state.dayOfWeek,
-            timeOfDay: this.state.timeOfDay,
-            useMilitary: this.state.useMilitary
+            ...this.state,
+            inputText: ''
         }
         this.setState(newState)
     }
 
     updateText = (event) => {
         let newState = {
-            showDialog: this.state.showDialog,
-            inputText: event.target.value,
-            dayOfWeek: this.state.dayOfWeek,
-            timeOfDay: this.state.timeOfDay,
-            useMilitary: this.state.useMilitary
+            ...this.state,
+            inputText: event.target.value
         }
         this.setState(newState);
     };
 
     changeDay = (day) => {
         let newState = {
-            showDialog: this.state.showDialog,
-            inputText: this.state.inputText,
-            dayOfWeek: day,
-            timeOfDay: this.state.timeOfDay,
-            useMilitary: this.state.useMilitary
+            ...this.state,
+            dayOfWeek: day
         }
         this.setState(newState);
 
@@ -58,11 +49,8 @@ class AddEventDialog extends Component {
     changeTime = (time) => {
         let newTime = (this.state.timeOfDay + time) % 48;
         let newState = {
-            showDialog: this.state.showDialog,
-            inputText: this.state.inputText,
-            dayOfWeek: this.state.dayOfWeek,
-            timeOfDay: (newTime !== -1 ? newTime : 47),
-            useMilitary: this.state.useMilitary
+            ...this.state,
+            timeOfDay: (newTime !== -1 ? newTime : 47)
         }
         this.setState(newState);
     }

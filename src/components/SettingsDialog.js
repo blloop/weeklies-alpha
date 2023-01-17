@@ -20,13 +20,25 @@ class SettingsDialog extends Component {
                             className='close-button'>
                             &#10005;
                         </button>
-                        <p> Settings </p>
+                        <p className='subtitle'> Settings </p>
                         <hr></hr>
-                        <li> 12 / 24 Hour Time </li>
-                        <li> Accent Color </li>
-                        <li> First Day of Week Sun / Mon </li>
+                        <div className='settings-row'>
+                            <input
+                                type={'checkbox'}
+                                onClick={this.props.toggleMilitary}>
+                            </input>
+                            <p> 12 / 24 Hour Time </p>
+                        </div>
+                        <div className='settings-row'>
+                            <input type={'checkbox'}></input>
+                            <p> Accent Color </p>
+                        </div>
+                        {/* <div className='settings-row'>
+                            <input type={'checkbox'}></input>
+                            <p> First Day of Week Sun / Mon </p>
+                        </div> */}
                         <button
-                            className='contrast'
+                            className='contrast thin-button'
                             onClick={this.props.eventClear}>
                             Clear Events
                         </button>

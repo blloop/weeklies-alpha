@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../img/github-mark.svg';
+import ghLogo from '../img/github-mark.svg';
+import gearLogo from '../img/gear.svg';
 import AddEventDialog from './AddEventDialog';
 import SettingsDialog from './SettingsDialog';
 import Modal from './Modal';
@@ -51,14 +52,14 @@ class NavBar extends Component {
                     onClick={this.openAddEvent.bind(this)}>
                     Add Event
                 </button>
-                <p className='title'> Weeklies </p>
+                <p className='title rounded'> Weeklies </p>
                 <div className='subbar'>
                     <a
                         href='https://github.com/blloop/weeklies'
                         target="_blank"
                         rel="noopener noreferrer">
                         <img
-                            src={logo}
+                            src={ghLogo}
                             alt='GitHub Link'
                             className='logo'>
                         </img>
@@ -67,7 +68,10 @@ class NavBar extends Component {
                         type='button'
                         className='contrast settings-button'
                         onClick={this.openSettings.bind(this)}>
-                        &#9881;
+                        <img
+                            src={gearLogo}
+                            alt='Settings Button'>
+                        </img>
                     </button>
                 </div>
 
@@ -78,12 +82,14 @@ class NavBar extends Component {
                 <AddEventDialog
                     eventAdd={this.props.eventAdd}
                     closeModal={this.closeModal.bind(this)}
-                    showDialog={this.state.openDialog === 'events'}>
+                    showDialog={this.state.openDialog === 'events'}
+                    useMilitary={this.props.useMilitary}>
                 </AddEventDialog>
                 <SettingsDialog
                     eventClear={this.props.eventClear}
                     closeModal={this.closeModal.bind(this)}
-                    showDialog={this.state.openDialog === 'settings'}>
+                    showDialog={this.state.openDialog === 'settings'}
+                    toggleMilitary={this.props.toggleMilitary}>
                 </SettingsDialog>
             </div >
         )

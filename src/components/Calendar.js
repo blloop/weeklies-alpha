@@ -8,7 +8,8 @@ class Calendar extends Component {
         let jsonEvents = localStorage.getItem('weeklies-events');
         super(props);
         this.state = {
-            Events: (jsonEvents ? JSON.parse(jsonEvents) : [])
+            events: (jsonEvents ? JSON.parse(jsonEvents) : []),
+            useMilitary: false
         };
     }
 
@@ -17,7 +18,7 @@ class Calendar extends Component {
             alert('Event title cannot be empty!');
             return;
         }
-        if (this.state.Events.some(
+        if (this.state.events.some(
             curr =>
                 curr.title === item.title &&
                 curr.day === item.day &&
@@ -26,19 +27,29 @@ class Calendar extends Component {
             alert("Cannot add duplicate event!");
             return;
         }
-        let newList = this.state.Events
+        let newList = this.state.events
         newList.push(item)
         let newState = {
+            ...this.state,
             Events: newList
         }
         this.setState(newState);
-        localStorage.setItem('weeklies-events', JSON.stringify(this.state.Events));
+        localStorage.setItem('weeklies-events', JSON.stringify(this.state.events));
     };
 
-    clearEvents() {
+    clearEvents = () => {
         localStorage.removeItem('weeklies-events');
         let newState = {
-            Events: []
+            ...this.state,
+            events: []
+        }
+        this.setState(newState);
+    }
+
+    toggleMilitary = () => {
+        let newState = {
+            ...this.state,
+            useMilitary: !this.state.useMilitary
         }
         this.setState(newState);
     }
@@ -47,12 +58,14 @@ class Calendar extends Component {
         return (
             <div className='calendar'>
                 <NavBar
-                    eventAdd={this.addEvent.bind(this)}
-                    eventClear={this.clearEvents.bind(this)}>
+                    eventAdd={this.addEvent}
+                    eventClear={this.clearEvents}
+                    useMilitary={this.state.useMilitary}
+                    toggleMilitary={this.toggleMilitary}>
                 </NavBar>
-                <hr></hr>
                 <EventList
-                    allEvents={this.state.Events}>
+                    allEvents={this.state.events}
+                    useMilitary={this.state.useMilitary}>
                 </EventList>
             </div>
         )

@@ -32,7 +32,7 @@ class HourDropdown extends Component {
             ]);
 
         let currHour = (this.props.useMilitary ? this.props.newHour :
-            (this.props.newHour === 0 || this.props.newHour === 12 ?
+            (this.props.newHour % 12 === 0 ?
                 12 :
                 this.props.newHour % 12
             ));
@@ -45,12 +45,19 @@ class HourDropdown extends Component {
                 {this.state.open ? (
                     <ul className='dropdown wide'>
                         {HoursList.map(
-                            (day) => (day === currHour ? null :
+                            (hour) => (hour === currHour ? null :
                                 <button
-                                    key={day}
+                                    key={hour}
                                     className='drop-box square small'
-                                    onClick={day === '' ? null : () => this.setHour(day)}>
-                                    {day}
+                                    onClick={hour === '' ?
+                                        null :
+                                        () => {
+                                            this.setHour(
+                                                hour === 12 && !this.props.isAM ? 0 :
+                                                    hour + (this.props.isAM ? 0 : 12)
+                                            )
+                                        }}>
+                                    {hour}
                                 </button>)
                         )}
                     </ul>

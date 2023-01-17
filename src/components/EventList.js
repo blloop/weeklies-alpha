@@ -13,69 +13,69 @@ class EventList extends Component {
 
         this.props.allEvents.map((value) => (
             value.day === 'Sunday' ?
-                Sunday.push(<li key={value.title}>
-                    {value.title}
-                </li>) :
+                Sunday.push(<p key={value.title}>
+                    {value.title}{value.hour}{value.min}
+                </p>) :
                 (value.day === 'Monday' ?
-                    Monday.push(<li key={value.title}>
-                        {value.title}
-                    </li>) :
+                    Monday.push(<p key={value.title}>
+                        {value.title}{value.hour}{value.min}
+                    </p>) :
                     (value.day === 'Tuesday' ?
-                        Tuesday.push(<li key={value.title}>
-                            {value.title}
-                        </li>) :
+                        Tuesday.push(<p key={value.title}>
+                            {value.title}{value.hour}{value.min}
+                        </p>) :
                         (value.day === 'Wednesday' ?
-                            Wednesday.push(<li key={value.title}>
-                                {value.title}
-                            </li>) :
+                            Wednesday.push(<p key={value.title}>
+                                {value.title}{value.hour}{value.min}
+                            </p>) :
                             (value.day === 'Thursday' ?
-                                Thursday.push(<li key={value.title}>
-                                    {value.title}
-                                </li>) :
+                                Thursday.push(<p key={value.title}>
+                                    {value.title}{value.hour}{value.min}
+                                </p>) :
                                 (value.day === 'Friday' ?
-                                    Friday.push(<li key={value.title}>
-                                        {value.title}
-                                    </li>) :
+                                    Friday.push(<p key={value.title}>
+                                        {value.title}{value.hour}{value.min}
+                                    </p>) :
                                     (value.day === 'Saturday' ?
-                                        Saturday.push(<li key={value.title}>
-                                            {value.title}
-                                        </li>) : null))))))
+                                        Saturday.push(<p key={value.title}>
+                                            {value.title}{value.hour}{value.min}
+                                        </p>) : null))))))
         ))
 
         return (
             <div className='eventlist'>
                 <div className='column' id='Sunday'>
-                    <p> SUN </p>
+                    <p className='subtitle'> SUN </p>
                     <hr></hr>
                     {Sunday}
                 </div>
                 <div className='column' id='Monday'>
-                    <p> MON </p>
+                    <p className='subtitle'> MON </p>
                     <hr></hr>
                     {Monday}
                 </div>
                 <div className='column' id='Tuesday'>
-                    <p> TUE </p>
+                    <p className='subtitle'> TUE </p>
                     <hr></hr>
                     {Tuesday}
                 </div>
                 <div className='column' id='Wednesday'>
-                    <p> WED </p>
+                    <p className='subtitle'> WED </p>
                     <hr></hr>
                     {Wednesday}
                 </div>
                 <div className='column' id='Thursday'>
-                    <p> THU </p>
+                    <p className='subtitle'> THU </p>
                     <hr></hr>
                     {Thursday}
                 </div>
                 <div className='column' id='Friday'>
-                    <p> FRI </p>
+                    <p className='subtitle'> FRI </p>
                     <hr></hr>
                     {Friday}
                 </div>
                 <div className='column' id='Saturday'>
-                    <p> SAT </p>
+                    <p className='subtitle'> SAT </p>
                     <hr></hr>
                     {Saturday}
                 </div>

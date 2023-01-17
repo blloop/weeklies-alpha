@@ -22,6 +22,13 @@ code {
   --base-grey: rgb(160, 160, 160);
 }
 
+/* 
+  --light-blue: rgb(117, 149, 255);
+  --dark-blue: rgb(53, 100, 255);
+  --light-green: rgb(140, 255, 117);
+  --dark-green: rgb(79, 255, 43);
+*/
+
 * {
   margin: 0;
   padding: 0;
@@ -107,14 +114,21 @@ input {
   width: 1200px;
   max-width: 84vw;
   margin: 0 auto;
-  padding: 0 0 24px;
   background-color: var(--base-white);
   text-align: center;
 }
 
 .title {
+  padding: 0 8px;
   font-size: 48px;
   color: var(--dark-accent);
+  border-color: var(--base-lightgrey);
+  border-style: solid;
+  border-width: 0px 8px;
+}
+
+.subtitle {
+  font-size: 30px !important;
 }
 
 .overlay {
@@ -138,9 +152,15 @@ input {
 
 .navbar {
   padding: 24px 0;
+  position: sticky;
+  top: 0px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  border: var(--base-grey);
+  border-style: solid;
+  border-width: 0 0 4px 0;
+  background-color: rgba(237, 237, 237, 0.5);
 }
 
 .subbar {
@@ -150,13 +170,17 @@ input {
 
 .logo {
   height: 65px;
-  padding: 4px;
+  padding: 8px;
   border-radius: 100%;
   transition: all 0.2s ease-in-out;
 }
 
 .logo:hover {
-  background-color: var(--dark-accent);
+  background-color: var(--light-accent);
+}
+
+.thin-button {
+  padding: 6px 12px;
 }
 
 .close-button {
@@ -171,21 +195,33 @@ input {
 
 .close-button:hover {
   background-color: var(--dark-accent);
-  color: var(--base-white);
 }
 
 .settings-button {
-  font-size: 40px;
-  font-weight: bold;
   vertical-align: bottom;
-  padding: 0 16px 4px;
-  margin-left: 40px;
+  padding: 4px;
+  margin-left: 24px;
 }
 
-.settings p,
-.settings li,
-.settings hr {
-  margin: 0 0 12px;
+.settings-button img {
+  height: 48px;
+}
+
+.settings .subtitle {
+  margin-bottom: 16px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.settings-row input {
+  transform: scale(2);
+  height: 20px;
 }
 
 .addevents {
@@ -197,11 +233,6 @@ input {
 
 .addevents p {
   height: 50px;
-}
-
-.add-button {
-  width: 150px;
-  padding: 6px;
 }
 
 .text-container {
@@ -237,6 +268,10 @@ input {
   border: none;
 }
 
+.drop-box.small {
+  text-align: center;
+}
+
 .drop-box:hover {
   background-color: var(--base-lightgrey);
 }
@@ -259,7 +294,7 @@ input {
 
 .eventlist {
   width: 100%;
-  padding-top: 24px;
+  margin: 24px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -267,17 +302,13 @@ input {
 
 .column {
   width: 150px;
-  height: 700px;
+  height: 1500px;
   border-radius: 12px;
   background-color: var(--light-accent);
 }
 
-.column p,
-.column li {
+.column p {
   padding: 12px 0;
-}
-
-.column li {
   font-size: 18px;
 }
 
@@ -285,7 +316,7 @@ input {
 
 @media only screen and (max-width: 1400px) {
   .column {
-    width: 12%;
+    width: 13%;
   }
 }
 
@@ -298,5 +329,37 @@ input {
     width: 80%;
     height: 200px;
     margin: 12px 10%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+
+  .title {
+    font-size: 32px;
+  }
+
+  .subbar {
+    height: 50px;
+  }
+
+  .navbar>button {
+    padding: 4px;
+  }
+
+  button img {
+    height: 36px !important;
+  }
+
+  a .logo {
+    margin: 5px;
+    padding: 0;
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+
+  .navbar {
+    flex-direction: column;
   }
 }

@@ -108,6 +108,7 @@ class AddEventDialog extends Component {
                             </DayDropdown>
                             <HourDropdown
                                 changeHour={this.changeHour}
+                                isAM={this.state.newHour < 12}
                                 newHour={this.state.newHour}
                                 useMilitary={this.props.useMilitary}>
                             </HourDropdown>

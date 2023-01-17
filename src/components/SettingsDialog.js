@@ -25,9 +25,10 @@ class SettingsDialog extends Component {
                         <div className='settings-row'>
                             <input
                                 type={'checkbox'}
-                                onClick={this.props.toggleMilitary}>
+                                checked={this.props.useMilitary}
+                                onChange={this.props.toggleMilitary}>
                             </input>
-                            <p> 12 / 24 Hour Time </p>
+                            <p> Use 24 Hour Time </p>
                         </div>
                         <div className='settings-row'>
                             <input type={'checkbox'}></input>

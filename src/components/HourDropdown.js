@@ -53,8 +53,9 @@ class HourDropdown extends Component {
                                         null :
                                         () => {
                                             this.setHour(
-                                                hour === 12 && !this.props.isAM ? 0 :
-                                                    hour + (this.props.isAM ? 0 : 12)
+                                                this.props.useMilitary ? hour :
+                                                    (hour === 12 ? (this.props.isAM ? 0 : 12) :
+                                                        hour + (this.props.isAM ? 0 : 12))
                                             )
                                         }}>
                                     {hour}

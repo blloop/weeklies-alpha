@@ -9,12 +9,14 @@ class HourDropdown extends Component {
         }
     }
 
+    // Toggles dropdown open state
     toggleOpen() {
         this.setState({
             open: !this.state.open
         });
     }
 
+    // Sets dropdown value
     setHour = (hour) => {
         this.props.changeHour(hour);
         this.toggleOpen();

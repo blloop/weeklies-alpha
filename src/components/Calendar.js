@@ -13,6 +13,7 @@ class Calendar extends Component {
         };
     }
 
+    // Add an event to calendar
     addEvent = (item) => {
         if (item.title === '') {
             alert('Event title cannot be empty!');
@@ -37,6 +38,7 @@ class Calendar extends Component {
         localStorage.setItem('weeklies-events', JSON.stringify(this.state.events));
     };
 
+    // Remove all events from calendar
     clearEvents = () => {
         localStorage.removeItem('weeklies-events');
         let newState = {
@@ -46,6 +48,7 @@ class Calendar extends Component {
         this.setState(newState);
     }
 
+    // Toggle 24 hour time setting
     toggleMilitary = () => {
         let newState = {
             ...this.state,

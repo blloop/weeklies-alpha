@@ -17,6 +17,8 @@ class AddEventDialog extends Component {
         }
     }
 
+    // Add an event to dialog
+    // Sends request to top level component
     addToList() {
         if (this.state.inputText !== '') {
             this.props.closeModal();
@@ -35,6 +37,8 @@ class AddEventDialog extends Component {
         this.setState(newState)
     }
 
+    // Updates value of text field
+    // and stores as part of state
     updateText = (event) => {
         let newState = {
             ...this.state,
@@ -43,6 +47,7 @@ class AddEventDialog extends Component {
         this.setState(newState);
     };
 
+    // Set current value for day of the week
     changeDay = (day) => {
         let newState = {
             ...this.state,
@@ -51,6 +56,7 @@ class AddEventDialog extends Component {
         this.setState(newState);
     }
 
+    // Sets current hour of event
     changeHour = (hour) => {
         let newState = {
             ...this.state,
@@ -61,6 +67,8 @@ class AddEventDialog extends Component {
             (this.state.isZero ? '00' : '30'));
     }
 
+    // Sets current minute of event
+    // Intervals of 0:30, represented by bool
     changeMin = () => {
         let newState = {
             ...this.state,
@@ -71,6 +79,8 @@ class AddEventDialog extends Component {
             (this.state.isZero ? '00' : '30'));
     }
 
+    // Sets current state of the hour AM/PM
+    // Only valid if 24 hour time is not in use
     changeAM = () => {
         let newState = {
             ...this.state,

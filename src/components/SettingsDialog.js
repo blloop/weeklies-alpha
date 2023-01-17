@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 
 class SettingsDialog extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            showDialog: this.props.showDialog,
-            inputText: ''
-        }
-    }
-
     render() {
         return (
             <>

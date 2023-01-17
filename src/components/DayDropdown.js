@@ -14,12 +14,14 @@ class DayDropdown extends Component {
         }
     }
 
+    // Toggles dropdown open state
     toggleOpen() {
         this.setState({
             open: !this.state.open
         });
     }
 
+    // Sets dropdown value
     setDay = (day) => {
         this.props.changeDay(day);
         this.toggleOpen();

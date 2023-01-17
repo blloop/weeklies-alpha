@@ -14,6 +14,7 @@ class NavBar extends Component {
         }
     }
 
+    // Opens AddEvent dialog
     openAddEvent() {
         // Check if any other dialog is open
         if (this.state.openDialog) {
@@ -25,6 +26,7 @@ class NavBar extends Component {
         this.setState(newState);
     }
 
+    // Opens Settings dialog
     openSettings() {
         // Check if any other dialog is open
         if (this.state.openDialog) {
@@ -36,6 +38,7 @@ class NavBar extends Component {
         this.setState(newState);
     }
 
+    // Closes all open dialogs
     closeModal() {
         let newState = {
             openDialog: null

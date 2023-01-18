@@ -92,6 +92,8 @@ class NavBar extends Component {
                     eventClear={this.props.eventClear}
                     closeModal={this.closeModal.bind(this)}
                     showDialog={this.state.openDialog === 'settings'}
+                    accentColor={this.props.accentColor}
+                    changeColor={this.props.changeColor}
                     useMilitary={this.props.useMilitary}
                     toggleMilitary={this.props.toggleMilitary}>
                 </SettingsDialog>

@@ -9,7 +9,8 @@ class Calendar extends Component {
         super(props);
         this.state = {
             events: (jsonEvents ? JSON.parse(jsonEvents) : []),
-            useMilitary: false
+            useMilitary: false,
+            accentColor: 'red'
         };
     }
 
@@ -57,6 +58,33 @@ class Calendar extends Component {
         this.setState(newState);
     }
 
+    // Change accent color
+    changeColor = (color) => {
+        document.body.style.setProperty(
+            '--light-accent',
+            (color === 'red') ?
+                'rgb(255, 158, 158)' :
+                ((color === 'blue') ?
+                    'rgb(130, 159, 255)' :
+                    ('rgb(133, 225, 115)')
+                )
+        );
+        document.body.style.setProperty(
+            '--dark-accent',
+            (color === 'red') ?
+                'rgb(255, 89, 89)' :
+                ((color === 'blue') ?
+                    'rgb(103, 139, 255)' :
+                    ('rgb(97, 218, 73)')
+                )
+        );
+        let newState = {
+            ...this.state,
+            accentColor: color
+        }
+        this.setState(newState);
+    }
+
     render() {
         return (
             <div className='calendar'>
@@ -64,7 +92,9 @@ class Calendar extends Component {
                     eventAdd={this.addEvent}
                     eventClear={this.clearEvents}
                     useMilitary={this.state.useMilitary}
-                    toggleMilitary={this.toggleMilitary}>
+                    toggleMilitary={this.toggleMilitary}
+                    accentColor={this.state.accentColor}
+                    changeColor={this.changeColor}>
                 </NavBar>
                 <EventList
                     allEvents={this.state.events}

@@ -15,21 +15,37 @@ class SettingsDialog extends Component {
                         <p className='subtitle'> Settings </p>
                         <hr></hr>
                         <div className='settings-row'>
+                            <p> Use 24 Hour Time </p>
                             <input
                                 type={'checkbox'}
                                 checked={this.props.useMilitary}
                                 onChange={this.props.toggleMilitary}>
                             </input>
-                            <p> Use 24 Hour Time </p>
                         </div>
                         <div className='settings-row'>
-                            <input type={'checkbox'}></input>
-                            <p> Accent Color </p>
+                            <p> Accent Color: </p>
+                            <input
+                                type={'radio'}
+                                name={'color'}
+                                checked={this.props.accentColor === 'red'}
+                                onChange={() => this.props.changeColor('red')}>
+                            </input>
+                            <p> Red </p>
+                            <input
+                                type={'radio'}
+                                name={'color'}
+                                checked={this.props.accentColor === 'blue'}
+                                onChange={() => this.props.changeColor('blue')}>
+                            </input>
+                            <p> Blue </p>
+                            <input
+                                type={'radio'}
+                                name={'color'}
+                                checked={this.props.accentColor === 'green'}
+                                onChange={() => this.props.changeColor('green')}>
+                            </input>
+                            <p> Green </p>
                         </div>
-                        {/* <div className='settings-row'>
-                            <input type={'checkbox'}></input>
-                            <p> First Day of Week Sun / Mon </p>
-                        </div> */}
                         <button
                             className='contrast thin-button'
                             onClick={this.props.eventClear}>

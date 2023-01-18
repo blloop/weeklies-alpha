@@ -22,12 +22,8 @@ code {
   --base-grey: rgb(160, 160, 160);
 }
 
-/* 
-  --light-blue: rgb(117, 149, 255);
-  --dark-blue: rgb(53, 100, 255);
-  --light-green: rgb(140, 255, 117);
-  --dark-green: rgb(79, 255, 43);
-*/
+
+
 
 * {
   margin: 0;
@@ -125,6 +121,7 @@ input {
   border-color: var(--base-lightgrey);
   border-style: solid;
   border-width: 0px 8px;
+  transition: all 0.2s ease-in-out;
 }
 
 .subtitle {
@@ -305,6 +302,7 @@ input {
   height: 1500px;
   border-radius: 12px;
   background-color: var(--light-accent);
+  transition: all 0.2s ease-in-out;
 }
 
 .column p {

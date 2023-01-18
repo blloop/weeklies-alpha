@@ -65,8 +65,8 @@ class Calendar extends Component {
             (color === 'red') ?
                 'rgb(255, 158, 158)' :
                 ((color === 'blue') ?
-                    'rgb(130, 159, 255)' :
-                    ('rgb(133, 225, 115)')
+                    'rgb(167 188 255)' :
+                    ('rgb(157 241 140)')
                 )
         );
         document.body.style.setProperty(

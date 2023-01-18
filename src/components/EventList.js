@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 
+let formatEvent = (value, useMilitary) => {
+    return (useMilitary ?
+        `Time: ${value.hour}: ${value.min}` :
+        (value.hour > 11 ?
+            `Time: ${value.hour - 12}: ${value.min}PM` :
+            `Time: ${value.hour}: ${value.min}AM`
+        )
+    );
+}
+
 class EventList extends Component {
 
     render() {
@@ -13,34 +23,40 @@ class EventList extends Component {
 
         this.props.allEvents.map((value) => (
             value.day === 'Sunday' ?
-                Sunday.push(<p key={value.title}>
-                    {value.title}{value.hour}{value.min}
-                </p>) :
+                Sunday.push(<div className={'event'} key={value.title}>
+                    <p> {value.title} </p>
+                    <p> {formatEvent(value, this.props.useMilitary)} </p>
+                </div>) :
                 (value.day === 'Monday' ?
-                    Monday.push(<p key={value.title}>
-                        {value.title}{value.hour}{value.min}
-                    </p>) :
+                    Monday.push(<div class={'event'} key={value.title}>
+                        <p> {value.title} </p>
+                        <p> {formatEvent(value, this.props.useMilitary)} </p>
+                    </div>) :
                     (value.day === 'Tuesday' ?
-                        Tuesday.push(<p key={value.title}>
-                            {value.title}{value.hour}{value.min}
-                        </p>) :
+                        Tuesday.push(<div class={'event'} key={value.title}>
+                            <p> {value.title} </p>
+                            <p> {formatEvent(value, this.props.useMilitary)} </p>
+                        </div>) :
                         (value.day === 'Wednesday' ?
-                            Wednesday.push(<p key={value.title}>
-                                {value.title}{value.hour}{value.min}
-                            </p>) :
+                            Wednesday.push(<div class={'event'} key={value.title}>
+                                <p> {value.title} </p>
+                                <p> {formatEvent(value, this.props.useMilitary)} </p>
+                            </div>) :
                             (value.day === 'Thursday' ?
-                                Thursday.push(<p key={value.title}>
-                                    {value.title}{value.hour}{value.min}
-                                </p>) :
+                                Thursday.push(<div class={'event'} key={value.title}>
+                                    <p> {value.title} </p>
+                                    <p> {formatEvent(value, this.props.useMilitary)} </p>
+                                </div>) :
                                 (value.day === 'Friday' ?
-                                    Friday.push(<p key={value.title}>
-                                        {value.title}{value.hour}{value.min}
-                                    </p>) :
+                                    Friday.push(<div class={'event'} key={value.title}>
+                                        <p> {value.title} </p>
+                                        <p> {formatEvent(value, this.props.useMilitary)} </p>
+                                    </div>) :
                                     (value.day === 'Saturday' ?
-                                        Saturday.push(<p key={value.title}>
-                                            {value.title}{value.hour}{value.min}
-                                        </p>) : null))))))
-        ))
+                                        Saturday.push(<div class={'event'} key={value.title}>
+                                            <p> {value.title} </p>
+                                            <p> {formatEvent(value, this.props.useMilitary)} </p>
+                                        </div>) : null))))))))
 
         return (
             <div className='eventlist'>

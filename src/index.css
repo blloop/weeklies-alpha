@@ -60,6 +60,7 @@ li {
 
 input {
   height: 50px;
+  border: 1px solid black;
 }
 
 /* General Class Styling */
@@ -126,6 +127,7 @@ input {
 
 .subtitle {
   font-size: 30px !important;
+  padding: 12px 0;
 }
 
 .overlay {
@@ -306,8 +308,11 @@ input {
 }
 
 .column p {
-  padding: 12px 0;
   font-size: 18px;
+}
+
+.event {
+  margin: 12px;
 }
 
 /* Responsive Styling */

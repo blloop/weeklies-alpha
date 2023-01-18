@@ -61,7 +61,8 @@ class HourDropdown extends Component {
                                             )
                                         }}>
                                     {hour}
-                                </button>)
+                                </button>
+                            )
                         )}
                     </ul>
                 ) : null

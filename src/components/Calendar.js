@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import EventList from './EventList';
-import TimeScale from './TimeScale';
 
+// Compare two events by hour, then minute
 let eventCompare = (ev1, ev2) => {
     return (
         ev1.hour - ev2.hour === 0 ?

@@ -127,7 +127,7 @@ input {
 
 .subtitle {
   font-size: 30px !important;
-  padding: 12px 0;
+  padding: 0 0 12px;
 }
 
 .overlay {
@@ -150,9 +150,10 @@ input {
 }
 
 .navbar {
-  padding: 24px 0;
   position: sticky;
   top: 0px;
+  padding: 24px 0;
+  z-index: 50;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -204,10 +205,6 @@ input {
 
 .settings-button img {
   height: 48px;
-}
-
-.settings .subtitle {
-  margin-bottom: 16px;
 }
 
 .settings-row {
@@ -300,11 +297,13 @@ input {
 }
 
 .column {
-  width: 150px;
   height: 1500px;
+  width: 13%;
+  padding: 8px;
   border-radius: 12px;
   background-color: var(--light-accent);
   transition: all 0.2s ease-in-out;
+  position: relative;
 }
 
 .column p {
@@ -312,16 +311,14 @@ input {
 }
 
 .event {
-  margin: 12px;
+  left: 0;
+  right: 0;
+  /* margin: 8px auto; */
+  position: absolute;
+  background-color: var(--light-grey);
 }
 
 /* Responsive Styling */
-
-@media only screen and (max-width: 1400px) {
-  .column {
-    width: 13%;
-  }
-}
 
 @media only screen and (max-width: 1000px) {
   .eventlist {
@@ -329,8 +326,9 @@ input {
   }
 
   .column {
-    width: 80%;
     height: 200px;
+    width: 80%;
+    max-width: 100%;
     margin: 12px 10%;
   }
 }
@@ -364,5 +362,9 @@ input {
 
   .navbar {
     flex-direction: column;
+  }
+
+  .navbar button {
+    display: inline;
   }
 }

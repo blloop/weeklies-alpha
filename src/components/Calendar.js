@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import EventList from './EventList';
+import TimeScale from './TimeScale';
+
+let eventCompare = (ev1, ev2) => {
+    return (
+        ev1.hour - ev2.hour === 0 ?
+            ev1.min - ev2.min :
+            ev1.hour - ev2.hour
+    );
+}
 
 class Calendar extends Component {
 
@@ -30,7 +39,8 @@ class Calendar extends Component {
             return;
         }
         let newList = this.state.events
-        newList.push(item)
+        newList.push(item);
+        newList.sort(eventCompare);
         let newState = {
             ...this.state,
             Events: newList

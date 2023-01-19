@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Positions events on calendar based on time
-let formatEvent = (event, useMilitary) => {
+let formatEvent = (event) => {
     return (
         <div
             style={{
@@ -13,7 +13,7 @@ let formatEvent = (event, useMilitary) => {
             className={'event'}
             key={event.title}>
             <p> {event.title} </p>
-        </div >
+        </div>
     )
 }
 
@@ -34,7 +34,25 @@ let scaleTime = () => {
 
 class EventList extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            currDay: 2
+        }
+    }
+
+    changeDay = (val) => {
+        let newState = {
+            currDay: (this.state.currDay + val === -1 ?
+                6 :
+                (this.state.currDay + val) % 7
+            )
+        }
+        this.setState(newState);
+    }
+
     render() {
+        console.log(this.state.currDay);
         let Sunday = this.props.allEvents.filter(
             event => event.day === 'Sunday'
         );
@@ -59,9 +77,27 @@ class EventList extends Component {
 
         return (
             <div className='eventlist'>
-                <div className='column' id='Sunday'>
+                <div className='column utility mono-show'>
+                    <button
+                        onClick={() => this.changeDay(-1)}
+                        className='switch move-left'>
+                        &lt;
+                    </button> {/* < */}
+                    <button
+                        onClick={() => this.changeDay(1)}
+                        className='switch move-right'>
+                        &gt;
+                    </button> {/* > */}
                     <div className='time-scale scale-left'>
-                        {scaleTime()}{scaleTime()}
+                        {scaleTime()}{scaleTime()}{/* Left Scale */}
+                    </div>
+                </div>
+                <div className={'column' +
+                    (this.state.currDay === 0 ?
+                        '' : ' mono-hide')
+                }>
+                    <div className='time-scale scale-left mono-hide'>
+                        {scaleTime()}{scaleTime()}{/* Left Scale */}
                     </div>
                     <p className='subtitle'> SUN </p>
                     <hr></hr>
@@ -69,49 +105,67 @@ class EventList extends Component {
                         return (formatEvent(event));
                     })}
                 </div>
-                <div className='column' id='Monday'>
+                <div className={'column' +
+                    (this.state.currDay === 1 ?
+                        '' : ' mono-hide')
+                }>
                     <p className='subtitle'> MON </p>
                     <hr></hr>
                     {Monday.map((event) => {
                         return (formatEvent(event));
                     })}
                 </div>
-                <div className='column' id='Tuesday'>
+                <div className={'column' +
+                    (this.state.currDay === 2 ?
+                        '' : ' mono-hide')
+                }>
                     <p className='subtitle'> TUE </p>
                     <hr></hr>
                     {Tuesday.map((event) => {
                         return (formatEvent(event));
                     })}
                 </div>
-                <div className='column' id='Wednesday'>
+                <div className={'column' +
+                    (this.state.currDay === 3 ?
+                        '' : ' mono-hide')
+                }>
                     <p className='subtitle'> WED </p>
                     <hr></hr>
                     {Wednesday.map((event) => {
                         return (formatEvent(event));
                     })}
                 </div>
-                <div className='column' id='Thursday'>
+                <div className={'column' +
+                    (this.state.currDay === 4 ?
+                        '' : ' mono-hide')
+                }>
                     <p className='subtitle'> THU </p>
                     <hr></hr>
                     {Thursday.map((event) => {
                         return (formatEvent(event));
                     })}
                 </div>
-                <div className='column' id='Friday'>
+                <div className={'column' +
+                    (this.state.currDay === 5 ?
+                        '' : ' mono-hide')
+                }>
                     <p className='subtitle'> FRI </p>
                     <hr></hr>
                     {Friday.map((event) => {
                         return (formatEvent(event));
                     })}
                 </div>
-                <div className='column' id='Saturday'>
+                <div className={'column' +
+                    (this.state.currDay === 6 ?
+                        '' : ' mono-hide')
+                }>
                     <p className='subtitle'> SAT </p>
                     <hr></hr>
                     {Saturday.map((event) => {
                         return (formatEvent(event));
                     })}
-                    <div className='time-scale scale-right'>
-                        {scaleTime()}{scaleTime()}
+                    <div className='time-scale scale-right mono-hide'>
+                        {scaleTime()}{scaleTime()}{/* Right Scale */}
                     </div>
                 </div>
             </div>

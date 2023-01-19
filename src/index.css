@@ -22,9 +22,6 @@ code {
   --base-grey: rgb(160, 160, 160);
 }
 
-
-
-
 * {
   margin: 0;
   padding: 0;
@@ -105,6 +102,12 @@ input {
   flex-direction: column;
 }
 
+.mono-show {
+  display: none;
+  position: absolute;
+  top: 0px;
+}
+
 /* Component Class Styling */
 
 .calendar {
@@ -165,6 +168,7 @@ input {
 
 .subbar {
   display: flex;
+  justify-content: right;
   height: 65px;
 }
 
@@ -310,13 +314,22 @@ input {
   position: relative;
 }
 
+.column p {
+  font-size: 18px;
+}
+
 .column .subtitle {
   padding: 8px;
   height: 56px;
 }
 
-.column p {
-  font-size: 18px;
+.column.utility {
+  height: 0px;
+  margin: 0 auto !important;
+}
+
+.utility .time-scale {
+  top: 72px;
 }
 
 .event {
@@ -344,19 +357,52 @@ input {
   right: -50px;
 }
 
+.switch {
+  position: absolute;
+  height: 60px;
+  top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+  border: none;
+  background-color: var(--light-accent);
+}
+
+.switch:hover {
+  cursor: pointer;
+  background-color: var(--dark-accent);
+}
+
+.move-left {
+  left: -50px;
+}
+
+.move-right {
+  right: -50px;
+}
+
 /* Responsive Styling */
 
 @media only screen and (max-width: 1000px) {
   .eventlist {
     flex-direction: column;
+    margin: 12px 0;
   }
 
   .column {
-    height: 200px;
-    width: 70%;
-    max-width: 100%;
+    width: 80%;
     margin: 12px 10%;
   }
+
+  .mono-hide {
+    display: none;
+  }
+
+  .mono-show {
+    display: inline-block
+  }
+
 }
 
 @media only screen and (max-width: 700px) {
@@ -387,10 +433,43 @@ input {
 @media only screen and (max-width: 500px) {
 
   .navbar {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 70px;
+  }
+
+  .navbar>button,
+  .title,
+  .subbar {
+    width: 50%;
+  }
+
+  .title {
+    position: absolute;
+    top: 20px;
+  }
+
+  .scale-left {
+    left: -45px;
+  }
+}
+
+@media only screen and (max-width: 369px) {
+
+  .navbar {
+    padding-top: 60px;
   }
 
   .navbar button {
-    display: inline;
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+    padding: 0;
+  }
+
+  .time-scale p {
+    font-size: 16px;
   }
 }

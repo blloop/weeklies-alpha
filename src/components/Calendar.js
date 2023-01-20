@@ -46,18 +46,22 @@ class Calendar extends Component {
         if (this.state.events.some(
             curr =>
                 curr.day === item.day &&
-                (curr.hour + (curr.min === 30 ? 0.5 : 0) <
-                    item.hour2 + (item.min2 === 30 ? 0.5 : 0) ||
-                    curr.hour2 + (curr.min2 === 30 ? 0.5 : 0) >
-                    item.hour + (item.min === 30 ? 0.5 : 0)
+                ((curr.hour + (curr.min ? 0 : 0.5) <
+                    item.hour2 + (item.min2 ? 0 : 0.5) &&
+                    curr.hour2 + (curr.min2 ? 0 : 0.5) >
+                    item.hour + (item.min ? 0 : 0.5)) ||
+                    (curr.hour2 + (curr.min2 ? 0 : 0.5) >
+                        item.hour + (item.min ? 0 : 0.5) &&
+                        curr.hour + (curr.min ? 0 : 0.5) <
+                        item.hour + (item.min ? 0 : 0.5))
                 )
         )) {
             alert("Event overlaps with a current event!");
             return;
         }
         if (item.hour2 < item.hour ||
-            (item.hour === item.hour2 && item.min > item.min2)) {
-            alert("Event must have non-negative duration!");
+            (item.hour === item.hour2 && item.min >= item.min2)) {
+            alert("Event must occur for at least 30 min!");
             return;
         }
         let newList = this.state.events

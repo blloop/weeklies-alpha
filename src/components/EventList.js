@@ -65,9 +65,13 @@ class EventList extends Component {
                     top: 60 +
                         (event.hour * 50) +
                         (event.min === 30 ? 25 : 0),
-                    height: ((event.hour2 || 0 - event.hour1 || 0) * 50) +
-                        (event.min || 0 > event.min2 || 0 ? -25 :
-                            (event.min || 0 < event.min2 || 0 ? 25 : 0))
+                    height: ((
+                        (event.hour2 || 0) -
+                        (event.hour || 0)) * 50) +
+                        ((event.min || 0) >
+                            (event.min2 || 0) ? -25 : 0) +
+                        ((event.min || 0) <
+                            (event.min2 || 0) ? 25 : 0)
                 }}
                 className={'event'}
                 onClick={this.openPopup}

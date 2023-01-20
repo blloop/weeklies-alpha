@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
-
-// Positions events on calendar based on time
-let formatEvent = (event) => {
-    return (
-        <div
-            style={{
-                top: 60 +
-                    (event.hour * 50) +
-                    (event.min === 30 ? 25 : 0),
-                zIndex: 24 - event.hour
-            }}
-            className={'event'}
-            key={event.title}>
-            <p> {event.title} </p>
-        </div>
-    )
-}
+import Modal from './Modal';
+import EditEventDialog from './EditEventDialog';
 
 // Returns hourly intervals in a 12 hour span
 // Call twice for a full 24 hour span
@@ -37,12 +22,15 @@ class EventList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currDay: 2
+            currDay: 1,
+            popOpen: false
         }
     }
 
+    // Changes current day in mono view
     changeDay = (val) => {
         let newState = {
+            ...this.state,
             currDay: (this.state.currDay + val === -1 ?
                 6 :
                 (this.state.currDay + val) % 7
@@ -51,8 +39,45 @@ class EventList extends Component {
         this.setState(newState);
     }
 
+    // Opens open popup editor
+    openPopup = () => {
+        let newState = {
+            ...this.state,
+            popOpen: true
+        }
+        this.setState(newState);
+    }
+
+    // Closes open popup editor
+    closePopup = () => {
+        let newState = {
+            ...this.state,
+            popOpen: false
+        }
+        this.setState(newState);
+    }
+
+    // Positions events on calendar based on time
+    formatEvent = (event) => {
+        return (
+            <div
+                style={{
+                    top: 60 +
+                        (event.hour * 50) +
+                        (event.min === 30 ? 25 : 0),
+                    height: ((event.hour2 || 0 - event.hour1 || 0) * 50) +
+                        (event.min || 0 > event.min2 || 0 ? -25 :
+                            (event.min || 0 < event.min2 || 0 ? 25 : 0))
+                }}
+                className={'event'}
+                onClick={this.openPopup}
+                key={event.title}>
+                <p> {event.title} </p>
+            </div>
+        )
+    }
+
     render() {
-        console.log(this.state.currDay);
         let Sunday = this.props.allEvents.filter(
             event => event.day === 'Sunday'
         );
@@ -77,6 +102,14 @@ class EventList extends Component {
 
         return (
             <div className='eventlist'>
+                <Modal
+                    closeModal={this.closePopup}
+                    openModal={this.state.popOpen}>
+                </Modal>
+                <EditEventDialog
+                    closeModal={this.closePopup}
+                    openPopup={this.state.popOpen}>
+                </EditEventDialog>
                 <div className='column utility mono-show'>
                     <button
                         onClick={() => this.changeDay(-1)}
@@ -102,7 +135,7 @@ class EventList extends Component {
                     <p className='subtitle'> SUN </p>
                     <hr></hr>
                     {Sunday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                 </div>
                 <div className={'column' +
@@ -112,7 +145,7 @@ class EventList extends Component {
                     <p className='subtitle'> MON </p>
                     <hr></hr>
                     {Monday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                 </div>
                 <div className={'column' +
@@ -122,7 +155,7 @@ class EventList extends Component {
                     <p className='subtitle'> TUE </p>
                     <hr></hr>
                     {Tuesday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                 </div>
                 <div className={'column' +
@@ -132,7 +165,7 @@ class EventList extends Component {
                     <p className='subtitle'> WED </p>
                     <hr></hr>
                     {Wednesday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                 </div>
                 <div className={'column' +
@@ -142,7 +175,7 @@ class EventList extends Component {
                     <p className='subtitle'> THU </p>
                     <hr></hr>
                     {Thursday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                 </div>
                 <div className={'column' +
@@ -152,7 +185,7 @@ class EventList extends Component {
                     <p className='subtitle'> FRI </p>
                     <hr></hr>
                     {Friday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                 </div>
                 <div className={'column' +
@@ -162,7 +195,7 @@ class EventList extends Component {
                     <p className='subtitle'> SAT </p>
                     <hr></hr>
                     {Saturday.map((event) => {
-                        return (formatEvent(event));
+                        return (this.formatEvent(event));
                     })}
                     <div className='time-scale scale-right mono-hide'>
                         {scaleTime()}{scaleTime()}{/* Right Scale */}

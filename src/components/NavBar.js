@@ -15,7 +15,7 @@ class NavBar extends Component {
     }
 
     // Opens AddEvent dialog
-    openAddEvent() {
+    openAddEvent = () => {
         // Check if any other dialog is open
         if (this.state.openDialog) {
             return;
@@ -27,7 +27,7 @@ class NavBar extends Component {
     }
 
     // Opens Settings dialog
-    openSettings() {
+    openSettings = () => {
         // Check if any other dialog is open
         if (this.state.openDialog) {
             return;
@@ -39,7 +39,7 @@ class NavBar extends Component {
     }
 
     // Closes all open dialogs
-    closeModal() {
+    closeModal = () => {
         let newState = {
             openDialog: null
         }
@@ -52,7 +52,7 @@ class NavBar extends Component {
                 <button
                     type='button'
                     className='accent'
-                    onClick={this.openAddEvent.bind(this)}>
+                    onClick={this.openAddEvent}>
                     Add Event
                 </button>
                 <p className='title rounded'> Weeklies </p>
@@ -70,7 +70,7 @@ class NavBar extends Component {
                     <button
                         type='button'
                         className='contrast settings-button'
-                        onClick={this.openSettings.bind(this)}>
+                        onClick={this.openSettings}>
                         <img
                             src={gearLogo}
                             alt='Settings Button'>
@@ -79,18 +79,18 @@ class NavBar extends Component {
                 </div>
 
                 <Modal
-                    closeModal={this.closeModal.bind(this)}
+                    closeModal={this.closeModal}
                     openModal={this.state.openDialog !== null}>
                 </Modal>
                 <AddEventDialog
                     eventAdd={this.props.eventAdd}
-                    closeModal={this.closeModal.bind(this)}
+                    closeModal={this.closeModal}
                     showDialog={this.state.openDialog === 'events'}
                     useMilitary={this.props.useMilitary}>
                 </AddEventDialog>
                 <SettingsDialog
                     eventClear={this.props.eventClear}
-                    closeModal={this.closeModal.bind(this)}
+                    closeModal={this.closeModal}
                     showDialog={this.state.openDialog === 'settings'}
                     accentColor={this.props.accentColor}
                     changeColor={this.props.changeColor}

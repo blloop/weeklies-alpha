@@ -13,28 +13,24 @@ class AddEventDialog extends Component {
             inputText: '',
             dayOfWeek: 'Sunday',
             newHour: 0,
-            isZero: true
+            isZero: true,
+            newHour2: 0,
+            isZero2: true
         }
     }
 
     // Add an event to dialog
     // Sends request to top level component
     addToList() {
-        if (this.state.inputText !== '') {
-            this.props.closeModal();
-        }
         let newEvent = {
             title: this.state.inputText,
             day: this.state.dayOfWeek,
             hour: this.state.newHour,
-            min: (this.state.isZero ? 0 : 30)
+            min: (this.state.isZero ? 0 : 30),
+            hour2: this.state.newHour2,
+            min2: (this.state.isZero2 ? 0 : 30)
         };
         this.props.eventAdd(newEvent);
-        let newState = {
-            ...this.state,
-            inputText: ''
-        }
-        this.setState(newState)
     }
 
     // Updates value of text field
@@ -63,8 +59,6 @@ class AddEventDialog extends Component {
             newHour: hour
         }
         this.setState(newState);
-        console.log(this.state.newHour + ', ' +
-            (this.state.isZero ? '00' : '30'));
     }
 
     // Sets current minute of event
@@ -75,8 +69,6 @@ class AddEventDialog extends Component {
             isZero: !this.state.isZero
         }
         this.setState(newState);
-        console.log(this.state.newHour + ', ' +
-            (this.state.isZero ? '00' : '30'));
     }
 
     // Sets current state of the hour AM/PM
@@ -90,8 +82,39 @@ class AddEventDialog extends Component {
             )
         }
         this.setState(newState);
-        console.log(this.state.newHour + ', ' +
-            (this.state.isZero ? '00' : '30'));
+    }
+
+
+    // Sets current hour of event #2
+    changeHour2 = (hour) => {
+        let newState = {
+            ...this.state,
+            newHour2: hour
+        }
+        this.setState(newState);
+    }
+
+    // Sets current minute of event #2
+    // Intervals of 0:30, represented by bool
+    changeMin2 = () => {
+        let newState = {
+            ...this.state,
+            isZero2: !this.state.isZero2
+        }
+        this.setState(newState);
+    }
+
+    // Sets current state of the hour AM/PM #2
+    // Only valid if 24 hour time is not in use
+    changeAM2 = () => {
+        let newState = {
+            ...this.state,
+            newHour2: (this.state.newHour2 < 12 ?
+                this.state.newHour2 + 12 :
+                this.state.newHour2 - 12
+            )
+        }
+        this.setState(newState);
     }
 
     render() {
@@ -116,19 +139,38 @@ class AddEventDialog extends Component {
                                 changeDay={this.changeDay}
                                 dayOfWeek={this.state.dayOfWeek}>
                             </DayDropdown>
+                            <div className='time-items'>
+                                <HourDropdown
+                                    changeHour={this.changeHour}
+                                    isAM={this.state.newHour < 12}
+                                    newHour={this.state.newHour}
+                                    useMilitary={this.props.useMilitary}>
+                                </HourDropdown>
+                                <MinDropdown
+                                    isZero={this.state.isZero}
+                                    changeMin={this.changeMin}>
+                                </MinDropdown>
+                                <ToggleAM
+                                    changeAM={this.changeAM}
+                                    isAM={this.state.newHour < 12}
+                                    useMilitary={this.props.useMilitary}>
+                                </ToggleAM>
+                            </div>
+                        </div>
+                        <div className='time-items'>
                             <HourDropdown
-                                changeHour={this.changeHour}
-                                isAM={this.state.newHour < 12}
-                                newHour={this.state.newHour}
+                                changeHour={this.changeHour2}
+                                isAM={this.state.newHour2 < 12}
+                                newHour={this.state.newHour2}
                                 useMilitary={this.props.useMilitary}>
                             </HourDropdown>
                             <MinDropdown
-                                isZero={this.state.isZero}
-                                changeMin={this.changeMin}>
+                                isZero={this.state.isZero2}
+                                changeMin={this.changeMin2}>
                             </MinDropdown>
                             <ToggleAM
-                                changeAM={this.changeAM}
-                                isAM={this.state.newHour < 12}
+                                changeAM={this.changeAM2}
+                                isAM={this.state.newHour2 < 12}
                                 useMilitary={this.props.useMilitary}>
                             </ToggleAM>
                         </div>

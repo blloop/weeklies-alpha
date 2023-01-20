@@ -14,13 +14,27 @@ let eventCompare = (ev1, ev2) => {
 class Calendar extends Component {
 
     constructor(props) {
-        let jsonEvents = localStorage.getItem('weeklies-events');
+        let jsonInfo = localStorage.getItem('weeklies');
         super(props);
+        // console.log(jsonInfo.accentColor);
         this.state = {
-            events: (jsonEvents ? JSON.parse(jsonEvents) : []),
-            useMilitary: false,
-            accentColor: 'red'
+            events: (jsonInfo ?
+                JSON.parse(jsonInfo)['events'] :
+                []
+            ),
+            useMilitary: (jsonInfo ?
+                JSON.parse(jsonInfo)['useMilitary'] :
+                false
+            ),
+            accentColor: (jsonInfo ?
+                JSON.parse(jsonInfo)['accentColor'] :
+                'red'
+            )
         };
+    }
+
+    componentDidMount() {
+        this.changeColor(this.state.accentColor);
     }
 
     // Add an event to calendar
@@ -31,11 +45,19 @@ class Calendar extends Component {
         }
         if (this.state.events.some(
             curr =>
-                curr.title === item.title &&
                 curr.day === item.day &&
-                curr.time === item.time
+                (curr.hour + (curr.min === 30 ? 0.5 : 0) <
+                    item.hour2 + (item.min2 === 30 ? 0.5 : 0) ||
+                    curr.hour2 + (curr.min2 === 30 ? 0.5 : 0) >
+                    item.hour + (item.min === 30 ? 0.5 : 0)
+                )
         )) {
-            alert("Cannot add duplicate event!");
+            alert("Event overlaps with a current event!");
+            return;
+        }
+        if (item.hour2 < item.hour ||
+            (item.hour === item.hour2 && item.min > item.min2)) {
+            alert("Event must have non-negative duration!");
             return;
         }
         let newList = this.state.events
@@ -46,17 +68,23 @@ class Calendar extends Component {
             Events: newList
         }
         this.setState(newState);
-        localStorage.setItem('weeklies-events', JSON.stringify(this.state.events));
+        localStorage.setItem(
+            'weeklies',
+            JSON.stringify(newState)
+        );
     };
 
     // Remove all events from calendar
     clearEvents = () => {
-        localStorage.removeItem('weeklies-events');
         let newState = {
             ...this.state,
             events: []
         }
         this.setState(newState);
+        localStorage.setItem(
+            'weeklies',
+            JSON.stringify(newState)
+        );
     }
 
     // Toggle 24 hour time setting
@@ -66,6 +94,10 @@ class Calendar extends Component {
             useMilitary: !this.state.useMilitary
         }
         this.setState(newState);
+        localStorage.setItem(
+            'weeklies',
+            JSON.stringify(newState)
+        );
     }
 
     // Change accent color
@@ -93,6 +125,11 @@ class Calendar extends Component {
             accentColor: color
         }
         this.setState(newState);
+        localStorage.setItem(
+            'weeklies',
+            JSON.stringify(newState)
+        );
+
     }
 
     render() {

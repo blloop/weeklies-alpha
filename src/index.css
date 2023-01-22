@@ -196,7 +196,6 @@ input {
   padding: 8px 12px;
   border-radius: 0 0 0 6px;
   border: none;
-  cursor: pointer;
 }
 
 .close-button:hover {
@@ -229,6 +228,20 @@ input {
 .settings-row input {
   transform: scale(2);
   height: 20px;
+  cursor: pointer;
+}
+
+.color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+  border: 4px solid var(--base-white);
+}
+
+.color-option:hover {
+  border: 4px solid var(--base-grey);
 }
 
 .addevents {

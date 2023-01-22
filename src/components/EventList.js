@@ -23,7 +23,10 @@ class EventList extends Component {
         super(props);
         this.state = {
             currDay: 1,
-            popOpen: false
+            popOpen: false,
+            selectDay: 'Sunday',
+            selectHour: 0,
+            selectMin: 0
         }
     }
 
@@ -40,10 +43,13 @@ class EventList extends Component {
     }
 
     // Opens open popup editor
-    openPopup = () => {
+    openPopup = (day, hour, min) => {
         let newState = {
             ...this.state,
-            popOpen: true
+            popOpen: true,
+            selectDay: day,
+            selectHour: hour,
+            selectMin: min
         }
         this.setState(newState);
     }
@@ -74,7 +80,11 @@ class EventList extends Component {
                             (event.min2 || 0) ? 25 : 0)
                 }}
                 className={'event'}
-                onClick={this.openPopup}
+                onClick={() => this.openPopup(
+                    event.day,
+                    event.hour,
+                    event.min
+                )}
                 key={event.title}>
                 <p> {event.title} </p>
             </div>

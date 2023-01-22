@@ -11,12 +11,32 @@ let eventCompare = (ev1, ev2) => {
     );
 }
 
+let colorNames = [
+    'red',
+    'yellow',
+    'green',
+    'blue'
+];
+
+let lightColors = [
+    'rgb(255, 158, 158)',
+    'rgb(241, 218, 100)',
+    'rgb(157 241 140)',
+    'rgb(167 188 255)'
+];
+
+let darkColors = [
+    'rgb(255, 89, 89)',
+    'rgb(223, 194, 50)',
+    'rgb(97, 218, 73)',
+    'rgb(103, 139, 255)'
+];
+
 class Calendar extends Component {
 
     constructor(props) {
         let jsonInfo = localStorage.getItem('weeklies');
         super(props);
-        // console.log(jsonInfo.accentColor);
         this.state = {
             events: (jsonInfo ?
                 JSON.parse(jsonInfo)['events'] :
@@ -34,7 +54,18 @@ class Calendar extends Component {
     }
 
     componentDidMount() {
-        this.changeColor(this.state.accentColor);
+        let checkColor = this.state.accentColor;
+        this.changeColor(
+            (checkColor === 'red' ?
+                0 :
+                checkColor === 'yellow' ?
+                    1 :
+                    checkColor === 'blue' ?
+                        2 :
+                        checkColor === 'green' ?
+                            3 : 3
+            )
+        );
     }
 
     // Add an event to calendar
@@ -105,28 +136,16 @@ class Calendar extends Component {
     }
 
     // Change accent color
-    changeColor = (color) => {
+    changeColor = (num) => {
         document.body.style.setProperty(
-            '--light-accent',
-            (color === 'red') ?
-                'rgb(255, 158, 158)' :
-                ((color === 'blue') ?
-                    'rgb(167 188 255)' :
-                    ('rgb(157 241 140)')
-                )
+            '--light-accent', lightColors[num]
         );
         document.body.style.setProperty(
-            '--dark-accent',
-            (color === 'red') ?
-                'rgb(255, 89, 89)' :
-                ((color === 'blue') ?
-                    'rgb(103, 139, 255)' :
-                    ('rgb(97, 218, 73)')
-                )
+            '--dark-accent', darkColors[num]
         );
         let newState = {
             ...this.state,
-            accentColor: color
+            accentColor: colorNames[num]
         }
         this.setState(newState);
         localStorage.setItem(

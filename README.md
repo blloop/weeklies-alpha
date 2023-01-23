@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Weeklies
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simple calendar app focused on weekly events.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+A simple app to organize your weekly commitments! 
 
-### `npm start`
+Create your recurring weekly events, or "weeklies", 
+and then plan regular events around them! 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Visit <a target="_blank" href="https://bill-yu.dev/weeklies"> this </a> link to visit the current deployment!
 
-### `npm test`
+## Development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Dependencies
 
-### `npm run build`
+- NodeJS (18.0+)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Features
+- Simple calendar UI displaying one week of events
+- Add event with fields: Day of the Week, Start Time, End Time
+- Settings to toggle 24 hour time and choose an accent color
+- Responsive design to show one column on smaller screens
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Upcoming Features
+- Event editing directly through click
+- Data format to include non-weeklies
+- Warning dialogs for conflicting non-weeklies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributing
 
-### `npm run eject`
+Contributions to this project are wholly welcome! 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Please open an issue to add a suggestion, 
+or fork this repository and create a pull request to directly contribute: 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Fork the Project
+2. Create your Feature Branch:  ```git checkout -b feature/NewgFeature```
+3. Commit your Changes:  ```git commit -m 'Add some NewFeature'```
+4. Push to the Branch:  ```git push origin feature/NewFeature```
+5. Open a Pull Request
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Version History
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* To be determined...
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project is licensed under the MIT License - see the LICENSE file for details
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Acknowledgments
+* [README-template](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)

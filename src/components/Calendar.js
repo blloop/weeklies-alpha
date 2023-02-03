@@ -13,23 +13,23 @@ let eventCompare = (ev1, ev2) => {
 
 let colorNames = [
     'red',
-    'yellow',
     'green',
-    'blue'
+    'blue',
+    'yellow'
 ];
 
 let lightColors = [
     'rgb(255, 158, 158)',
-    'rgb(241, 218, 100)',
     'rgb(157 241 140)',
-    'rgb(167 188 255)'
+    'rgb(167 188 255)',
+    'rgb(241, 218, 100)'
 ];
 
 let darkColors = [
     'rgb(255, 89, 89)',
-    'rgb(223, 194, 50)',
     'rgb(97, 218, 73)',
-    'rgb(103, 139, 255)'
+    'rgb(103, 139, 255)',
+    'rgb(223, 194, 50)'
 ];
 
 class Calendar extends Component {
@@ -58,11 +58,11 @@ class Calendar extends Component {
         this.changeColor(
             (checkColor === 'red' ?
                 0 :
-                checkColor === 'yellow' ?
+                checkColor === 'green' ?
                     1 :
-                    checkColor === 'green' ?
+                    checkColor === 'blue' ?
                         2 :
-                        checkColor === 'blue' ?
+                        checkColor === 'yellow' ?
                             3 : 3
             )
         );

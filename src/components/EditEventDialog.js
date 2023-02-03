@@ -2,6 +2,27 @@ import React, { Component } from 'react';
 
 class EditEventDialog extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showDialog: this.props.showDialog,
+            inputText: '',
+            dayOfWeek: 'Sunday',
+            newHour: 0,
+            isZero: true,
+            newHour2: 0,
+            isZero2: true
+        }
+    }
+
+    updateText = (event) => {
+        let newState = {
+            ...this.state,
+            inputText: event.target.value
+        }
+        this.setState(newState);
+    };
+
     render() {
         return (
             <>
@@ -13,11 +34,14 @@ class EditEventDialog extends Component {
                             &#10005;
                         </button>
                         <p className='subtitle'> Edit Event </p>
-                        <hr></hr>
-
+                        <input
+                            onChange={this.updateText}
+                            value={this.state.inputText}>
+                        </input>
                         <div className='settings-row'>
-                            <p> Name of the Event </p>
-                            <p> Time of the Event </p>
+                            <p> {this.props.selectDay} </p>
+                            <p> {this.props.selectHour} </p>
+                            <p> {this.props.selectMin} </p>
                         </div>
 
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
+import '../EventList.css';
 import EditEventDialog from './EditEventDialog';
 
 // Returns hourly intervals in a 12 hour span
@@ -145,6 +146,9 @@ class EventList extends Component {
                     openModal={this.state.popOpen}>
                 </Modal>
                 <EditEventDialog
+                    selectDay={this.state.selectDay}
+                    selectHour={this.state.selectHour}
+                    selectMin={this.state.selectMin}
                     closeModal={this.closePopup}
                     openPopup={this.state.popOpen}>
                 </EditEventDialog>

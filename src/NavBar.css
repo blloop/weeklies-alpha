@@ -1,0 +1,92 @@
+.navbar {
+    position: sticky;
+    top: 0px;
+    padding: 24px 0;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border: var(--base-grey);
+    border-style: solid;
+    border-width: 0 0 4px 0;
+    background-color: rgba(237, 237, 237, 0.5);
+}
+
+.subbar {
+    display: flex;
+    justify-content: right;
+    height: 65px;
+}
+
+.logo {
+    height: 65px;
+    padding: 8px;
+    border-radius: 100%;
+    transition: all 0.2s ease-in-out;
+    background-color: var(--base-white);
+}
+
+.logo:hover {
+    background-color: var(--light-accent);
+}
+
+@media only screen and (max-width: 700px) {
+
+    .title {
+        font-size: 32px;
+    }
+
+    .subbar {
+        height: 50px;
+    }
+
+    .navbar>button {
+        padding: 4px;
+    }
+
+    button img {
+        height: 36px !important;
+    }
+
+    a .logo {
+        margin: 5px;
+        padding: 0;
+        height: 40px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .navbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 70px 0 10px;
+    }
+
+    .navbar>button,
+    .title,
+    .subbar {
+        width: 50%;
+    }
+
+    .title {
+        position: absolute;
+        top: 20px;
+    }
+}
+
+@media only screen and (max-width: 369px) {
+
+    .navbar {
+        padding-top: 60px;
+    }
+
+    .navbar button {
+        font-size: 20px;
+    }
+
+    .title {
+        font-size: 24px;
+        padding: 0;
+    }
+}

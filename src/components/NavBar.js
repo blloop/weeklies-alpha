@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ghLogo from '../img/github-mark.svg';
 import gearLogo from '../img/gear.svg';
+import '../NavBar.css';
 import AddEventDialog from './AddEventDialog';
 import SettingsDialog from './SettingsDialog';
 import Modal from './Modal';

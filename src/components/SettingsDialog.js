@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 let darkColors = [
     'rgb(255, 89, 89)',
-    'rgb(223, 194, 50)',
     'rgb(97, 218, 73)',
-    'rgb(103, 139, 255)'
+    'rgb(103, 139, 255)',
+    'rgb(223, 194, 50)'
 ];
 
 class SettingsDialog extends Component {
@@ -31,29 +31,27 @@ class SettingsDialog extends Component {
                         </div>
                         <div className='settings-row'>
                             <p> Accent Color: </p>
-                            <div
-                                className='color-option'
-                                style={{ backgroundColor: darkColors[0] }}
-                                checked={this.props.accentColor === 'red'}
-                                onClick={() => this.props.changeColor(0)}>
-                            </div>
-                            <div
-                                className='color-option'
-                                style={{ backgroundColor: darkColors[1] }}
-                                checked={this.props.accentColor === 'yellow'}
-                                onClick={() => this.props.changeColor(1)}>
-                            </div>
-                            <div
-                                className='color-option'
-                                style={{ backgroundColor: darkColors[2] }}
-                                checked={this.props.accentColor === 'green'}
-                                onClick={() => this.props.changeColor(2)}>
-                            </div>
-                            <div
-                                className='color-option'
-                                style={{ backgroundColor: darkColors[3] }}
-                                checked={this.props.accentColor === 'blue'}
-                                onClick={() => this.props.changeColor(3)}>
+                            <div className='color-palette'>
+                                <div
+                                    style={{ backgroundColor: darkColors[0] }}
+                                    checked={this.props.accentColor === 'red'}
+                                    onClick={() => this.props.changeColor(0)}>
+                                </div>
+                                <div
+                                    style={{ backgroundColor: darkColors[1] }}
+                                    checked={this.props.accentColor === 'green'}
+                                    onClick={() => this.props.changeColor(1)}>
+                                </div>
+                                <div
+                                    style={{ backgroundColor: darkColors[2] }}
+                                    checked={this.props.accentColor === 'blue'}
+                                    onClick={() => this.props.changeColor(2)}>
+                                </div>
+                                <div
+                                    style={{ backgroundColor: darkColors[3] }}
+                                    checked={this.props.accentColor === 'yellow'}
+                                    onClick={() => this.props.changeColor(3)}>
+                                </div>
                             </div>
                         </div>
                         <button

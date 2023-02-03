@@ -4,16 +4,37 @@ import EditEventDialog from './EditEventDialog';
 
 // Returns hourly intervals in a 12 hour span
 // Call twice for a full 24 hour span
-let scaleTime = () => {
+let scaleTime = (useMilitary) => {
     return (
-        <>
-            <p>12:00</p><p>01:00</p>
-            <p>02:00</p><p>03:00</p>
-            <p>04:00</p><p>05:00</p>
-            <p>06:00</p><p>07:00</p>
-            <p>08:00</p><p>09:00</p>
-            <p>10:00</p><p>11:00</p>
-        </>
+        useMilitary ?
+            <>
+                <p>00:00</p><p>01:00</p>
+                <p>02:00</p><p>03:00</p>
+                <p>04:00</p><p>05:00</p>
+                <p>06:00</p><p>07:00</p>
+                <p>08:00</p><p>09:00</p>
+                <p>10:00</p><p>11:00</p>
+                <p>12:00</p><p>13:00</p>
+                <p>14:00</p><p>15:00</p>
+                <p>16:00</p><p>17:00</p>
+                <p>18:00</p><p>19:00</p>
+                <p>20:00</p><p>21:00</p>
+                <p>22:00</p><p>23:00</p>
+            </> :
+            <>
+                <p>12:00</p><p>01:00</p>
+                <p>02:00</p><p>03:00</p>
+                <p>04:00</p><p>05:00</p>
+                <p>06:00</p><p>07:00</p>
+                <p>08:00</p><p>09:00</p>
+                <p>10:00</p><p>11:00</p>
+                <p>12:00</p><p>01:00</p>
+                <p>02:00</p><p>03:00</p>
+                <p>04:00</p><p>05:00</p>
+                <p>06:00</p><p>07:00</p>
+                <p>08:00</p><p>09:00</p>
+                <p>10:00</p><p>11:00</p>
+            </>
     );
 }
 
@@ -86,7 +107,10 @@ class EventList extends Component {
                     event.min
                 )}
                 key={event.title}>
-                <p> {event.title} </p>
+                <p> {event.title.length > 25 ?
+                    event.title.slice(0, 25) + '...' :
+                    event.title}
+                </p>
             </div>
         )
     }
@@ -124,6 +148,28 @@ class EventList extends Component {
                     closeModal={this.closePopup}
                     openPopup={this.state.popOpen}>
                 </EditEventDialog>
+                {/* <div className='grid-lines'>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr>
+                </div> */}
+                <div className='grid-lines thin'>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr><hr></hr>
+                    <hr></hr><hr></hr><hr></hr>
+                </div>
                 <div className='column utility mono-show'>
                     <button
                         onClick={() => this.changeDay(-1)}
@@ -136,7 +182,7 @@ class EventList extends Component {
                         &gt;
                     </button> {/* > */}
                     <div className='time-scale scale-left'>
-                        {scaleTime()}{scaleTime()}{/* Left Scale */}
+                        {scaleTime(this.props.useMilitary)}
                     </div>
                 </div>
                 <div className={'column' +
@@ -144,7 +190,7 @@ class EventList extends Component {
                         '' : ' mono-hide')
                 }>
                     <div className='time-scale scale-left mono-hide'>
-                        {scaleTime()}{scaleTime()}{/* Left Scale */}
+                        {scaleTime(this.props.useMilitary)}
                     </div>
                     <p className='subtitle'> SUN </p>
                     <hr></hr>
@@ -212,7 +258,7 @@ class EventList extends Component {
                         return (this.formatEvent(event));
                     })}
                     <div className='time-scale scale-right mono-hide'>
-                        {scaleTime()}{scaleTime()}{/* Right Scale */}
+                        {scaleTime(this.props.useMilitary)}
                     </div>
                 </div>
             </div>

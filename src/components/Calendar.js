@@ -60,9 +60,9 @@ class Calendar extends Component {
                 0 :
                 checkColor === 'yellow' ?
                     1 :
-                    checkColor === 'blue' ?
+                    checkColor === 'green' ?
                         2 :
-                        checkColor === 'green' ?
+                        checkColor === 'blue' ?
                             3 : 3
             )
         );
@@ -107,7 +107,12 @@ class Calendar extends Component {
             'weeklies',
             JSON.stringify(newState)
         );
-    };
+    }
+
+    editEvent = () => {
+        // let country = data.find(el => el.code === "AL");
+        return;
+    }
 
     // Remove all events from calendar
     clearEvents = () => {

@@ -54,7 +54,7 @@
 }
 
 .color-palette {
-  width: 65px;
+  /* width: 65px; */
   display: flex;
   flex-wrap: wrap;
 }

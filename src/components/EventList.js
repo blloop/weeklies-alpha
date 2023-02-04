@@ -45,7 +45,8 @@ class EventList extends Component {
         this.state = {
             currDay: 0,
             openDialog: false,
-            oldEvent: null
+            oldEvent: null,
+            newEvent: null
         }
     }
 
@@ -63,9 +64,19 @@ class EventList extends Component {
 
     // Opens open popup editor
     openPopup = (event) => {
+        let tempEvent = {
+            inputText: event.title,
+            dayOfWeek: event.day,
+            newHour: event.hour,
+            isZero: event.min === 0,
+            newHour2: event.hour2,
+            isZero2: event.min2 === 0
+        }
         let newState = {
             ...this.state,
-            oldEvent: event
+            openDialog: true,
+            oldEvent: tempEvent,
+            newEvent: tempEvent
         }
         this.setState(newState);
     }
@@ -74,7 +85,32 @@ class EventList extends Component {
     closeModal = () => {
         let newState = {
             ...this.state,
-            openDialog: false
+            openDialog: false,
+            oldEvent: null,
+            newEvent: null
+        }
+        this.setState(newState);
+    }
+
+    editEvent = () => {
+        this.props.editEvent(
+            this.state.oldEvent,
+            this.state.newEvent
+        );
+    }
+
+    setNewEvent = (event) => {
+        let tempEvent = {
+            inputText: event.inputText,
+            dayOfWeek: event.dayOfWeek,
+            newHour: event.newHour,
+            isZero: event.isZero,
+            newHour2: event.newHour2,
+            isZero2: event.isZero2
+        }
+        let newState = {
+            ...this.state,
+            newEvent: tempEvent
         }
         this.setState(newState);
     }
@@ -136,13 +172,14 @@ class EventList extends Component {
                     openModal={this.state.openDialog}>
                 </Modal>
                 <EditEventDialog
-                    editEvent={this.props.editEvent}
-                    oldEvent={this.state.oldEvent}
+                    editEvent={this.editEvent}
+                    setNewEvent={this.setNewEvent}
+                    newEvent={this.state.newEvent}
                     closeModal={this.closeModal}
                     showDialog={this.state.openDialog}
                     useMilitary={this.props.useMilitary}>
                 </EditEventDialog>
-                <div className='grid-lines thin'>
+                <div className='grid-lines'>
                     <hr></hr><hr></hr><hr></hr><hr></hr>
                     <hr></hr><hr></hr><hr></hr><hr></hr>
                     <hr></hr><hr></hr><hr></hr><hr></hr>

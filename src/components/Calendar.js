@@ -72,30 +72,32 @@ class Calendar extends Component {
     addEvent = (item) => {
         if (item.title === '') {
             alert('Event title cannot be empty!');
-            return;
+            return -1;
         }
         if (this.state.events.some(
             curr =>
-                curr.day === item.day &&
-                ((curr.hour + (curr.min ? 0 : 0.5) <
-                    item.hour2 + (item.min2 ? 0 : 0.5) &&
-                    curr.hour2 + (curr.min2 ? 0 : 0.5) >
-                    item.hour + (item.min ? 0 : 0.5)) ||
-                    (curr.hour2 + (curr.min2 ? 0 : 0.5) >
-                        item.hour + (item.min ? 0 : 0.5) &&
-                        curr.hour + (curr.min ? 0 : 0.5) <
-                        item.hour + (item.min ? 0 : 0.5))
-                )
+            ((curr.day === item.day) &&
+                ((curr.hour === item.hour ||
+                    curr.hour2 === item.hour2) ||
+                    ((curr.hour + (curr.min ? 0 : 0.5) <
+                        item.hour2 + (item.min2 ? 0 : 0.5) &&
+                        curr.hour2 + (curr.min2 ? 0 : 0.5) >
+                        item.hour + (item.min ? 0 : 0.5)) ||
+                        (curr.hour2 + (curr.min2 ? 0 : 0.5) >
+                            item.hour + (item.min ? 0 : 0.5) &&
+                            curr.hour + (curr.min ? 0 : 0.5) <
+                            item.hour + (item.min ? 0 : 0.5))
+                    )))
         )) {
             alert("Event overlaps with a current event!");
-            return;
+            return -1;
         }
         if (item.hour2 < item.hour ||
             (item.hour === item.hour2 && item.min >= item.min2)) {
             alert("Event must occur for at least 30 min!");
-            return;
+            return -1;
         }
-        let newList = this.state.events
+        let newList = this.state.events;
         newList.push(item);
         newList.sort(eventCompare);
         let newState = {
@@ -107,14 +109,46 @@ class Calendar extends Component {
             'weeklies',
             JSON.stringify(newState)
         );
+        return 0;
     }
 
     editEvent = (oldEvent, newEvent) => {
         // let country = data.find(el => el.code === "AL");
-        console.log('OLD\n');
-        console.log(oldEvent);
-        console.log(newEvent);
-        return;
+        console.log(this.state.events);
+
+        let currEvent = {
+            title: newEvent.inputText,
+            day: newEvent.dayOfWeek,
+            hour: newEvent.newHour,
+            min: (newEvent.isZero ? 0 : 30),
+            hour2: newEvent.newHour2,
+            min2: (newEvent.isZero2 ? 0 : 30)
+        };
+
+        if (this.addEvent(currEvent) < 0) {
+            return;
+        }
+
+        console.log('OIOIO');
+        let newList = this.state.events;
+        newList.filter(
+            (event) => {
+                return (
+                    event.title === oldEvent.inputText &&
+                    event.day === oldEvent.dayOfWeek &&
+                    event.hour === oldEvent.newHour
+                );
+            }
+        )
+        let newState = {
+            ...this.state,
+            Events: newList
+        }
+        this.setState(newState);
+        localStorage.setItem(
+            'weeklies',
+            JSON.stringify(newState)
+        );
     }
 
     // Remove all events from calendar
@@ -167,7 +201,7 @@ class Calendar extends Component {
         return (
             <div className='calendar'>
                 <NavBar
-                    eventAdd={this.addEvent}
+                    addEvent={this.addEvent}
                     eventClear={this.clearEvents}
                     useMilitary={this.state.useMilitary}
                     toggleMilitary={this.toggleMilitary}

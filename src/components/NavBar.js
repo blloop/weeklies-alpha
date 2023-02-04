@@ -83,7 +83,7 @@ class NavBar extends Component {
                     openModal={this.state.openDialog !== null}>
                 </Modal>
                 <AddEventDialog
-                    eventAdd={this.props.eventAdd}
+                    addEvent={this.props.addEvent}
                     closeModal={this.closeModal}
                     showDialog={this.state.openDialog === 'events'}
                     useMilitary={this.props.useMilitary}>

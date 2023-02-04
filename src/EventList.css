@@ -104,8 +104,9 @@
     z-index: 3;
 }
 
-.grid-lines.thin * {
-    height: 0.5px;
+.grid-lines * {
+    height: 0.8px;
+    background-color: var(--base-dark-grey);
 }
 
 .switch {

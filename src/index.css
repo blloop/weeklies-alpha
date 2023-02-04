@@ -6,6 +6,7 @@
   --base-white: rgb(237, 237, 237);
   --base-lightgrey: rgb(201, 201, 201);
   --base-grey: rgb(183, 183, 183);
+  --base-dark-grey: rgb(144, 144, 144);
 }
 
 * {

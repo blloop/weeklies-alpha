@@ -30,7 +30,7 @@ class AddEventDialog extends Component {
             hour2: this.state.newHour2,
             min2: (this.state.isZero2 ? 0 : 30)
         };
-        this.props.eventAdd(newEvent);
+        this.props.addEvent(newEvent);
     }
 
     // Updates value of text field

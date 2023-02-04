@@ -10,7 +10,7 @@ class HourDropdown extends Component {
     }
 
     // Toggles dropdown open state
-    toggleOpen() {
+    toggleOpen = () => {
         this.setState({
             open: !this.state.open
         });
@@ -44,7 +44,7 @@ class HourDropdown extends Component {
             <div className='drop-container'>
                 <button
                     className='drop-box top-button square small'
-                    onClick={this.toggleOpen.bind(this)}>
+                    onClick={this.toggleOpen}>
                     {currHour}
                 </button>
                 {this.state.open ? (

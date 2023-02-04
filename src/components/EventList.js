@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
-import '../EventList.css';
 import EditEventDialog from './EditEventDialog';
 
 // Returns hourly intervals in a 12 hour span
@@ -44,11 +43,9 @@ class EventList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currDay: 1,
-            popOpen: false,
-            selectDay: 'Sunday',
-            selectHour: 0,
-            selectMin: 0
+            currDay: 0,
+            openDialog: false,
+            oldEvent: null
         }
     }
 
@@ -65,22 +62,19 @@ class EventList extends Component {
     }
 
     // Opens open popup editor
-    openPopup = (day, hour, min) => {
+    openPopup = (event) => {
         let newState = {
             ...this.state,
-            popOpen: true,
-            selectDay: day,
-            selectHour: hour,
-            selectMin: min
+            oldEvent: event
         }
         this.setState(newState);
     }
 
     // Closes open popup editor
-    closePopup = () => {
+    closeModal = () => {
         let newState = {
             ...this.state,
-            popOpen: false
+            openDialog: false
         }
         this.setState(newState);
     }
@@ -102,11 +96,7 @@ class EventList extends Component {
                             (event.min2 || 0) ? 25 : 0)
                 }}
                 className={'event'}
-                onClick={() => this.openPopup(
-                    event.day,
-                    event.hour,
-                    event.min
-                )}
+                onClick={() => this.openPopup(event)}
                 key={event.title}>
                 <p> {event.title.length > 25 ?
                     event.title.slice(0, 25) + '...' :
@@ -142,24 +132,16 @@ class EventList extends Component {
         return (
             <div className='eventlist'>
                 <Modal
-                    closeModal={this.closePopup}
-                    openModal={this.state.popOpen}>
+                    closeModal={this.closeModal}
+                    openModal={this.state.openDialog}>
                 </Modal>
                 <EditEventDialog
-                    selectDay={this.state.selectDay}
-                    selectHour={this.state.selectHour}
-                    selectMin={this.state.selectMin}
-                    closeModal={this.closePopup}
-                    openPopup={this.state.popOpen}>
+                    editEvent={this.props.editEvent}
+                    oldEvent={this.state.oldEvent}
+                    closeModal={this.closeModal}
+                    showDialog={this.state.openDialog}
+                    useMilitary={this.props.useMilitary}>
                 </EditEventDialog>
-                {/* <div className='grid-lines'>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr>
-                </div> */}
                 <div className='grid-lines thin'>
                     <hr></hr><hr></hr><hr></hr><hr></hr>
                     <hr></hr><hr></hr><hr></hr><hr></hr>

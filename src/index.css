@@ -5,7 +5,7 @@
   --dark-accent: rgb(255, 89, 89);
   --base-white: rgb(237, 237, 237);
   --base-lightgrey: rgb(201, 201, 201);
-  --base-grey: rgb(160, 160, 160);
+  --base-grey: rgb(183, 183, 183);
 }
 
 * {
@@ -48,6 +48,7 @@ li {
 
 input {
   padding: 8px;
+  border: 1px solid black;
 }
 
 /* General Class Styling */

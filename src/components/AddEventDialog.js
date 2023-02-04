@@ -21,7 +21,7 @@ class AddEventDialog extends Component {
 
     // Add an event to dialog
     // Sends request to top level component
-    addToList() {
+    addToList = () => {
         let newEvent = {
             title: this.state.inputText,
             day: this.state.dayOfWeek,
@@ -122,6 +122,7 @@ class AddEventDialog extends Component {
             <>
                 {this.props.showDialog &&
                     <div className='addevents overlay rounded'>
+                        <p className='header rounded'> Add Event </p>
                         <button
                             onClick={this.props.closeModal}
                             className='close-button'>
@@ -176,7 +177,7 @@ class AddEventDialog extends Component {
                         </div>
                         <button
                             className='contrast thin-button'
-                            onClick={this.addToList.bind(this)}>
+                            onClick={this.addToList}>
                             Add Event
                         </button>
                     </div>

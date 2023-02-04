@@ -109,8 +109,11 @@ class Calendar extends Component {
         );
     }
 
-    editEvent = () => {
+    editEvent = (oldEvent, newEvent) => {
         // let country = data.find(el => el.code === "AL");
+        console.log('OLD\n');
+        console.log(oldEvent);
+        console.log(newEvent);
         return;
     }
 
@@ -173,6 +176,7 @@ class Calendar extends Component {
                 </NavBar>
                 <EventList
                     allEvents={this.state.events}
+                    editEvent={this.editEvent}
                     useMilitary={this.state.useMilitary}>
                 </EventList>
             </div>

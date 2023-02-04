@@ -45,6 +45,7 @@
     overflow: hidden;
     border: 4px solid var(--dark-accent);
     background-color: var(--dark-accent);
+    transition: 0.2s all ease-in;
 }
 
 .event:hover {
@@ -54,6 +55,16 @@
             var(--light-accent) 8px,
             var(--dark-accent) 8px,
             var(--dark-accent) 12px);
+    background-color: var(--dark-accent);
+}
+
+.eventlist {
+    width: 100%;
+    margin: 24px 0;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .time-scale {

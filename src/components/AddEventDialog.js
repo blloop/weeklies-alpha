@@ -176,7 +176,7 @@ class AddEventDialog extends Component {
                             </ToggleAM>
                         </div>
                         <button
-                            className='contrast thin-button'
+                            className='contrast-light thin-button'
                             onClick={this.addToList}>
                             Add Event
                         </button>

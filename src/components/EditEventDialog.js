@@ -160,9 +160,13 @@ class EditEventDialog extends Component {
                             </ToggleAM>
                         </div>
                         <button
-                            className='contrast thin-button'
+                            className='contrast-light thin-button'
                             onClick={this.props.editEvent}>
                             Edit Event
+                        </button>
+                        <button
+                            className='contrast thin-button'>
+                            Delete Event
                         </button>
                     </div>
                 }

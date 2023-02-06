@@ -68,6 +68,17 @@ input {
   border: 4px solid var(--dark-accent);
 }
 
+.contrast-light {
+  background-color: var(--base-white);
+  color: var(--base-dark-grey);
+  border: 4px solid var(--base-dark-grey);
+}
+
+.contrast-light:hover {
+  background-color: var(--base-dark-grey);
+  color: var(--base-white);
+}
+
 .rounded {
   border-radius: 12px;
 }

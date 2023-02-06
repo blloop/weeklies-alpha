@@ -1,13 +1,15 @@
 # Weeklies
 
-Simple calendar app focused on weekly events.
-
-## Description
-
-A simple app to organize your weekly commitments! 
+A simple app to organize your weekly events!
 
 Create your recurring weekly events, or "weeklies", 
 and then plan regular events around them! 
+
+## Features
+- Simple calendar UI displaying one week of events
+- Add weekly events by title, day of week, start time, and end time
+- Settings to toggle 24 hour time and choose an accent color
+- Responsive design to show single column on smaller screens
 
 ## Usage
 
@@ -15,20 +17,23 @@ Visit <a target="_blank" href="https://bill-yu.dev/weeklies"> this </a> link to 
 
 ## Development
 
+### v1.0: 
+
+Initial Release with Standard Features!
+ 
+* Simple event adding and editing with a simple UI dialog
+* Options to use military time and 4 different accent colors
+
+### Upcoming Changes
+
+- Integration of 'regular' events among weeklies
+- More settings options
+- Confirmation dialog before event deletion
+- Custom error messages
+
 ### Dependencies
 
-- NodeJS (18.0+)
-
-### Features
-- Simple calendar UI displaying one week of events
-- Add event with fields: Day of the Week, Start Time, End Time
-- Settings to toggle 24 hour time and choose an accent color
-- Responsive design to show one column on smaller screens
-
-### Upcoming Features
-- Event editing directly through click
-- Data format to include non-weeklies
-- Warning dialogs for conflicting non-weeklies
+- npm (9.0+)
 
 ## Contributing
 
@@ -45,7 +50,7 @@ or fork this repository and create a pull request to directly contribute:
 
 ## Version History
 
-* To be determined...
+* 1.0: Initial Release with Standard Features!
 
 ## License
 

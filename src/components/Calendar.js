@@ -1,40 +1,12 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import EventList from './EventList';
-
-// Compare two events by hour, then minute
-let eventCompare = (ev1, ev2) => {
-    return (
-        ev1.hour - ev2.hour === 0 ?
-            ev1.min - ev2.min :
-            ev1.hour - ev2.hour
-    );
-}
-
-let colorNames = [
-    'red',
-    'green',
-    'blue',
-    'yellow'
-];
-
-let lightColors = [
-    'rgb(255, 158, 158)',
-    'rgb(157 241 140)',
-    'rgb(167 188 255)',
-    'rgb(241, 218, 100)'
-];
-
-let darkColors = [
-    'rgb(255, 89, 89)',
-    'rgb(97, 218, 73)',
-    'rgb(103, 139, 255)',
-    'rgb(223, 194, 50)'
-];
+import { colorNames, lightColors, darkColors, dayList } from './Data';
 
 class Calendar extends Component {
 
     constructor(props) {
+        // Import weeklies data from browser storage
         let jsonInfo = localStorage.getItem('weeklies');
         super(props);
         this.state = {
@@ -48,37 +20,38 @@ class Calendar extends Component {
             ),
             accentColor: (jsonInfo ?
                 JSON.parse(jsonInfo)['accentColor'] :
-                'red'
+                'yellow'
             )
         };
     }
 
+    // Update UI accent color upon page load
     componentDidMount() {
-        let checkColor = this.state.accentColor;
         this.changeColor(
-            (checkColor === 'red' ?
-                0 :
-                checkColor === 'green' ?
-                    1 :
-                    checkColor === 'blue' ?
-                        2 :
-                        checkColor === 'yellow' ?
-                            3 : 3
+            (this.state.accentColor === 'red'
+                ? 0 :
+                this.state.accentColor === 'green'
+                    ? 1 :
+                    this.state.accentColor === 'blue'
+                        ? 2 :
+                        this.state.accentColor === 'yellow'
+                            ? 3 : 3
             )
         );
     }
 
+    // Helper function to add event to list
     addHelper = (list, event) => {
-        if (event.title === '') {
+        if (event.title.length === 0) {
             alert('Event title cannot be empty!');
             return -1;
-        }
+        };
         if (event.hour2 < event.hour ||
             (event.hour === event.hour2 &&
                 event.min >= event.min2)) {
             alert("Event must occur for at least 30 min!");
             return -1;
-        }
+        };
         if (list.some(
             curr =>
             ((curr.day === event.day) &&
@@ -100,9 +73,9 @@ class Calendar extends Component {
         )) {
             alert("Event overlaps with a current event!");
             return -1;
-        }
+        };
         list.push(event);
-        list.sort(eventCompare);
+        list.sort((a, b) => a.id - b.id);
         return 0;
     }
 
@@ -111,11 +84,11 @@ class Calendar extends Component {
         let newList = this.state.events;
         if (this.addHelper(newList, event) < 0) {
             return;
-        }
+        };
         let newState = {
             ...this.state,
             events: newList
-        }
+        };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
@@ -124,45 +97,62 @@ class Calendar extends Component {
         return 0;
     }
 
-    editEvent = (oldEvent, newEvent) => {
-
-        // console.log(oldEvent);
-        // console.log(newEvent);
-        // console.log(this.state.events);
-
-        // Remove old event
+    // Edit given event in calendar
+    // Removes old event and attempts to add new one
+    // If cannot add, no changes are saved
+    editEvent = (oldID, newEvent) => {
+        // Filter out old by ID
         let newList = this.state.events;
         newList = newList.filter(
-            event => event.id !== oldEvent.id
+            event => event.id !== oldID
         );
-        // for (let i = 0; i < newList.length; i++) {
-        //     if (newList[i].day === oldEvent.day &&
-        //         newList[i].hour === oldEvent.hour &&
-        //         newList[i].min === oldEvent.min) {
-        //         console.log('removing item!!!');
-        //         console.log(newList[i]);
-        //         newList.splice(i, 1);
-        //     }
-        // }
 
-        // Attempt to add new event
-        // let currEvent = {
-        //     title: newEvent.inputText,
-        //     day: newEvent.dayOfWeek,
-        //     hour: newEvent.newHour,
-        //     min: (newEvent.isZero ? 0 : 30),
-        //     hour2: newEvent.newHour2,
-        //     min2: (newEvent.isZero2 ? 0 : 30)
-        // };
-        // if (this.addHelper(newList, currEvent) < 0) {
-        //     return;
-        // }
+        // Format new event to add
+        let eventID =
+            (dayList.indexOf(newEvent.dayOfWeek) * 48) +
+            newEvent.newHour * 2 +
+            (newEvent.isZero ? 0 : 1);
+        let currEvent = {
+            id: eventID,
+            title: newEvent.inputText,
+            day: newEvent.dayOfWeek,
+            hour: newEvent.newHour,
+            min: (newEvent.isZero ? 0 : 30),
+            hour2: newEvent.newHour2,
+            min2: (newEvent.isZero2 ? 0 : 30)
+        };
+
+        // Attempt to add event and exit if it fails
+        if (this.addHelper(newList, currEvent) < 0) {
+            return;
+        };
 
         // Update state with new event change
         let newState = {
             ...this.state,
             events: newList
-        }
+        };
+        this.setState(newState);
+        localStorage.setItem(
+            'weeklies',
+            JSON.stringify(newState)
+        );
+    }
+
+    // Remove given event from calendar
+    deleteEvent = (eventID) => {
+
+        // Filter out event by ID
+        let newList = this.state.events;
+        newList = newList.filter(
+            event => event.id !== eventID
+        );
+
+        // Update state with new event change
+        let newState = {
+            ...this.state,
+            events: newList
+        };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
@@ -175,7 +165,7 @@ class Calendar extends Component {
         let newState = {
             ...this.state,
             events: []
-        }
+        };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
@@ -188,7 +178,7 @@ class Calendar extends Component {
         let newState = {
             ...this.state,
             useMilitary: !this.state.useMilitary
-        }
+        };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
@@ -207,7 +197,7 @@ class Calendar extends Component {
         let newState = {
             ...this.state,
             accentColor: colorNames[num]
-        }
+        };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
@@ -230,10 +220,11 @@ class Calendar extends Component {
                 <EventList
                     allEvents={this.state.events}
                     editEvent={this.editEvent}
+                    deleteEvent={this.deleteEvent}
                     useMilitary={this.state.useMilitary}>
                 </EventList>
             </div>
-        )
+        );
     }
 }
 

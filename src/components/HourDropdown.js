@@ -6,7 +6,7 @@ class HourDropdown extends Component {
         super(props);
         this.state = {
             open: false
-        }
+        };
     }
 
     // Toggles dropdown open state
@@ -68,7 +68,7 @@ class HourDropdown extends Component {
                 ) : null
                 }
             </div>
-        )
+        );
     }
 }
 

@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-
-let darkColors = [
-    'rgb(255, 89, 89)',
-    'rgb(97, 218, 73)',
-    'rgb(103, 139, 255)',
-    'rgb(223, 194, 50)'
-];
+import { darkColors } from './Data';
 
 class SettingsDialog extends Component {
 
@@ -62,7 +56,7 @@ class SettingsDialog extends Component {
                     </div>
                 }
             </>
-        )
+        );
     }
 }
 

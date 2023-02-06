@@ -21,7 +21,7 @@ class AddEventDialog extends Component {
             isZero: true,
             newHour2: 0,
             isZero2: true
-        }
+        };
     }
 
     // Add an event to dialog
@@ -55,39 +55,40 @@ class AddEventDialog extends Component {
         let newState = {
             ...this.state,
             inputText: event.target.value
-        }
+        };
         this.setState(newState);
-    };
+    }
 
-    // Set current value for day of the week
+    // Set event to specified day of week
     changeDay = (day) => {
         let newState = {
             ...this.state,
             dayOfWeek: day
-        }
+        };
         this.setState(newState);
     }
 
-    // Sets current hour of event
+    // Sets current hour of event start time
     changeHour = (hour) => {
         let newState = {
             ...this.state,
             newHour: hour
-        }
+        };
         this.setState(newState);
     }
 
-    // Sets current minute of event
+    // Sets current minute of event start time
     // Intervals of 0:30, represented by bool
     changeMin = () => {
         let newState = {
             ...this.state,
             isZero: !this.state.isZero
-        }
+        };
         this.setState(newState);
     }
 
-    // Sets current state of the hour AM/PM
+    // Sets current state of the hour (AM/PM)
+    // for the event start time
     // Only valid if 24 hour time is not in use
     changeAM = () => {
         let newState = {
@@ -96,31 +97,32 @@ class AddEventDialog extends Component {
                 this.state.newHour + 12 :
                 this.state.newHour - 12
             )
-        }
+        };
         this.setState(newState);
     }
 
 
-    // Sets current hour of event #2
+    // Sets current hour of event end time
     changeHour2 = (hour) => {
         let newState = {
             ...this.state,
             newHour2: hour
-        }
+        };
         this.setState(newState);
     }
 
-    // Sets current minute of event #2
+    // Sets current minute of event end time
     // Intervals of 0:30, represented by bool
     changeMin2 = () => {
         let newState = {
             ...this.state,
             isZero2: !this.state.isZero2
-        }
+        };
         this.setState(newState);
     }
 
-    // Sets current state of the hour AM/PM #2
+    // Sets current state of the hour (AM/PM)
+    // for the event end time
     // Only valid if 24 hour time is not in use
     changeAM2 = () => {
         let newState = {
@@ -199,7 +201,7 @@ class AddEventDialog extends Component {
                     </div>
                 }
             </>
-        )
+        );
     }
 
 }

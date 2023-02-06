@@ -10,7 +10,7 @@ class EditEventDialog extends Component {
         super(props);
         this.state = {
             showDialog: this.props.showDialog
-        }
+        };
     }
 
     // Updates value of text field
@@ -18,7 +18,7 @@ class EditEventDialog extends Component {
         let tempEvent = {
             ...this.props.newEvent,
             inputText: event.target.value
-        }
+        };
         this.props.setNewEvent(tempEvent);
     };
 
@@ -36,7 +36,7 @@ class EditEventDialog extends Component {
         let tempEvent = {
             ...this.props.newEvent,
             newHour: hour
-        }
+        };
         this.props.setNewEvent(tempEvent);
     }
 
@@ -46,7 +46,7 @@ class EditEventDialog extends Component {
         let tempEvent = {
             ...this.props.newEvent,
             isZero: !this.props.newEvent.isZero
-        }
+        };
         this.props.setNewEvent(tempEvent);
     }
 
@@ -59,7 +59,7 @@ class EditEventDialog extends Component {
                 this.props.newEvent.newHour + 12 :
                 this.props.newEvent.newHour - 12
             )
-        }
+        };
         this.props.setNewEvent(tempEvent);
     }
 
@@ -69,7 +69,7 @@ class EditEventDialog extends Component {
         let tempEvent = {
             ...this.props.newEvent,
             newHour2: hour
-        }
+        };
         this.props.setNewEvent(tempEvent);
     }
 
@@ -79,7 +79,7 @@ class EditEventDialog extends Component {
         let tempEvent = {
             ...this.props.newEvent,
             isZero2: !this.props.newEvent.isZero2
-        }
+        };
         this.props.setNewEvent(tempEvent);
     }
 
@@ -92,7 +92,7 @@ class EditEventDialog extends Component {
                 this.props.newEvent.newHour2 + 12 :
                 this.props.newEvent.newHour2 - 12
             )
-        }
+        };
         this.props.setNewEvent(tempEvent);
     }
 
@@ -160,13 +160,14 @@ class EditEventDialog extends Component {
                             Edit Event
                         </button>
                         <button
-                            className='contrast thin-button'>
+                            className='contrast thin-button'
+                            onClick={this.props.deleteEvent}>
                             Delete Event
                         </button>
                     </div>
                 }
             </>
-        )
+        );
     }
 }
 

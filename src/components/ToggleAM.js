@@ -13,7 +13,7 @@ class ToggleAM extends Component {
                     </button>
                 }
             </>
-        )
+        );
     }
 }
 

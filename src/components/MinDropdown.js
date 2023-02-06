@@ -11,7 +11,7 @@ class MinDropdown extends Component {
                     {this.props.isZero ? '00' : '30'}
                 </button>
             </>
-        )
+        );
     }
 }
 

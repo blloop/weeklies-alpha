@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
 import EditEventDialog from './EditEventDialog';
+import { dayList } from './Data';
 
 // Returns hourly intervals in a 12 hour span
 // Call twice for a full 24 hour span
@@ -47,7 +48,7 @@ class EventList extends Component {
             openDialog: false,
             oldEvent: null,
             newEvent: null
-        }
+        };
     }
 
     // Changes current day in mono view
@@ -58,37 +59,43 @@ class EventList extends Component {
                 6 :
                 (this.state.currDay + val) % 7
             )
-        }
+        };
         this.setState(newState);
     }
 
     // Opens open popup editor
+    // and prepares event values for edit tracking
     openPopup = (event) => {
+        let eventID =
+            (dayList.indexOf(event.day) * 48) +
+            event.hour * 2 +
+            (event.min === 0 ? 0 : 1);
         let tempEvent = {
+            id: eventID,
             inputText: event.title,
             dayOfWeek: event.day,
             newHour: event.hour,
             isZero: event.min === 0,
             newHour2: event.hour2,
             isZero2: event.min2 === 0
-        }
+        };
         let newState = {
             ...this.state,
             openDialog: true,
             oldEvent: tempEvent,
             newEvent: tempEvent
-        }
+        };
         this.setState(newState);
     }
 
-    // Closes open popup editor
+    // Closes popup editor
     closeModal = () => {
         let newState = {
             ...this.state,
             openDialog: false,
             oldEvent: null,
             newEvent: null
-        }
+        };
         this.setState(newState);
     }
 
@@ -96,12 +103,19 @@ class EventList extends Component {
     // in previous event and new event
     editEvent = () => {
         this.props.editEvent(
-            this.state.oldEvent,
+            this.state.oldEvent.id,
             this.state.newEvent
         );
     }
 
-    // Change placeholder event to track
+    // Calls for an event to be deleted
+    // by passing oldEvent's id
+    deleteEvent = () => {
+        this.closeModal();
+        this.props.deleteEvent(this.state.oldEvent.id);
+    }
+
+    // Updates placeholder event to track
     // new changes for upcoming event
     setNewEvent = (event) => {
         let tempEvent = {
@@ -109,13 +123,19 @@ class EventList extends Component {
             dayOfWeek: event.dayOfWeek,
             newHour: event.newHour,
             isZero: event.isZero,
-            newHour2: event.newHour2,
+            newHour2: (
+                (event.newHour2 === 0
+                    && event.newHour > event.newHour2
+                    && event.isZero2) ?
+                    24 :
+                    event.newHour2
+            ),
             isZero2: event.isZero2
-        }
+        };
         let newState = {
             ...this.state,
             newEvent: tempEvent
-        }
+        };
         this.setState(newState);
     }
 
@@ -143,7 +163,7 @@ class EventList extends Component {
                     event.title}
                 </p>
             </div>
-        )
+        );
     }
 
     render() {
@@ -177,6 +197,7 @@ class EventList extends Component {
                 </Modal>
                 <EditEventDialog
                     editEvent={this.editEvent}
+                    deleteEvent={this.deleteEvent}
                     setNewEvent={this.setNewEvent}
                     newEvent={this.state.newEvent}
                     closeModal={this.closeModal}
@@ -289,7 +310,7 @@ class EventList extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

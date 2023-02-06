@@ -11,30 +11,22 @@ class NavBar extends Component {
         super(props);
         this.state = {
             openDialog: null
-        }
+        };
     }
 
     // Opens AddEvent dialog
     openAddEvent = () => {
-        // Check if any other dialog is open
-        if (this.state.openDialog) {
-            return;
-        }
         let newState = {
             openDialog: 'events'
-        }
+        };
         this.setState(newState);
     }
 
     // Opens Settings dialog
     openSettings = () => {
-        // Check if any other dialog is open
-        if (this.state.openDialog) {
-            return;
-        }
         let newState = {
             openDialog: 'settings'
-        }
+        };
         this.setState(newState);
     }
 
@@ -42,7 +34,7 @@ class NavBar extends Component {
     closeModal = () => {
         let newState = {
             openDialog: null
-        }
+        };
         this.setState(newState);
     }
 
@@ -98,7 +90,7 @@ class NavBar extends Component {
                     toggleMilitary={this.props.toggleMilitary}>
                 </SettingsDialog>
             </div >
-        )
+        );
     }
 
 }

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-
-const WeekDays = [
-    'Sunday', 'Monday', 'Tuesday',
-    'Wednesday', 'Thursday', 'Friday', 'Saturday'
-];
+import { dayList } from './Data';
 
 class DayDropdown extends Component {
 
@@ -11,7 +7,7 @@ class DayDropdown extends Component {
         super(props);
         this.state = {
             open: false
-        }
+        };
     }
 
     // Toggles dropdown open state
@@ -38,7 +34,7 @@ class DayDropdown extends Component {
                 {
                     this.state.open ? (
                         <ul className='dropdown'>
-                            {WeekDays.map((day) =>
+                            {dayList.map((day) =>
                                 <button
                                     key={day}
                                     className='drop-box square'
@@ -50,7 +46,7 @@ class DayDropdown extends Component {
                     ) : null
                 }
             </>
-        )
+        );
     }
 }
 

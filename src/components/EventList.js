@@ -92,6 +92,8 @@ class EventList extends Component {
         this.setState(newState);
     }
 
+    // Calls for an event edit by passing
+    // in previous event and new event
     editEvent = () => {
         this.props.editEvent(
             this.state.oldEvent,
@@ -99,6 +101,8 @@ class EventList extends Component {
         );
     }
 
+    // Change placeholder event to track
+    // new changes for upcoming event
     setNewEvent = (event) => {
         let tempEvent = {
             inputText: event.inputText,
@@ -133,7 +137,7 @@ class EventList extends Component {
                 }}
                 className={'event'}
                 onClick={() => this.openPopup(event)}
-                key={event.title}>
+                key={event.id}>
                 <p> {event.title.length > 25 ?
                     event.title.slice(0, 25) + '...' :
                     event.title}

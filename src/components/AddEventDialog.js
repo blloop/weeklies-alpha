@@ -4,6 +4,11 @@ import HourDropdown from './HourDropdown';
 import MinDropdown from './MinDropdown';
 import ToggleAM from './ToggleAM';
 
+let dayList = [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday',
+    'Thursday', 'Friday', 'Saturday'
+]
+
 class AddEventDialog extends Component {
 
     constructor(props) {
@@ -22,12 +27,23 @@ class AddEventDialog extends Component {
     // Add an event to dialog
     // Sends request to top level component
     addToList = () => {
+        let eventID =
+            (dayList.indexOf(this.state.dayOfWeek) * 48) +
+            this.state.newHour * 2 +
+            (this.state.isZero ? 0 : 1);
         let newEvent = {
+            id: eventID,
             title: this.state.inputText,
             day: this.state.dayOfWeek,
             hour: this.state.newHour,
             min: (this.state.isZero ? 0 : 30),
-            hour2: this.state.newHour2,
+            hour2: (
+                (this.state.newHour2 === 0
+                    && this.state.newHour > this.state.newHour2
+                    && this.state.isZero2) ?
+                    24 :
+                    this.state.newHour2
+            ),
             min2: (this.state.isZero2 ? 0 : 30)
         };
         this.props.addEvent(newEvent);

@@ -96,11 +96,6 @@ class EditEventDialog extends Component {
         this.props.setNewEvent(tempEvent);
     }
 
-    getChange = () => {
-        this.props.editEvent();
-        this.props.closeModal();
-    }
-
     render() {
         return (
             <>

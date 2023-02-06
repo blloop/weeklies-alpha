@@ -68,41 +68,53 @@ class Calendar extends Component {
         );
     }
 
-    // Add an event to calendar
-    addEvent = (item) => {
-        if (item.title === '') {
+    addHelper = (list, event) => {
+        if (event.title === '') {
             alert('Event title cannot be empty!');
             return -1;
         }
-        if (this.state.events.some(
+        if (event.hour2 < event.hour ||
+            (event.hour === event.hour2 &&
+                event.min >= event.min2)) {
+            alert("Event must occur for at least 30 min!");
+            return -1;
+        }
+        if (list.some(
             curr =>
-            ((curr.day === item.day) &&
-                ((curr.hour === item.hour ||
-                    curr.hour2 === item.hour2) ||
+            ((curr.day === event.day) &&
+                ((
+                    (curr.hour === event.hour &&
+                        curr.min === event.min) ||
+                    (curr.hour2 === event.hour2 &&
+                        curr.min2 === event.min2)
+                ) ||
                     ((curr.hour + (curr.min ? 0 : 0.5) <
-                        item.hour2 + (item.min2 ? 0 : 0.5) &&
+                        event.hour2 + (event.min2 ? 0 : 0.5) &&
                         curr.hour2 + (curr.min2 ? 0 : 0.5) >
-                        item.hour + (item.min ? 0 : 0.5)) ||
+                        event.hour + (event.min ? 0 : 0.5)) ||
                         (curr.hour2 + (curr.min2 ? 0 : 0.5) >
-                            item.hour + (item.min ? 0 : 0.5) &&
+                            event.hour + (event.min ? 0 : 0.5) &&
                             curr.hour + (curr.min ? 0 : 0.5) <
-                            item.hour + (item.min ? 0 : 0.5))
-                    )))
+                            event.hour + (event.min ? 0 : 0.5)))
+                ))
         )) {
             alert("Event overlaps with a current event!");
             return -1;
         }
-        if (item.hour2 < item.hour ||
-            (item.hour === item.hour2 && item.min >= item.min2)) {
-            alert("Event must occur for at least 30 min!");
-            return -1;
-        }
+        list.push(event);
+        list.sort(eventCompare);
+        return 0;
+    }
+
+    // Add an event to calendar
+    addEvent = (event) => {
         let newList = this.state.events;
-        newList.push(item);
-        newList.sort(eventCompare);
+        if (this.addHelper(newList, event) < 0) {
+            return;
+        }
         let newState = {
             ...this.state,
-            Events: newList
+            events: newList
         }
         this.setState(newState);
         localStorage.setItem(
@@ -113,36 +125,43 @@ class Calendar extends Component {
     }
 
     editEvent = (oldEvent, newEvent) => {
-        // let country = data.find(el => el.code === "AL");
-        console.log(this.state.events);
 
-        let currEvent = {
-            title: newEvent.inputText,
-            day: newEvent.dayOfWeek,
-            hour: newEvent.newHour,
-            min: (newEvent.isZero ? 0 : 30),
-            hour2: newEvent.newHour2,
-            min2: (newEvent.isZero2 ? 0 : 30)
-        };
+        // console.log(oldEvent);
+        // console.log(newEvent);
+        // console.log(this.state.events);
 
-        if (this.addEvent(currEvent) < 0) {
-            return;
-        }
-
-        console.log('OIOIO');
+        // Remove old event
         let newList = this.state.events;
-        newList.filter(
-            (event) => {
-                return (
-                    event.title === oldEvent.inputText &&
-                    event.day === oldEvent.dayOfWeek &&
-                    event.hour === oldEvent.newHour
-                );
-            }
-        )
+        newList = newList.filter(
+            event => event.id !== oldEvent.id
+        );
+        // for (let i = 0; i < newList.length; i++) {
+        //     if (newList[i].day === oldEvent.day &&
+        //         newList[i].hour === oldEvent.hour &&
+        //         newList[i].min === oldEvent.min) {
+        //         console.log('removing item!!!');
+        //         console.log(newList[i]);
+        //         newList.splice(i, 1);
+        //     }
+        // }
+
+        // Attempt to add new event
+        // let currEvent = {
+        //     title: newEvent.inputText,
+        //     day: newEvent.dayOfWeek,
+        //     hour: newEvent.newHour,
+        //     min: (newEvent.isZero ? 0 : 30),
+        //     hour2: newEvent.newHour2,
+        //     min2: (newEvent.isZero2 ? 0 : 30)
+        // };
+        // if (this.addHelper(newList, currEvent) < 0) {
+        //     return;
+        // }
+
+        // Update state with new event change
         let newState = {
             ...this.state,
-            Events: newList
+            events: newList
         }
         this.setState(newState);
         localStorage.setItem(

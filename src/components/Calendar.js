@@ -83,7 +83,7 @@ class Calendar extends Component {
     addEvent = (event) => {
         let newList = this.state.events;
         if (this.addHelper(newList, event) < 0) {
-            return;
+            return -1;
         };
         let newState = {
             ...this.state,
@@ -211,7 +211,7 @@ class Calendar extends Component {
             <div className='calendar'>
                 <NavBar
                     addEvent={this.addEvent}
-                    eventClear={this.clearEvents}
+                    clearEvents={this.clearEvents}
                     useMilitary={this.state.useMilitary}
                     toggleMilitary={this.toggleMilitary}
                     accentColor={this.state.accentColor}

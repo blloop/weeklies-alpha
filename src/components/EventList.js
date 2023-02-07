@@ -102,6 +102,7 @@ class EventList extends Component {
     // Calls for an event edit by passing
     // in previous event and new event
     editEvent = () => {
+        this.closeModal();
         this.props.editEvent(
             this.state.oldEvent.id,
             this.state.newEvent

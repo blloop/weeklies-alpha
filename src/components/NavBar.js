@@ -14,6 +14,17 @@ class NavBar extends Component {
         };
     }
 
+    clearEvents = () => {
+        this.props.clearEvents();
+        this.closeModal();
+    }
+
+    addEvent = (event) => {
+        if (this.props.addEvent(event) === 0) {
+            this.closeModal();
+        }
+    }
+
     // Opens AddEvent dialog
     openAddEvent = () => {
         let newState = {
@@ -75,13 +86,13 @@ class NavBar extends Component {
                     openModal={this.state.openDialog !== null}>
                 </Modal>
                 <AddEventDialog
-                    addEvent={this.props.addEvent}
+                    addEvent={this.addEvent}
                     closeModal={this.closeModal}
                     showDialog={this.state.openDialog === 'events'}
                     useMilitary={this.props.useMilitary}>
                 </AddEventDialog>
                 <SettingsDialog
-                    eventClear={this.props.eventClear}
+                    clearEvents={this.clearEvents}
                     closeModal={this.closeModal}
                     showDialog={this.state.openDialog === 'settings'}
                     accentColor={this.props.accentColor}

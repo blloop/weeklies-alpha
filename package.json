@@ -1,6 +1,6 @@
 {
   "name": "Weeklies",
-  "version": "1.0.0",
+  "version": "1.0",
   "homepage": "https://blloop.github.io/weeklies",
   "private": true,
   "dependencies": {

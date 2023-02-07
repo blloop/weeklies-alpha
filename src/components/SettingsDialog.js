@@ -50,7 +50,7 @@ class SettingsDialog extends Component {
                         </div>
                         <button
                             className='contrast thin-button'
-                            onClick={this.props.eventClear}>
+                            onClick={this.props.clearEvents}>
                             Clear Events
                         </button>
                     </div>

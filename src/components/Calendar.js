@@ -28,15 +28,7 @@ class Calendar extends Component {
     // Update UI accent color upon page load
     componentDidMount() {
         this.changeColor(
-            (this.state.accentColor === 'red'
-                ? 0 :
-                this.state.accentColor === 'green'
-                    ? 1 :
-                    this.state.accentColor === 'blue'
-                        ? 2 :
-                        this.state.accentColor === 'yellow'
-                            ? 3 : 3
-            )
+            colorNames.indexOf(this.state.accentColor)
         );
     }
 

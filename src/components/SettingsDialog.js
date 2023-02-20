@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
-import { darkColors } from './Data';
+import { colorNames, darkColors } from './Data';
 
 class SettingsDialog extends Component {
 
     render() {
+        let colorButtons = [];
+        for (let i = 0; i < colorNames.length; i++) {
+            colorButtons.push(
+                <div
+                    key={i}
+                    style={{ backgroundColor: darkColors[i] }}
+                    checked={this.props.accentColor === colorNames[i]}
+                    onClick={() => this.props.changeColor(i)}>
+                </div>
+            )
+        }
         return (
             <>
                 {this.props.showDialog &&
@@ -26,26 +37,7 @@ class SettingsDialog extends Component {
                         <div className='settings-row'>
                             <p> Accent Color: </p>
                             <div className='color-palette'>
-                                <div
-                                    style={{ backgroundColor: darkColors[0] }}
-                                    checked={this.props.accentColor === 'red'}
-                                    onClick={() => this.props.changeColor(0)}>
-                                </div>
-                                <div
-                                    style={{ backgroundColor: darkColors[1] }}
-                                    checked={this.props.accentColor === 'green'}
-                                    onClick={() => this.props.changeColor(1)}>
-                                </div>
-                                <div
-                                    style={{ backgroundColor: darkColors[2] }}
-                                    checked={this.props.accentColor === 'blue'}
-                                    onClick={() => this.props.changeColor(2)}>
-                                </div>
-                                <div
-                                    style={{ backgroundColor: darkColors[3] }}
-                                    checked={this.props.accentColor === 'yellow'}
-                                    onClick={() => this.props.changeColor(3)}>
-                                </div>
+                                {colorButtons}
                             </div>
                         </div>
                         <button

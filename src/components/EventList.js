@@ -167,6 +167,19 @@ class EventList extends Component {
         );
     }
 
+    createSelections = (day) => {
+        let outDays = [];
+        for (let i = 0; i < 48; i++) {
+            outDays.push(
+                <div
+                    key={i}
+                    className='selection'
+                    style={{ top: 60 + (i * 25) }}>
+                </div>);
+        }
+        return outDays;
+    }
+
     render() {
         let Sunday = this.props.allEvents.filter(
             event => event.day === 'Sunday'
@@ -189,6 +202,8 @@ class EventList extends Component {
         let Saturday = this.props.allEvents.filter(
             event => event.day === 'Saturday'
         );
+
+        let outSelect = this.createSelections();
 
         return (
             <div className='eventlist'>
@@ -246,6 +261,7 @@ class EventList extends Component {
                     {Sunday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                 </div>
                 <div className={'column' +
                     (this.state.currDay === 1 ?
@@ -256,6 +272,7 @@ class EventList extends Component {
                     {Monday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                 </div>
                 <div className={'column' +
                     (this.state.currDay === 2 ?
@@ -266,6 +283,7 @@ class EventList extends Component {
                     {Tuesday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                 </div>
                 <div className={'column' +
                     (this.state.currDay === 3 ?
@@ -276,6 +294,7 @@ class EventList extends Component {
                     {Wednesday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                 </div>
                 <div className={'column' +
                     (this.state.currDay === 4 ?
@@ -286,6 +305,7 @@ class EventList extends Component {
                     {Thursday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                 </div>
                 <div className={'column' +
                     (this.state.currDay === 5 ?
@@ -296,6 +316,7 @@ class EventList extends Component {
                     {Friday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                 </div>
                 <div className={'column' +
                     (this.state.currDay === 6 ?
@@ -306,11 +327,12 @@ class EventList extends Component {
                     {Saturday.map((event) => {
                         return (this.formatEvent(event));
                     })}
+                    {outSelect}
                     <div className='time-scale scale-right mono-hide'>
                         {scaleTime(this.props.useMilitary)}
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

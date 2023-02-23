@@ -37,7 +37,6 @@
     position: absolute;
     left: 0;
     right: 0;
-    height: 25px;
     z-index: 4;
     display: flex;
     align-items: center;
@@ -50,11 +49,26 @@
 
 .event:hover {
     cursor: pointer;
+    color: black;
     background: repeating-linear-gradient(135deg,
             var(--light-accent),
             var(--light-accent) 8px,
             var(--dark-accent) 8px,
             var(--dark-accent) 12px);
+    background-color: var(--dark-accent);
+}
+
+.selection {
+    position: absolute;
+    height: 25px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    cursor: pointer;
+    /* transition: background-color 0.1s ease-in-out; */
+}
+
+.selection:hover {
     background-color: var(--dark-accent);
 }
 
@@ -101,7 +115,7 @@
     position: relative;
     width: 100%;
     height: 2.5px;
-    z-index: 3;
+    z-index: 2;
 }
 
 .grid-lines * {

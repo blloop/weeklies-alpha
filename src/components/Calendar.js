@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
+import Modal from './Modal';
 import EventList from './EventList';
+import AddEventDialog from './AddEventDialog';
+import SettingsDialog from './SettingsDialog';
 import { colorNames, lightColors, darkColors, dayList } from './Data';
 
 class Calendar extends Component {
@@ -20,8 +23,9 @@ class Calendar extends Component {
             ),
             accentColor: (jsonInfo ?
                 JSON.parse(jsonInfo)['accentColor'] :
-                'yellow'
-            )
+                'orange'
+            ),
+            openDialog: null
         };
     }
 
@@ -75,18 +79,18 @@ class Calendar extends Component {
     addEvent = (event) => {
         let newList = this.state.events;
         if (this.addHelper(newList, event) < 0) {
-            return -1;
+            return;
         };
         let newState = {
             ...this.state,
-            events: newList
+            events: newList,
+            openDialog: null
         };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
             JSON.stringify(newState)
         );
-        return 0;
     }
 
     // Edit given event in calendar
@@ -94,6 +98,7 @@ class Calendar extends Component {
     // If cannot add, no changes are saved
     editEvent = (oldID, newEvent) => {
         // Filter out old by ID
+        console.log(this.state.events);
         let newList = this.state.events;
         newList = newList.filter(
             event => event.id !== oldID
@@ -156,7 +161,8 @@ class Calendar extends Component {
     clearEvents = () => {
         let newState = {
             ...this.state,
-            events: []
+            events: [],
+            openDialog: null
         };
         this.setState(newState);
         localStorage.setItem(
@@ -164,6 +170,25 @@ class Calendar extends Component {
             JSON.stringify(newState)
         );
     }
+
+    // Opens a dialog by name
+    openModal = (name) => {
+        let newState = {
+            ...this.state,
+            openDialog: name
+        };
+        this.setState(newState);
+    }
+
+    // Closes all open dialogs
+    closeModal = () => {
+        let newState = {
+            ...this.state,
+            openDialog: null
+        };
+        this.setState(newState);
+    }
+
 
     // Toggle 24 hour time setting
     toggleMilitary = () => {
@@ -201,16 +226,29 @@ class Calendar extends Component {
     render() {
         return (
             <div className='calendar'>
-                <NavBar
+                <NavBar openModal={this.openModal}></NavBar>
+                <Modal
+                    closeModal={this.closeModal}
+                    openModal={this.state.openDialog !== null}>
+                </Modal>
+                <AddEventDialog
                     addEvent={this.addEvent}
+                    closeModal={this.closeModal}
+                    showDialog={this.state.openDialog === 'events'}
+                    useMilitary={this.state.useMilitary}>
+                </AddEventDialog>
+                <SettingsDialog
                     clearEvents={this.clearEvents}
-                    useMilitary={this.state.useMilitary}
-                    toggleMilitary={this.toggleMilitary}
+                    closeModal={this.closeModal}
+                    showDialog={this.state.openDialog === 'settings'}
                     accentColor={this.state.accentColor}
-                    changeColor={this.changeColor}>
-                </NavBar>
+                    changeColor={this.changeColor}
+                    useMilitary={this.state.useMilitary}
+                    toggleMilitary={this.toggleMilitary}>
+                </SettingsDialog>
                 <EventList
                     allEvents={this.state.events}
+                    addEvent={this.addEvent}
                     editEvent={this.editEvent}
                     deleteEvent={this.deleteEvent}
                     useMilitary={this.state.useMilitary}>

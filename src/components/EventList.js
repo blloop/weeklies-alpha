@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
 import EditEventDialog from './EditEventDialog';
+import EventColumn from './EventColumn';
 import { dayList } from './Data';
 
 // Returns hourly intervals in a 12 hour span
@@ -99,6 +100,15 @@ class EventList extends Component {
         this.setState(newState);
     }
 
+    // Returns array of N horizonal lines
+    numLines = (num) => {
+        let outLines = [];
+        for (let i = 0; i < num; i++) {
+            outLines.push(<hr key={i}></hr>)
+        };
+        return outLines;
+    }
+
     // Calls for an event edit by passing
     // in previous event and new event
     editEvent = () => {
@@ -167,43 +177,7 @@ class EventList extends Component {
         );
     }
 
-    createSelections = (day) => {
-        let outDays = [];
-        for (let i = 0; i < 48; i++) {
-            outDays.push(
-                <div
-                    key={i}
-                    className='selection'
-                    style={{ top: 60 + (i * 25) }}>
-                </div>);
-        }
-        return outDays;
-    }
-
     render() {
-        let Sunday = this.props.allEvents.filter(
-            event => event.day === 'Sunday'
-        );
-        let Monday = this.props.allEvents.filter(
-            event => event.day === 'Monday'
-        );
-        let Tuesday = this.props.allEvents.filter(
-            event => event.day === 'Tuesday'
-        );
-        let Wednesday = this.props.allEvents.filter(
-            event => event.day === 'Wednesday'
-        );
-        let Thursday = this.props.allEvents.filter(
-            event => event.day === 'Thursday'
-        );
-        let Friday = this.props.allEvents.filter(
-            event => event.day === 'Friday'
-        );
-        let Saturday = this.props.allEvents.filter(
-            event => event.day === 'Saturday'
-        );
-
-        let outSelect = this.createSelections();
 
         return (
             <div className='eventlist'>
@@ -220,19 +194,11 @@ class EventList extends Component {
                     showDialog={this.state.openDialog}
                     useMilitary={this.props.useMilitary}>
                 </EditEventDialog>
+                <div className='time-scale scale-left mono-hide'>
+                    {scaleTime(this.props.useMilitary)}
+                </div>
                 <div className='grid-lines'>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr><hr></hr>
-                    <hr></hr><hr></hr><hr></hr>
+                    {this.numLines(47)}
                 </div>
                 <div className='column utility mono-show'>
                     <button
@@ -249,88 +215,64 @@ class EventList extends Component {
                         {scaleTime(this.props.useMilitary)}
                     </div>
                 </div>
-                <div className={'column' +
-                    (this.state.currDay === 0 ?
-                        '' : ' mono-hide')
-                }>
-                    <div className='time-scale scale-left mono-hide'>
-                        {scaleTime(this.props.useMilitary)}
-                    </div>
-                    <p className='subtitle'> SUN </p>
-                    <hr></hr>
-                    {Sunday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                </div>
-                <div className={'column' +
-                    (this.state.currDay === 1 ?
-                        '' : ' mono-hide')
-                }>
-                    <p className='subtitle'> MON </p>
-                    <hr></hr>
-                    {Monday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                </div>
-                <div className={'column' +
-                    (this.state.currDay === 2 ?
-                        '' : ' mono-hide')
-                }>
-                    <p className='subtitle'> TUE </p>
-                    <hr></hr>
-                    {Tuesday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                </div>
-                <div className={'column' +
-                    (this.state.currDay === 3 ?
-                        '' : ' mono-hide')
-                }>
-                    <p className='subtitle'> WED </p>
-                    <hr></hr>
-                    {Wednesday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                </div>
-                <div className={'column' +
-                    (this.state.currDay === 4 ?
-                        '' : ' mono-hide')
-                }>
-                    <p className='subtitle'> THU </p>
-                    <hr></hr>
-                    {Thursday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                </div>
-                <div className={'column' +
-                    (this.state.currDay === 5 ?
-                        '' : ' mono-hide')
-                }>
-                    <p className='subtitle'> FRI </p>
-                    <hr></hr>
-                    {Friday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                </div>
-                <div className={'column' +
-                    (this.state.currDay === 6 ?
-                        '' : ' mono-hide')
-                }>
-                    <p className='subtitle'> SAT </p>
-                    <hr></hr>
-                    {Saturday.map((event) => {
-                        return (this.formatEvent(event));
-                    })}
-                    {outSelect}
-                    <div className='time-scale scale-right mono-hide'>
-                        {scaleTime(this.props.useMilitary)}
-                    </div>
+                <EventColumn
+                    dayNum={0}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[0]
+                    )}>
+                </EventColumn>
+                <EventColumn
+                    dayNum={1}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[1]
+                    )}>
+                </EventColumn>
+                <EventColumn
+                    dayNum={2}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[2]
+                    )}>
+                </EventColumn>
+                <EventColumn
+                    dayNum={3}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[3]
+                    )}>
+                </EventColumn>
+                <EventColumn
+                    dayNum={4}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[4]
+                    )}>
+                </EventColumn>
+                <EventColumn
+                    dayNum={5}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[5]
+                    )}>
+                </EventColumn>
+                <EventColumn
+                    dayNum={6}
+                    currDay={this.state.currDay}
+                    formatEvent={this.formatEvent}
+                    eList={this.props.allEvents.filter(
+                        event => event.day === dayList[6]
+                    )}>
+                </EventColumn>
+                <div className='time-scale scale-right mono-hide'>
+                    {scaleTime(this.props.useMilitary)}
                 </div>
             </div >
         );

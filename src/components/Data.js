@@ -35,4 +35,8 @@ const dayList = [
     'Thursday', 'Friday', 'Saturday'
 ];
 
-export { colorNames, darkColors, lightColors, dayList };
+const dayAbbrevList = [
+    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
+]
+
+export { colorNames, darkColors, lightColors, dayList, dayAbbrevList };

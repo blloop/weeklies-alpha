@@ -25,14 +25,22 @@ class Calendar extends Component {
                 JSON.parse(jsonInfo)['accentColor'] :
                 'orange'
             ),
-            openDialog: null
+            newEvent: {
+                dayOfWeek: 'Sunday',
+                newHour: 0,
+                isZero: true,
+                newHour2: 0,
+                isZero2: true
+            },
+            openDialog: null,
+            warningDialog: false
         };
     }
 
     // Update UI accent color upon page load
     componentDidMount() {
         this.changeColor(
-            colorNames.indexOf(this.state.accentColor)
+            colorNames.indexOf(this.props.newevent.accentColor)
         );
     }
 
@@ -98,7 +106,6 @@ class Calendar extends Component {
     // If cannot add, no changes are saved
     editEvent = (oldID, newEvent) => {
         // Filter out old by ID
-        console.log(this.state.events);
         let newList = this.state.events;
         newList = newList.filter(
             event => event.id !== oldID
@@ -138,7 +145,6 @@ class Calendar extends Component {
 
     // Remove given event from calendar
     deleteEvent = (eventID) => {
-
         // Filter out event by ID
         let newList = this.state.events;
         newList = newList.filter(
@@ -169,6 +175,23 @@ class Calendar extends Component {
             'weeklies',
             JSON.stringify(newState)
         );
+    }
+
+    // Sets default event info in add dialog
+    setDefault = (info) => {
+        let addDefault = {
+            dayOfWeek: info.day,
+            newHour: info.hour,
+            isZero: info.min,
+            newHour2: info.hour,
+            isZero2: info.min
+        }
+        let newState = {
+            ...this.props.newevent,
+            newEvent: addDefault,
+            openDialog: 'add',
+        };
+        this.setState(newState);
     }
 
     // Opens a dialog by name
@@ -226,7 +249,9 @@ class Calendar extends Component {
     render() {
         return (
             <div className='calendar'>
-                <NavBar openModal={this.openModal}></NavBar>
+                <NavBar
+                    openModal={this.openModal}>
+                </NavBar>
                 <Modal
                     closeModal={this.closeModal}
                     openModal={this.state.openDialog !== null}>
@@ -234,7 +259,7 @@ class Calendar extends Component {
                 <AddEventDialog
                     addEvent={this.addEvent}
                     closeModal={this.closeModal}
-                    showDialog={this.state.openDialog === 'events'}
+                    showDialog={this.state.openDialog === 'add'}
                     useMilitary={this.state.useMilitary}>
                 </AddEventDialog>
                 <SettingsDialog
@@ -248,9 +273,11 @@ class Calendar extends Component {
                 </SettingsDialog>
                 <EventList
                     allEvents={this.state.events}
-                    addEvent={this.addEvent}
                     editEvent={this.editEvent}
                     deleteEvent={this.deleteEvent}
+                    setDefault={this.setDefault}
+                    openModal={this.openModal}
+                    showDialog={this.state.openDialog === 'edit'}
                     useMilitary={this.state.useMilitary}>
                 </EventList>
             </div>

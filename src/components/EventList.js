@@ -10,7 +10,6 @@ class EventList extends Component {
         super(props);
         this.state = {
             currDay: 0,
-            openDialog: false,
             oldEvent: null,
             newEvent: null
         };
@@ -52,9 +51,30 @@ class EventList extends Component {
         this.setState(newState);
     }
 
-    // Opens open popup editor
-    // and prepares event values for edit tracking
-    openPopup = (event) => {
+    // Returns array of N horizonal lines
+    numLines = (num) => {
+        let outLines = [];
+        for (let i = 0; i < num; i++) {
+            outLines.push(<hr key={i}></hr>)
+        };
+        return outLines;
+    }
+
+    // Sets default info for event add
+    // and opens event add dialog
+    openAdd = (day, index) => {
+        let newDefault = {
+            day: dayList[day],
+            hour: Math.floor(index / 2),
+            min: index % 2 === 0
+        }
+        this.props.setDefault(newDefault);
+    }
+
+    // Opens popup editor and
+    // prepares event values for edit tracking
+    openEditor = (event) => {
+        this.props.openModal('edit');
         let eventID =
             (dayList.indexOf(event.day) * 48) +
             event.hour * 2 +
@@ -70,37 +90,16 @@ class EventList extends Component {
         };
         let newState = {
             ...this.state,
-            openDialog: true,
             oldEvent: tempEvent,
             newEvent: tempEvent
         };
         this.setState(newState);
     }
 
-    // Closes popup editor
-    closeModal = () => {
-        let newState = {
-            ...this.state,
-            openDialog: false,
-            oldEvent: null,
-            newEvent: null
-        };
-        this.setState(newState);
-    }
-
-    // Returns array of N horizonal lines
-    numLines = (num) => {
-        let outLines = [];
-        for (let i = 0; i < num; i++) {
-            outLines.push(<hr key={i}></hr>)
-        };
-        return outLines;
-    }
-
     // Calls for an event edit by passing
     // in previous event and new event
     editEvent = () => {
-        this.closeModal();
+        this.props.closeModal();
         this.props.editEvent(
             this.state.oldEvent.id,
             this.state.newEvent
@@ -138,24 +137,24 @@ class EventList extends Component {
         this.setState(newState);
     }
 
-    // Positions events on calendar based on time
+    // Positions events in calendar based on time
     formatEvent = (event) => {
         return (
             <div
                 style={{
                     top: 60 +
                         (event.hour * 50) +
-                        (event.min === 30 ? 25 : 0) + 1.2,
+                        (event.min === 30 ? 25 : 0),
                     height: ((
                         (event.hour2 || 0) -
                         (event.hour || 0)) * 50) +
                         ((event.min || 0) >
                             (event.min2 || 0) ? -25 : 0) +
                         ((event.min || 0) <
-                            (event.min2 || 0) ? 25 : 0) - 2.2
+                            (event.min2 || 0) ? 25 : 0) - 1.2
                 }}
                 className={'event'}
-                onClick={() => this.openPopup(event)}
+                onClick={() => this.openEditor(event)}
                 key={event.id}>
                 <p> {event.title.length > 25 ?
                     event.title.slice(0, 25) + '...' :
@@ -166,11 +165,10 @@ class EventList extends Component {
     }
 
     render() {
-
         return (
             <div className='eventlist'>
                 <Modal
-                    closeModal={this.closeModal}
+                    closeModal={this.props.closeModal}
                     openModal={this.state.openDialog}>
                 </Modal>
                 <EditEventDialog
@@ -178,8 +176,8 @@ class EventList extends Component {
                     deleteEvent={this.deleteEvent}
                     setNewEvent={this.setNewEvent}
                     newEvent={this.state.newEvent}
-                    closeModal={this.closeModal}
-                    showDialog={this.state.openDialog}
+                    closeModal={this.props.closeModal}
+                    showDialog={this.props.showDialog}
                     useMilitary={this.props.useMilitary}>
                 </EditEventDialog>
                 <div className='time-scale scale-left mono-hide'>
@@ -206,6 +204,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={0}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[0]
@@ -214,6 +213,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={1}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[1]
@@ -222,6 +222,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={2}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[2]
@@ -230,6 +231,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={3}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[3]
@@ -238,6 +240,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={4}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[4]
@@ -246,6 +249,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={5}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[5]
@@ -254,6 +258,7 @@ class EventList extends Component {
                 <EventColumn
                     dayNum={6}
                     currDay={this.state.currDay}
+                    openAdder={this.openAdd}
                     formatEvent={this.formatEvent}
                     eList={this.props.allEvents.filter(
                         event => event.day === dayList[6]

@@ -10,7 +10,7 @@ class NavBar extends Component {
                 <button
                     type='button'
                     className='accent'
-                    onClick={() => this.props.openModal('events')}>
+                    onClick={() => this.props.openModal('add')}>
                     Add Event
                 </button>
                 <p className='title rounded'> Weeklies </p>

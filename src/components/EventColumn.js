@@ -10,6 +10,7 @@ class EventColumn extends Component {
             outDays.push(
                 <div
                     key={i}
+                    onClick={() => this.props.openAdder(day, i)}
                     className='selection'
                     style={{ top: 60 + (i * 25) }}>
                 </div>);
@@ -19,7 +20,7 @@ class EventColumn extends Component {
 
     render() {
 
-        let outSelect = this.createSelections();
+        let outSelect = this.createSelections(this.props.dayNum);
 
         return (
             <div className={'column' +

@@ -40,7 +40,7 @@ class Calendar extends Component {
     // Update UI accent color upon page load
     componentDidMount() {
         this.changeColor(
-            colorNames.indexOf(this.props.newevent.accentColor)
+            colorNames.indexOf(this.state.accentColor)
         );
     }
 
@@ -83,8 +83,15 @@ class Calendar extends Component {
         return 0;
     }
 
+    addByName = (name) => {
+        let addOne = this.state.newEvent;
+        addOne.title = name;
+        this.addEvent(addOne);
+    }
+
     // Add an event to calendar
     addEvent = (event) => {
+        console.log(event);
         let newList = this.state.events;
         if (this.addHelper(newList, event) < 0) {
             return;
@@ -187,9 +194,18 @@ class Calendar extends Component {
             isZero2: info.min
         }
         let newState = {
-            ...this.props.newevent,
+            ...this.state.newEvent,
             newEvent: addDefault,
             openDialog: 'add',
+        };
+        this.setState(newState);
+    }
+
+    // Update default event info
+    updateDefault = (update) => {
+        let newState = {
+            ...this.state,
+            newEvent: update
         };
         this.setState(newState);
     }
@@ -247,6 +263,7 @@ class Calendar extends Component {
     }
 
     render() {
+        console.log(this.state.events);
         return (
             <div className='calendar'>
                 <NavBar
@@ -257,7 +274,10 @@ class Calendar extends Component {
                     openModal={this.state.openDialog !== null}>
                 </Modal>
                 <AddEventDialog
+                    addByName={this.addByName}
                     addEvent={this.addEvent}
+                    newEvent={this.state.newEvent}
+                    updateDefault={this.updateDefault}
                     closeModal={this.closeModal}
                     showDialog={this.state.openDialog === 'add'}
                     useMilitary={this.state.useMilitary}>

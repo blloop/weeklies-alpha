@@ -6,13 +6,6 @@ import ToggleAM from './ToggleAM';
 
 class EditEventDialog extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            showDialog: this.props.showDialog
-        };
-    }
-
     // Updates value of text field
     updateText = (event) => {
         let tempEvent = {

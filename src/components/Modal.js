@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Modal extends Component {
-
-    render() {
-        return (
-            <>
-                {this.props.openModal ?
-                    <div className='modal-bg'
-                        onClick={this.props.closeModal}>
-                    </div>
-                    : null}
-            </>
-        );
-    }
+const Modal = props => {
+    props.isOpen ?
+        <div
+            className='modal-bg'
+            style={{ zIndex: props.zIndex }}
+            onClick={() => props.setDialog(null)}>
+        </div>
+        : null
 }
 
 export default Modal;

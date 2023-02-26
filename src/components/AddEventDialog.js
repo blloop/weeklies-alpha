@@ -5,11 +5,7 @@ import MinDropdown from './MinDropdown';
 import Modal from './Modal';
 import WarningDialog from './WarningDialog';
 import ToggleAM from './ToggleAM';
-
-let dayList = [
-    'Sunday', 'Monday', 'Tuesday', 'Wednesday',
-    'Thursday', 'Friday', 'Saturday'
-]
+import { dayList } from './Data';
 
 class AddEventDialog extends Component {
 

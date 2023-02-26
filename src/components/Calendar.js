@@ -1,293 +1,208 @@
 import React, { Component } from 'react';
+import { colorNames, dayList } from './Data';
+import { lightColors, darkColors } from './Data';
 import NavBar from './NavBar';
 import Modal from './Modal';
 import EventList from './EventList';
 import AddEventDialog from './AddEventDialog';
 import SettingsDialog from './SettingsDialog';
-import { colorNames, lightColors, darkColors, dayList } from './Data';
 
 class Calendar extends Component {
 
     constructor(props) {
         // Import weeklies data from browser storage
-        let jsonInfo = localStorage.getItem('weeklies');
+        let inList = localStorage.getItem('weeklies');
+        let inInfo = localStorage.getItem('weeklies-info');
         super(props);
         this.state = {
-            events: (jsonInfo ?
-                JSON.parse(jsonInfo)['events'] :
+            events: (inList ?
+                JSON.parse(inList) :
                 []
             ),
-            useMilitary: (jsonInfo ?
-                JSON.parse(jsonInfo)['useMilitary'] :
-                false
-            ),
-            accentColor: (jsonInfo ?
-                JSON.parse(jsonInfo)['accentColor'] :
+            upcoming: {
+                title: '',
+                day: 0,
+                start: 0,
+                end: 0
+            },
+            oldid: 0,
+            dialog: null,
+            accent: (inInfo ?
+                JSON.parse(inInfo)['accent'] :
                 'orange'
             ),
-            newEvent: {
-                dayOfWeek: 'Sunday',
-                newHour: 0,
-                isZero: true,
-                newHour2: 0,
-                isZero2: true
-            },
-            openDialog: null,
-            warningDialog: false
+            format: (inInfo ?
+                JSON.parse(inInfo)['format'] :
+                false
+            ),
         };
     }
 
     // Update UI accent color upon page load
     componentDidMount() {
-        this.changeColor(
-            colorNames.indexOf(this.state.accentColor)
+        this.setAccent(
+            colorNames.indexOf(
+                this.state.accent
+            )
         );
     }
 
-    // Helper function to add event to list
-    addHelper = (list, event) => {
-        if (event.title.length === 0) {
-            alert('Event title cannot be empty!');
-            return -1;
-        };
-        if (event.hour2 < event.hour ||
-            (event.hour === event.hour2 &&
-                event.min >= event.min2)) {
-            alert("Event must occur for at least 30 min!");
-            return -1;
-        };
-        if (list.some(
-            curr =>
-            ((curr.day === event.day) &&
-                ((
-                    (curr.hour === event.hour &&
-                        curr.min === event.min) ||
-                    (curr.hour2 === event.hour2 &&
-                        curr.min2 === event.min2)
-                ) ||
-                    ((curr.hour + (curr.min ? 0 : 0.5) <
-                        event.hour2 + (event.min2 ? 0 : 0.5) &&
-                        curr.hour2 + (curr.min2 ? 0 : 0.5) >
-                        event.hour + (event.min ? 0 : 0.5)) ||
-                        (curr.hour2 + (curr.min2 ? 0 : 0.5) >
-                            event.hour + (event.min ? 0 : 0.5) &&
-                            curr.hour + (curr.min ? 0 : 0.5) <
-                            event.hour + (event.min ? 0 : 0.5)))
-                ))
-        )) {
-            alert("Event overlaps with a current event!");
-            return -1;
-        };
-        list.push(event);
-        list.sort((a, b) => a.id - b.id);
-        return 0;
-    }
-
-    addByName = (name) => {
-        let addOne = this.state.newEvent;
-        addOne.title = name;
-        this.addEvent(addOne);
-    }
-
-    // Add an event to calendar
+    // Add event to calendar
+    // Checks for valid argument and
+    // searches for overlaps before adding
     addEvent = (event) => {
-        console.log(event);
-        let newList = this.state.events;
-        if (this.addHelper(newList, event) < 0) {
-            return;
+        if (this.parseEvent(event, this.state.events)) {
+            newList.push(this.parseEvent(event));
+            newList.sort((a, b) => a.id - b.id);
+            this.updateEvents(newList);
         };
-        let newState = {
-            ...this.state,
-            events: newList,
-            openDialog: null
-        };
-        this.setState(newState);
-        localStorage.setItem(
-            'weeklies',
-            JSON.stringify(newState)
-        );
     }
 
-    // Edit given event in calendar
-    // Removes old event and attempts to add new one
-    // If cannot add, no changes are saved
-    editEvent = (oldID, newEvent) => {
-        // Filter out old by ID
-        let newList = this.state.events;
-        newList = newList.filter(
-            event => event.id !== oldID
+    // Edit event in calendar
+    // Searches for old event by ID and
+    // overwrites with new event data
+    editEvent = (id, event) => {
+        let newList = this.state.events.filter(
+            event => event.id !== id
         );
-
-        // Format new event to add
-        let eventID =
-            (dayList.indexOf(newEvent.dayOfWeek) * 48) +
-            newEvent.newHour * 2 +
-            (newEvent.isZero ? 0 : 1);
-        let currEvent = {
-            id: eventID,
-            title: newEvent.inputText,
-            day: newEvent.dayOfWeek,
-            hour: newEvent.newHour,
-            min: (newEvent.isZero ? 0 : 30),
-            hour2: newEvent.newHour2,
-            min2: (newEvent.isZero2 ? 0 : 30)
+        if (this.parseEvent(event, newList)) {
+            let oldIndex = newList.findIndex(
+                curr => curr.id === id
+            );
+            newList[oldIndex] = this.parseEvent(event);
+            newList.sort((a, b) => a.id - b.id);
+            this.updateEvents(newList);
         };
-
-        // Attempt to add event and exit if it fails
-        if (this.addHelper(newList, currEvent) < 0) {
-            return;
-        };
-
-        // Update state with new event change
-        let newState = {
-            ...this.state,
-            events: newList
-        };
-        this.setState(newState);
-        localStorage.setItem(
-            'weeklies',
-            JSON.stringify(newState)
-        );
     }
 
-    // Remove given event from calendar
-    deleteEvent = (eventID) => {
-        // Filter out event by ID
-        let newList = this.state.events;
-        newList = newList.filter(
-            event => event.id !== eventID
+    // Remove event from calendar
+    // Filters event list by ID
+    deleteEvent = (id) => {
+        let newList = this.state.events.filter(
+            event => event.id !== id
         );
-
-        // Update state with new event change
-        let newState = {
-            ...this.state,
-            events: newList
-        };
-        this.setState(newState);
-        localStorage.setItem(
-            'weeklies',
-            JSON.stringify(newState)
-        );
+        this.updateEvents(newList);
     }
 
     // Remove all events from calendar
     clearEvents = () => {
+        this.updateEvents([]);
+    }
+
+    // Helper function that verifies an
+    // event can be added to the calendar
+    parseEvent = (event, list) => {
+        if (event.title.length === 0) {
+            alert('Event title cannot be empty!');
+            return false;
+        };
+        if (event.start >= event.end) {
+            alert("Invalid event duration!");
+            return false;
+        };
+        if (list.some(
+            curr =>
+            ((curr.day === event.day) &&
+                (curr.start == event.start ||
+                    curr.end == event.end) ||
+                (curr.start < event.end &&
+                    curr.end > event.start) ||
+                (curr.end > event.start &&
+                    curr.start < event.end))
+        )) {
+            alert("Event overlaps with a current event!");
+            return false;
+        };
+        return true;
+    }
+
+    // Helper function that updates events
+    // and saves to local browser storage
+    updateEvents = (list) => {
         let newState = {
             ...this.state,
-            events: [],
+            events: list,
             openDialog: null
         };
         this.setState(newState);
         localStorage.setItem(
             'weeklies',
-            JSON.stringify(newState)
+            JSON.stringify(list)
         );
     }
 
-    // Sets default event info in add dialog
-    setDefault = (info) => {
-        let addDefault = {
-            dayOfWeek: info.day,
-            newHour: info.hour,
-            isZero: info.min,
-            newHour2: info.hour,
-            isZero2: info.min
-        }
-        let newState = {
-            ...this.state.newEvent,
-            newEvent: addDefault,
-            openDialog: 'add',
-        };
-        this.setState(newState);
-    }
-
-    // Update default event info
-    updateDefault = (update) => {
+    // Changes the open dialog by name
+    // Can be passed null as a valid value
+    setDialog = (name) => {
         let newState = {
             ...this.state,
-            newEvent: update
+            dialog: name
         };
         this.setState(newState);
     }
 
-    // Opens a dialog by name
-    openModal = (name) => {
+    // Set accent color
+    setAccent = (index) => {
+        document.body.style.setProperty(
+            '--light-accent', lightColors[index]
+        );
+        document.body.style.setProperty(
+            '--dark-accent', darkColors[index]
+        );
         let newState = {
             ...this.state,
-            openDialog: name
+            accentColor: colorNames[index]
         };
         this.setState(newState);
+        localStorage.setItem(
+            'weeklies-info',
+            JSON.stringify({
+                accentColor: newState.accentColor,
+                useMilitary: newState.useMilitary
+            })
+        );
     }
 
-    // Closes all open dialogs
-    closeModal = () => {
-        let newState = {
-            ...this.state,
-            openDialog: null
-        };
-        this.setState(newState);
-    }
-
-
-    // Toggle 24 hour time setting
+    // Toggle military time usage (24 hour time)
     toggleMilitary = () => {
         let newState = {
             ...this.state,
             useMilitary: !this.state.useMilitary
-        };
+        }
         this.setState(newState);
         localStorage.setItem(
-            'weeklies',
-            JSON.stringify(newState)
+            'weeklies-info',
+            JSON.stringify({
+                accentColor: newState.accentColor,
+                useMilitary: newState.useMilitary
+            })
         );
-    }
-
-    // Change accent color
-    changeColor = (num) => {
-        document.body.style.setProperty(
-            '--light-accent', lightColors[num]
-        );
-        document.body.style.setProperty(
-            '--dark-accent', darkColors[num]
-        );
-        let newState = {
-            ...this.state,
-            accentColor: colorNames[num]
-        };
-        this.setState(newState);
-        localStorage.setItem(
-            'weeklies',
-            JSON.stringify(newState)
-        );
-
     }
 
     render() {
-        console.log(this.state.events);
         return (
             <div className='calendar'>
                 <NavBar
-                    openModal={this.openModal}>
+                    setDialog={this.setDialog}>
                 </NavBar>
                 <Modal
-                    closeModal={this.closeModal}
-                    openModal={this.state.openDialog !== null}>
+                    zIndex={12}
+                    setDialog={this.setDialog}
+                    isOpen={this.state.openDialog !== null}>
                 </Modal>
                 <AddEventDialog
-                    addByName={this.addByName}
                     addEvent={this.addEvent}
-                    newEvent={this.state.newEvent}
-                    updateDefault={this.updateDefault}
-                    closeModal={this.closeModal}
-                    showDialog={this.state.openDialog === 'add'}
+                    tempEvent={this.state.upcoming}
+                    isOpen={this.state.openDialog === 'add'}
+                    setDialog={this.setDialog}
                     useMilitary={this.state.useMilitary}>
                 </AddEventDialog>
                 <SettingsDialog
                     clearEvents={this.clearEvents}
-                    closeModal={this.closeModal}
-                    showDialog={this.state.openDialog === 'settings'}
+                    isOpen={this.state.openDialog === 'settings'}
+                    setDialog={this.setDialog}
                     accentColor={this.state.accentColor}
-                    changeColor={this.changeColor}
+                    changeColor={this.setAccent}
                     useMilitary={this.state.useMilitary}
                     toggleMilitary={this.toggleMilitary}>
                 </SettingsDialog>
@@ -295,9 +210,8 @@ class Calendar extends Component {
                     allEvents={this.state.events}
                     editEvent={this.editEvent}
                     deleteEvent={this.deleteEvent}
-                    setDefault={this.setDefault}
-                    openModal={this.openModal}
-                    showDialog={this.state.openDialog === 'edit'}
+                    isOpen={this.state.openDialog === 'edit'}
+                    setDialog={this.setDialog}
                     useMilitary={this.state.useMilitary}>
                 </EventList>
             </div>

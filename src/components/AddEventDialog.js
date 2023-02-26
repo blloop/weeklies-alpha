@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import DayDropdown from './DayDropdown';
 import HourDropdown from './HourDropdown';
 import MinDropdown from './MinDropdown';
+import Modal from './Modal';
+import WarningDialog from './WarningDialog';
 import ToggleAM from './ToggleAM';
 
 let dayList = [
@@ -137,6 +139,8 @@ class AddEventDialog extends Component {
             <>
                 {this.props.showDialog &&
                     <div className='addevents overlay rounded'>
+                        <Modal></Modal>
+                        <WarningDialog></WarningDialog>
                         <p className='header rounded'> Add Event </p>
                         <button
                             onClick={this.props.closeModal}

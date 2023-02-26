@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Modal from './Modal';
+import WarningDialog from './WarningDialog';
 import { colorNames, darkColors } from './Data';
 
 class SettingsDialog extends Component {
@@ -24,6 +26,8 @@ class SettingsDialog extends Component {
                             className='close-button'>
                             &#10005;
                         </button>
+                        <Modal></Modal>
+                        <WarningDialog></WarningDialog>
                         <p className='subtitle'> Settings </p>
                         <hr></hr>
                         <div className='settings-row'>

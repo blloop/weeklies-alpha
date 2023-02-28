@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { colorNames, dayList } from './Data';
 import { lightColors, darkColors } from './Data';
 import NavBar from './NavBar';
-import Modal from './Modal';
-import EventList from './EventList';
 import AddEventDialog from './AddEventDialog';
+import EditEventDialog from './EditEventDialog';
 import SettingsDialog from './SettingsDialog';
+import EventList from './EventList';
 
 class Calendar extends Component {
 
@@ -89,7 +89,7 @@ class Calendar extends Component {
         this.updateEvents([]);
     }
 
-    // Helper function that verifies an
+    // Helper method that verifies an
     // event can be added to the calendar
     parseEvent = (event, list) => {
         if (event.title.length === 0) {
@@ -116,7 +116,7 @@ class Calendar extends Component {
         return true;
     }
 
-    // Helper function that updates events
+    // Helper method that updates events
     // and saves to local browser storage
     updateEvents = (list) => {
         let newState = {
@@ -129,6 +129,52 @@ class Calendar extends Component {
             'weeklies',
             JSON.stringify(list)
         );
+    }
+
+    // Imports event selection data
+    // into the edit event dialog
+    pullUpcoming = (id) => {
+        let index = this.state.events.findIndex(
+            event => event.id === id
+        );
+        let newState = {
+            ...this.state,
+            oldid: id,
+            upcoming: {
+                title: '',
+                day: this.state.events[index].day,
+                start: this.state.events[index].start,
+                end: this.state.events[index].end
+            },
+            dialog: 'edit'
+        };
+        this.setState(newState);
+    }
+
+    // Sets selected time slot to be displayed
+    // in the add event dialog
+    setUpcoming = (day, time) => {
+        let newState = {
+            ...this.state,
+            upcoming: {
+                title: '',
+                day: day,
+                start: time,
+                end: time + 1
+            },
+            dialog: 'add'
+        };
+        this.setState(newState);
+    }
+
+    // Updates the upcoming event details
+    // for the add and edit event dialogs
+    editUpcoming = (event) => {
+        let newState = {
+            ...this.state,
+            upcoming: event
+        };
+        this.setState(newState);
     }
 
     // Changes the open dialog by name
@@ -185,18 +231,22 @@ class Calendar extends Component {
                 <NavBar
                     setDialog={this.setDialog}>
                 </NavBar>
-                <Modal
-                    zIndex={12}
-                    setDialog={this.setDialog}
-                    isOpen={this.state.openDialog !== null}>
-                </Modal>
                 <AddEventDialog
                     addEvent={this.addEvent}
                     tempEvent={this.state.upcoming}
+                    editUpcoming={this.editUpcoming}
                     isOpen={this.state.openDialog === 'add'}
                     setDialog={this.setDialog}
                     useMilitary={this.state.useMilitary}>
                 </AddEventDialog>
+                <EditEventDialog
+                    editEvent={this.editEvent}
+                    deleteEvent={this.deleteEvent}
+                    editUpcoming={this.editUpcoming}
+                    isOpen={this.state.openDialog === 'edit'}
+                    setDialog={this.setDialog}
+                    useMilitary={this.state.useMilitary}>
+                </EditEventDialog>
                 <SettingsDialog
                     clearEvents={this.clearEvents}
                     isOpen={this.state.openDialog === 'settings'}
@@ -208,9 +258,7 @@ class Calendar extends Component {
                 </SettingsDialog>
                 <EventList
                     allEvents={this.state.events}
-                    editEvent={this.editEvent}
-                    deleteEvent={this.deleteEvent}
-                    isOpen={this.state.openDialog === 'edit'}
+                    pullUpcoming={this.pullUpcoming}
                     setDialog={this.setDialog}
                     useMilitary={this.state.useMilitary}>
                 </EventList>

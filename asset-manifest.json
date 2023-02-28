@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/weeklies/static/css/main.cd7f0c8a.chunk.css",
-    "main.js": "/weeklies/static/js/main.624a1374.chunk.js",
-    "main.js.map": "/weeklies/static/js/main.624a1374.chunk.js.map",
+    "main.css": "/weeklies/static/css/main.daea378b.chunk.css",
+    "main.js": "/weeklies/static/js/main.e36f3bbb.chunk.js",
+    "main.js.map": "/weeklies/static/js/main.e36f3bbb.chunk.js.map",
     "runtime-main.js": "/weeklies/static/js/runtime-main.5a9ff88e.js",
     "runtime-main.js.map": "/weeklies/static/js/runtime-main.5a9ff88e.js.map",
     "static/js/2.f7b49a82.chunk.js": "/weeklies/static/js/2.f7b49a82.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.a6bc609a.chunk.js": "/weeklies/static/js/3.a6bc609a.chunk.js",
     "static/js/3.a6bc609a.chunk.js.map": "/weeklies/static/js/3.a6bc609a.chunk.js.map",
     "index.html": "/weeklies/index.html",
-    "static/css/main.cd7f0c8a.chunk.css.map": "/weeklies/static/css/main.cd7f0c8a.chunk.css.map",
+    "static/css/main.daea378b.chunk.css.map": "/weeklies/static/css/main.daea378b.chunk.css.map",
     "static/js/2.f7b49a82.chunk.js.LICENSE.txt": "/weeklies/static/js/2.f7b49a82.chunk.js.LICENSE.txt",
     "static/media/gear.1605e791.svg": "/weeklies/static/media/gear.1605e791.svg",
     "static/media/github-mark.6fa18895.svg": "/weeklies/static/media/github-mark.6fa18895.svg"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.5a9ff88e.js",
     "static/js/2.f7b49a82.chunk.js",
-    "static/css/main.cd7f0c8a.chunk.css",
-    "static/js/main.624a1374.chunk.js"
+    "static/css/main.daea378b.chunk.css",
+    "static/js/main.e36f3bbb.chunk.js"
   ]
 }

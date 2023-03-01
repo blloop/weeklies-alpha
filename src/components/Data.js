@@ -1,3 +1,7 @@
+const colorIncides = [
+    1, 2, 3, 4, 5, 6, 7
+]
+
 const colorNames = [
     'red',
     'orange',
@@ -39,4 +43,8 @@ const dayAbbrevList = [
     'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
 ]
 
-export { colorNames, darkColors, lightColors, dayList, dayAbbrevList };
+export {
+    colorNames, colorIncides,
+    darkColors, lightColors,
+    dayList, dayAbbrevList
+};

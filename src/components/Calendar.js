@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { colorNames, dayList } from './Data';
 import { lightColors, darkColors } from './Data';
 import NavBar from './NavBar';
-import AddEventDialog from './AddEventDialog';
-import EditEventDialog from './EditEventDialog';
+import EventDialog from './EventDialog';
 import SettingsDialog from './SettingsDialog';
 import EventList from './EventList';
 
@@ -160,7 +159,7 @@ class Calendar extends Component {
                 title: '',
                 day: day,
                 start: time,
-                end: time + 1
+                end: (time + 2) % 48
             },
             dialog: 'add'
         };
@@ -197,30 +196,30 @@ class Calendar extends Component {
         );
         let newState = {
             ...this.state,
-            accentColor: colorNames[index]
+            accent: colorNames[index]
         };
         this.setState(newState);
         localStorage.setItem(
             'weeklies-info',
             JSON.stringify({
-                accentColor: newState.accentColor,
-                useMilitary: newState.useMilitary
+                accent: newState.accent,
+                format: newState.format
             })
         );
     }
 
     // Toggle military time usage (24 hour time)
-    toggleMilitary = () => {
+    toggleFormat = () => {
         let newState = {
             ...this.state,
-            useMilitary: !this.state.useMilitary
+            format: !this.state.format
         }
         this.setState(newState);
         localStorage.setItem(
             'weeklies-info',
             JSON.stringify({
-                accentColor: newState.accentColor,
-                useMilitary: newState.useMilitary
+                accent: newState.accent,
+                format: newState.format
             })
         );
     }
@@ -231,36 +230,40 @@ class Calendar extends Component {
                 <NavBar
                     setDialog={this.setDialog}>
                 </NavBar>
-                <AddEventDialog
+                <EventDialog
+                    type={'add'}
                     addEvent={this.addEvent}
                     tempEvent={this.state.upcoming}
                     editUpcoming={this.editUpcoming}
                     isOpen={this.state.openDialog === 'add'}
                     setDialog={this.setDialog}
-                    useMilitary={this.state.useMilitary}>
-                </AddEventDialog>
-                <EditEventDialog
+                    format={this.state.format}>
+                </EventDialog>
+                <EventDialog
+                    type={'edit'}
+                    addEvent={this.addEvent}
                     editEvent={this.editEvent}
                     deleteEvent={this.deleteEvent}
+                    tempEvent={this.state.upcoming}
                     editUpcoming={this.editUpcoming}
                     isOpen={this.state.openDialog === 'edit'}
                     setDialog={this.setDialog}
-                    useMilitary={this.state.useMilitary}>
-                </EditEventDialog>
+                    format={this.state.format}>
+                </EventDialog>
                 <SettingsDialog
                     clearEvents={this.clearEvents}
                     isOpen={this.state.openDialog === 'settings'}
                     setDialog={this.setDialog}
                     accentColor={this.state.accentColor}
                     changeColor={this.setAccent}
-                    useMilitary={this.state.useMilitary}
-                    toggleMilitary={this.toggleMilitary}>
+                    format={this.state.format}
+                    toggleFormat={this.toggleFormat}>
                 </SettingsDialog>
                 <EventList
                     allEvents={this.state.events}
                     pullUpcoming={this.pullUpcoming}
                     setDialog={this.setDialog}
-                    useMilitary={this.state.useMilitary}>
+                    format={this.state.format}>
                 </EventList>
             </div>
         );

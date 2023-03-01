@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class MinDropdown extends Component {
-
-    render() {
-        return (
-            <>
-                <button
-                    className='drop-box top-button square small'
-                    onClick={this.props.changeMin}>
-                    {this.props.isZero ? '00' : '30'}
-                </button>
-            </>
-        );
-    }
-}
+const MinDropdown = props => (
+    <button
+        className='drop-box top-button square small'
+        onClick={props.changeMin}>
+        {props.min === 0 ? '00' : '30'}
+    </button>
+);
 
 export default MinDropdown;

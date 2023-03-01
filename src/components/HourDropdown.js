@@ -24,7 +24,7 @@ class HourDropdown extends Component {
 
     render() {
         let HoursList =
-            (this.props.useMilitary ? [
+            (this.props.format ? [
                 0, 1, 2, 3, 4, 5, 6, 7,
                 8, 9, 10, 11, 12, 13, 14, 15,
                 16, 17, 18, 19, 20, 21, 22, 23
@@ -33,19 +33,15 @@ class HourDropdown extends Component {
                 8, 9, 10, 11, 12
             ]);
 
-        let currHour = (this.props.useMilitary ?
-            this.props.newHour :
-            (this.props.newHour % 12 === 0 ?
-                12 :
-                this.props.newHour % 12
-            ));
-
         return (
             <div className='drop-container'>
                 <button
                     className='drop-box top-button square small'
                     onClick={this.toggleOpen}>
-                    {currHour}
+                    {this.props.format ?
+                        this.props.hour :
+                        ((((this.props.hour / 2) - 1) % 12) + 1)
+                    }
                 </button>
                 {this.state.open ? (
                     <ul className='dropdown wide'>
@@ -55,10 +51,10 @@ class HourDropdown extends Component {
                                 className='drop-box square small'
                                 onClick={() => {
                                     this.setHour(
-                                        this.props.useMilitary ?
+                                        this.props.format ?
                                             hour :
-                                            (hour === 12 ? 0 : hour) +
-                                            (this.props.isAM ? 0 : 12)
+                                            (hour === 12 ? 0 : hour * 2) +
+                                            (this.props.hour < 24 ? 0 : 24)
                                     )
                                 }}>
                                 {hour}

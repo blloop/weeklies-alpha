@@ -1,12 +1,5 @@
-import { Component } from "react";
+import React from "react";
 
-class WarningDialog extends Component {
-
-    render() {
-        return (
-            <div></div>
-        )
-    }
-}
+const WarningDialog = props => (<div></div>);
 
 export default WarningDialog;

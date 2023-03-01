@@ -17,9 +17,9 @@ class EventList extends Component {
 
     // Returns hourly intervals in a 12 hour span
     // Call twice for a full 24 hour span
-    scaleTime = (useMilitary) => {
+    scaleTime = (format) => {
         return (
-            useMilitary ?
+            format ?
                 <>
                     <p>00:00</p><p>01:00</p><p>02:00</p><p>03:00</p>
                     <p>04:00</p><p>05:00</p><p>06:00</p><p>07:00</p>
@@ -178,10 +178,10 @@ class EventList extends Component {
                     newEvent={this.state.newEvent}
                     closeModal={this.props.closeModal}
                     showDialog={this.props.showDialog}
-                    useMilitary={this.props.useMilitary}>
+                    format={this.props.format}>
                 </EditEventDialog>
                 <div className='time-scale scale-left mono-hide'>
-                    {this.scaleTime(this.props.useMilitary)}
+                    {this.scaleTime(this.props.format)}
                 </div>
                 <div className='grid-lines'>
                     {this.numLines(47)}
@@ -198,7 +198,7 @@ class EventList extends Component {
                         &gt;
                     </button> {/* > */}
                     <div className='time-scale scale-left'>
-                        {this.scaleTime(this.props.useMilitary)}
+                        {this.scaleTime(this.props.format)}
                     </div>
                 </div>
                 <EventColumn
@@ -265,7 +265,7 @@ class EventList extends Component {
                     )}>
                 </EventColumn>
                 <div className='time-scale scale-right mono-hide'>
-                    {this.scaleTime(this.props.useMilitary)}
+                    {this.scaleTime(this.props.format)}
                 </div>
             </div >
         );

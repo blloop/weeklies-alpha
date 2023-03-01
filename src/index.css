@@ -63,7 +63,7 @@ input {
 
 .contrast,
 .accent:hover {
-  background-color: var(--base-white);
+  background-color: transparent;
   color: var(--dark-accent);
   border: 4px solid var(--dark-accent);
 }

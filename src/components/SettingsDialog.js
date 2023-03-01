@@ -1,62 +1,64 @@
 import React from 'react';
-import Modal from './Modal';
-import { colorNames, darkColors, colorIncides } from './Data';
+import { colorNames, darkColors, range } from './Data';
 
 const SettingsDialog = props => (
     <>
         {props.isOpen &&
-            <div className='settings overlay rounded'>
-                <button
-                    onClick={() => props.setDialog(null)}
-                    className='close-button'>
-                    &#10005;
-                </button>
-                <Modal
-                    zIndex={12}
-                    setDialog={props.setDialog}>
-                </Modal>
-                <p className='subtitle'> Settings </p>
-                <hr></hr>
-                <div className='settings-row'>
-                    <p> Use 24 Hour Time </p>
-                    <input
-                        type={'checkbox'}
-                        checked={props.format}
-                        onChange={props.toggleFormat}>
-                    </input>
+            <>
+                <div
+                    className='modal-bg'
+                    style={{ zIndex: 12 }}
+                    onClick={() => props.setDialog(null)}>
                 </div>
-                <div className='settings-row'>
-                    <p> Accent Color: </p>
-                    <div className='color-palette'>
-                        {colorIncides.map((n) =>
-                            <div
-                                key={n}
-                                style={{
-                                    backgroundColor: darkColors[n]
-                                }}
-                                className={
-                                    props.accentColor ===
-                                        colorNames[n] ?
-                                        'current-color' :
-                                        ''
-                                }
-                                checked={
-                                    props.accentColor ===
-                                    colorNames[n]
-                                }
-                                onClick={() =>
-                                    props.changeColor(n)
-                                }>
-                            </div>
-                        )}
+                <div className='settings overlay rounded'>
+                    <button
+                        onClick={() => props.setDialog(null)}
+                        className='close-button'>
+                        &#10005;
+                    </button>
+                    <p className='subtitle'> Settings </p>
+                    <hr></hr>
+                    <div className='settings-row'>
+                        <p> Use 24 Hour Time </p>
+                        <input
+                            type={'checkbox'}
+                            checked={props.format}
+                            onChange={props.toggleFormat}>
+                        </input>
                     </div>
+                    <div className='settings-row'>
+                        <p> Accent Color: </p>
+                        <div className='color-palette'>
+                            {range(colorNames.length).map((n) =>
+                                <div
+                                    key={n}
+                                    style={{
+                                        backgroundColor: darkColors[n]
+                                    }}
+                                    className={
+                                        props.accentColor ===
+                                            colorNames[n] ?
+                                            'current-color' :
+                                            ''
+                                    }
+                                    checked={
+                                        props.accentColor ===
+                                        colorNames[n]
+                                    }
+                                    onClick={() =>
+                                        props.changeColor(n)
+                                    }>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <button
+                        className='contrast thin-button'
+                        onClick={props.clearEvents}>
+                        Clear Events
+                    </button>
                 </div>
-                <button
-                    className='contrast thin-button'
-                    onClick={props.clearEvents}>
-                    Clear Events
-                </button>
-            </div>
+            </>
         }
     </>
 )

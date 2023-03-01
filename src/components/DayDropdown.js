@@ -29,7 +29,7 @@ class DayDropdown extends Component {
                 <button
                     className='drop-box top-button square'
                     onClick={this.toggleOpen}>
-                    {this.props.dayValue}
+                    {this.props.day}
                 </button>
                 {
                     this.state.open ? (

@@ -168,6 +168,10 @@
     align-items: center;
     gap: 6px;
   }
+
+  .color-palette {
+    justify-content: center;
+  }
 }
 
 @media only screen and (max-width: 500px) {

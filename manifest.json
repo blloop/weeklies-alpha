@@ -5,7 +5,7 @@
     {
       "src": "logo.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg"
     }
   ],
   "start_url": ".",

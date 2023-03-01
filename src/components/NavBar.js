@@ -7,7 +7,7 @@ const NavBar = props => (
         <button
             type='button'
             className='accent'
-            onClick={() => props.openModal('add')}>
+            onClick={() => props.setDialog('add')}>
             Add Event
         </button>
         <p className='title rounded'> Weeklies </p>
@@ -25,7 +25,7 @@ const NavBar = props => (
             <button
                 type='button'
                 className='contrast settings-button'
-                onClick={() => props.openModal('settings')}>
+                onClick={() => props.setDialog('settings')}>
                 <img
                     src={gearLogo}
                     alt='Settings Button'>

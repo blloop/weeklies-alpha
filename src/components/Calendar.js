@@ -10,65 +10,72 @@ class Calendar extends Component {
 
     constructor(props) {
         // Import weeklies data from browser storage
-        let inList = localStorage.getItem('weeklies');
-        let inInfo = localStorage.getItem('weeklies-info');
+        let getList = localStorage.getItem('weeklies');
+        let getInfo = localStorage.getItem('weeklies-info');
         super(props);
         this.state = {
-            events: (inList ?
-                JSON.parse(inList) :
-                []
+            events: (getList ?
+                JSON.parse(getList) : []
+            ),
+            accent: (getInfo ?
+                JSON.parse(getInfo)['accent'] : 'orange'
+            ),
+            format: (getInfo ?
+                JSON.parse(getInfo)['format'] : false
             ),
             upcoming: {
                 title: '',
-                day: 0,
+                day: 'Sunday',
                 start: 0,
                 end: 0
             },
             oldid: 0,
             dialog: null,
-            accent: (inInfo ?
-                JSON.parse(inInfo)['accent'] :
-                'orange'
-            ),
-            format: (inInfo ?
-                JSON.parse(inInfo)['format'] :
-                false
-            ),
+            monoDay: 0
         };
     }
 
     // Update UI accent color upon page load
     componentDidMount() {
         this.setAccent(
-            colorNames.indexOf(
-                this.state.accent
-            )
+            colorNames.indexOf(this.state.accent)
         );
     }
 
-    // Add event to calendar
-    // Checks for valid argument and
-    // searches for overlaps before adding
-    addEvent = (event) => {
-        if (this.parseEvent(event, this.state.events)) {
-            newList.push(this.parseEvent(event));
+    // Calculates event ID based on start time
+    // Returns the event with ID
+    addID = (event) => {
+        return {
+            ...event,
+            end: event.end === 0 ? 48 : event.end,
+            id: (dayList.indexOf(event.day) * 48) +
+                event.start
+        };
+    }
+
+    // Add upcoming event to calendar
+    // Checks for valid argument and checks for overlap
+    addEvent = () => {
+        let newList = this.state.events;
+        if (this.parseEvent(
+            this.state.upcoming, this.state.events
+        )) {
+            newList.push(this.addID(this.state.upcoming));
             newList.sort((a, b) => a.id - b.id);
             this.updateEvents(newList);
         };
     }
 
     // Edit event in calendar
-    // Searches for old event by ID and
-    // overwrites with new event data
-    editEvent = (id, event) => {
+    // Removes old event and adds in new one
+    editEvent = () => {
         let newList = this.state.events.filter(
-            event => event.id !== id
+            event => event.id !== this.state.oldid
         );
-        if (this.parseEvent(event, newList)) {
-            let oldIndex = newList.findIndex(
-                curr => curr.id === id
-            );
-            newList[oldIndex] = this.parseEvent(event);
+        if (this.parseEvent(
+            this.state.upcoming, newList
+        )) {
+            newList.push(this.addID(this.state.upcoming));
             newList.sort((a, b) => a.id - b.id);
             this.updateEvents(newList);
         };
@@ -91,23 +98,24 @@ class Calendar extends Component {
     // Helper method that verifies an
     // event can be added to the calendar
     parseEvent = (event, list) => {
-        if (event.title.length === 0) {
+        if (!event.title || event.title.length === 0) {
             alert('Event title cannot be empty!');
             return false;
         };
-        if (event.start >= event.end) {
+        if ((event.start > event.end && event.end !== 0) ||
+            event.start === event.end) {
             alert("Invalid event duration!");
             return false;
         };
         if (list.some(
             curr =>
             ((curr.day === event.day) &&
-                (curr.start == event.start ||
-                    curr.end == event.end) ||
-                (curr.start < event.end &&
-                    curr.end > event.start) ||
-                (curr.end > event.start &&
-                    curr.start < event.end))
+                ((curr.start === event.start ||
+                    curr.end === event.end) ||
+                    (curr.start < event.end &&
+                        curr.end > event.start) ||
+                    (curr.end > event.start &&
+                        curr.start < event.end)))
         )) {
             alert("Event overlaps with a current event!");
             return false;
@@ -121,7 +129,7 @@ class Calendar extends Component {
         let newState = {
             ...this.state,
             events: list,
-            openDialog: null
+            dialog: null
         };
         this.setState(newState);
         localStorage.setItem(
@@ -132,7 +140,7 @@ class Calendar extends Component {
 
     // Imports event selection data
     // into the edit event dialog
-    pullUpcoming = (id) => {
+    editUpcoming = (id) => {
         let index = this.state.events.findIndex(
             event => event.id === id
         );
@@ -140,7 +148,7 @@ class Calendar extends Component {
             ...this.state,
             oldid: id,
             upcoming: {
-                title: '',
+                title: this.state.events[index].title,
                 day: this.state.events[index].day,
                 start: this.state.events[index].start,
                 end: this.state.events[index].end
@@ -152,7 +160,7 @@ class Calendar extends Component {
 
     // Sets selected time slot to be displayed
     // in the add event dialog
-    setUpcoming = (day, time) => {
+    addUpcoming = (day, time) => {
         let newState = {
             ...this.state,
             upcoming: {
@@ -168,7 +176,7 @@ class Calendar extends Component {
 
     // Updates the upcoming event details
     // for the add and edit event dialogs
-    editUpcoming = (event) => {
+    changeUpcoming = (event) => {
         let newState = {
             ...this.state,
             upcoming: event
@@ -182,6 +190,16 @@ class Calendar extends Component {
         let newState = {
             ...this.state,
             dialog: name
+        };
+        this.setState(newState);
+    }
+
+    // Updates the selected day in a mono-view
+    // for smaller screens
+    setMono = (num) => {
+        let newState = {
+            ...this.state,
+            monoDay: num
         };
         this.setState(newState);
     }
@@ -225,6 +243,7 @@ class Calendar extends Component {
     }
 
     render() {
+        console.log(this.state.upcoming)
         return (
             <div className='calendar'>
                 <NavBar
@@ -234,8 +253,8 @@ class Calendar extends Component {
                     type={'add'}
                     addEvent={this.addEvent}
                     tempEvent={this.state.upcoming}
-                    editUpcoming={this.editUpcoming}
-                    isOpen={this.state.openDialog === 'add'}
+                    changeUpcoming={this.changeUpcoming}
+                    isOpen={this.state.dialog === 'add'}
                     setDialog={this.setDialog}
                     format={this.state.format}>
                 </EventDialog>
@@ -245,14 +264,14 @@ class Calendar extends Component {
                     editEvent={this.editEvent}
                     deleteEvent={this.deleteEvent}
                     tempEvent={this.state.upcoming}
-                    editUpcoming={this.editUpcoming}
-                    isOpen={this.state.openDialog === 'edit'}
+                    changeUpcoming={this.changeUpcoming}
+                    isOpen={this.state.dialog === 'edit'}
                     setDialog={this.setDialog}
                     format={this.state.format}>
                 </EventDialog>
                 <SettingsDialog
                     clearEvents={this.clearEvents}
-                    isOpen={this.state.openDialog === 'settings'}
+                    isOpen={this.state.dialog === 'settings'}
                     setDialog={this.setDialog}
                     accentColor={this.state.accentColor}
                     changeColor={this.setAccent}
@@ -261,7 +280,10 @@ class Calendar extends Component {
                 </SettingsDialog>
                 <EventList
                     allEvents={this.state.events}
-                    pullUpcoming={this.pullUpcoming}
+                    addUpcoming={this.addUpcoming}
+                    editUpcoming={this.editUpcoming}
+                    monoDay={this.state.monoDay}
+                    setMono={this.setMono}
                     setDialog={this.setDialog}
                     format={this.state.format}>
                 </EventList>

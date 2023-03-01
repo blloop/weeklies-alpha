@@ -39,8 +39,9 @@ class HourDropdown extends Component {
                     className='drop-box top-button square small'
                     onClick={this.toggleOpen}>
                     {this.props.format ?
-                        this.props.hour :
-                        ((((this.props.hour / 2) - 1) % 12) + 1)
+                        this.props.hour / 2 :
+                        (this.props.hour / 2) % 12 === 0 ?
+                            12 : (this.props.hour / 2) % 12
                     }
                 </button>
                 {this.state.open ? (

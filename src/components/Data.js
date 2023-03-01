@@ -1,6 +1,6 @@
-const colorIncides = [
-    1, 2, 3, 4, 5, 6, 7
-]
+const range = (num) => (
+    Array.from({ length: num }, (x, i) => i)
+);
 
 const colorNames = [
     'red',
@@ -44,7 +44,7 @@ const dayAbbrevList = [
 ]
 
 export {
-    colorNames, colorIncides,
+    range, colorNames,
     darkColors, lightColors,
     dayList, dayAbbrevList
 };

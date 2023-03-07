@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import EventDialog from './EventDialog';
 import SettingsDialog from './SettingsDialog';
 import EventList from './EventList';
+import WarningDialog from './WarningDialog';
 
 class Calendar extends Component {
 
@@ -31,6 +32,7 @@ class Calendar extends Component {
             },
             oldid: 0,
             dialog: null,
+            warning: '',
             monoDay: 0
         };
     }
@@ -99,12 +101,12 @@ class Calendar extends Component {
     // event can be added to the calendar
     parseEvent = (event, list) => {
         if (!event.title || event.title.length === 0) {
-            alert('Event title cannot be empty!');
+            this.setWarning('Event title cannot be empty!');
             return false;
         };
         if ((event.start > event.end && event.end !== 0) ||
             event.start === event.end) {
-            alert("Invalid event duration!");
+            this.setWarning('Invalid event duration!');
             return false;
         };
         if (list.some(
@@ -117,7 +119,7 @@ class Calendar extends Component {
                     (curr.end > event.start &&
                         curr.start < event.end)))
         )) {
-            alert("Event overlaps with a current event!");
+            this.setWarning('Event overlaps with a current event!');
             return false;
         };
         return true;
@@ -242,6 +244,15 @@ class Calendar extends Component {
         );
     }
 
+    // Toggle warning overlay above all other dialogs
+    setWarning = (text) => {
+        let newState = {
+            ...this.state,
+            warning: text
+        }
+        this.setState(newState);
+    }
+
     render() {
         console.log(this.state.upcoming)
         return (
@@ -278,6 +289,10 @@ class Calendar extends Component {
                     format={this.state.format}
                     toggleFormat={this.toggleFormat}>
                 </SettingsDialog>
+                <WarningDialog
+                    text={this.state.warning}
+                    setWarning={this.setWarning}>
+                </WarningDialog>
                 <EventList
                     allEvents={this.state.events}
                     addUpcoming={this.addUpcoming}

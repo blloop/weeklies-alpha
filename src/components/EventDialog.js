@@ -74,7 +74,10 @@ const EventDialog = props => (
                                     ...props.tempEvent,
                                     start: (props.tempEvent.start + 24) % 48
                                 })}
-                                isAM={props.tempEvent.start < 24}
+                                isAM={
+                                    props.tempEvent.start < 24 || 
+                                    props.tempEvent.start === 48
+                                }
                                 format={props.format}>
                             </AMDropdown>
                         </div>
@@ -110,7 +113,10 @@ const EventDialog = props => (
                                 ...props.tempEvent,
                                 end: (props.tempEvent.end + 24) % 48
                             })}
-                            isAM={props.tempEvent.end < 24}
+                            isAM={
+                                props.tempEvent.end < 24 || 
+                                props.tempEvent.end === 48
+                            }
                             format={props.format}>
                         </AMDropdown>
                     </div>

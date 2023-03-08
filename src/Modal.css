@@ -128,6 +128,11 @@
   border: none;
 }
 
+.drop-box p {
+  width: 100%;
+  height: 100%;
+}
+
 .drop-box.small {
   text-align: center;
 }

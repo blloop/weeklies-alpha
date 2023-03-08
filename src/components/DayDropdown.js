@@ -1,53 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { dayList } from './Data';
 
-class DayDropdown extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false
-        };
-    }
-
-    // Toggles dropdown open state
-    toggleOpen = () => {
-        this.setState({
-            open: !this.state.open
-        });
-    }
-
-    // Sets dropdown value
-    setDay = (day) => {
-        this.props.changeDay(day);
-        this.toggleOpen();
-    }
-
-    render() {
-        return (
-            <>
-                <button
-                    className='drop-box top-button square'
-                    onClick={this.toggleOpen}>
-                    {this.props.day}
-                </button>
-                {
-                    this.state.open ? (
-                        <ul className='dropdown'>
-                            {dayList.map((day) =>
-                                <button
-                                    key={day}
-                                    className='drop-box square'
-                                    onClick={() => this.setDay(day)}>
-                                    {day}
-                                </button>
-                            )}
-                        </ul>
-                    ) : null
-                }
-            </>
-        );
-    }
-}
+const DayDropdown = props => (
+    <>
+        <button
+            className='drop-box top-button square'
+            onClick={props.toggleMenu}>
+            {props.day}
+        </button>
+        {
+            props.isOpen && (
+                <ul className='dropdown'>
+                    {dayList.map((day) =>
+                        <div
+                            key={day} 
+                            onClick={props.toggleMenu}>
+                            <button
+                                className='drop-box square'
+                                onClick={() => props.changeDay(day)}>
+                                {day}
+                            </button>
+                        </div>
+                    )}
+                </ul>
+            )
+        }
+    </>
+);
 
 export default DayDropdown;

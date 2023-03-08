@@ -2,8 +2,8 @@ import React from 'react';
 import EventColumn from './EventColumn';
 import { dayList, range } from './Data';
 
-let scaleTime = (format) => {
-    return (
+const EventList = props => {
+    const scaleTime = (format) => (
         format ?
             <>
                 <p>00:00</p><p>01:00</p><p>02:00</p><p>03:00</p>
@@ -22,50 +22,54 @@ let scaleTime = (format) => {
                 <p>08:00</p><p>09:00</p><p>10:00</p><p>11:00</p>
             </>
     );
-}
-
-const EventList = props => (
-    <div className='eventlist'>
-        <div className='time-scale scale-left mono-hide'>
-            {scaleTime(props.format)}
-        </div>
-        <div className='grid-lines'>
-            {range(47).map(num => { return (<hr key={num}></hr>) })}
-        </div>
-        <div className='column utility mono-show'>
-            <button
-                onClick={() =>
-                    props.setMono((props.monoDay - 1) % 7)
-                }
-                className='switch move-left'>
-                &lt;
-            </button> {/* < */}
-            <button
-                onClick={() =>
-                    props.setMono((props.monoDay + 1) % 7)
-                }
-                className='switch move-right'>
-                &gt;
-            </button> {/* > */}
-            <div className='time-scale scale-left'>
+    
+    return (
+        <div className='eventlist'>
+            <div className='time-scale scale-left mono-hide'>
+                {scaleTime(props.format)}
+            </div>
+            <div className='grid-lines'>
+                {range(47).map(num => (
+                    <hr className={num % 2 === 0 ? '' : 'bold'} 
+                        key={num}>
+                    </hr>
+                ))}
+            </div>
+            <div className='column utility mono-show'>
+                <button
+                    onClick={() =>
+                        props.setMono((props.monoDay - 1) % 7)
+                    }
+                    className='switch move-left'>
+                    &lt;
+                </button> {/* < */}
+                <button
+                    onClick={() =>
+                        props.setMono((props.monoDay + 1) % 7)
+                    }
+                    className='switch move-right'>
+                    &gt;
+                </button> {/* > */}
+                <div className='time-scale scale-left'>
+                    {scaleTime(props.format)}
+                </div>
+            </div>
+            {range(7).map((num) =>
+                <EventColumn
+                    key={num}
+                    addUpcoming={props.addUpcoming}
+                    editUpcoming={props.editUpcoming}
+                    monoDay={props.monoDay}
+                    numDay={num}
+                    events={props.allEvents.filter(
+                        event => event.day === dayList[num]
+                    )}></EventColumn>
+            )}
+            <div className='time-scale scale-right mono-hide'>
                 {scaleTime(props.format)}
             </div>
         </div>
-        {range(7).map((num) =>
-            <EventColumn
-                key={num}
-                addUpcoming={props.addUpcoming}
-                editUpcoming={props.editUpcoming}
-                monoDay={props.monoDay}
-                numDay={num}
-                events={props.allEvents.filter(
-                    event => event.day === dayList[num]
-                )}></EventColumn>
-        )}
-        <div className='time-scale scale-right mono-hide'>
-            {scaleTime(props.format)}
-        </div>
-    </div >
-);
+    );
+};
 
 export default EventList;

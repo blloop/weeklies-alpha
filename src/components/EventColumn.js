@@ -2,8 +2,7 @@ import { range, dayList, dayAbbrevList } from "./Data";
 
 const EventColumn = props => (
     <div className={'column' +
-        (props.numDay === props.monoDay ?
-            '' : ' mono-hide')
+        (props.numDay === props.monoDay ? '' : ' mono-hide')
     }>
         <p className='subtitle'>{dayAbbrevList[props.numDay]}</p>
         <hr></hr>
@@ -29,11 +28,9 @@ const EventColumn = props => (
         {range(48).map(num => (
             <div
                 key={num}
-                onClick={() =>
-                    props.addUpcoming(
+                onClick={() =>props.addUpcoming(
                         dayList[props.numDay], num
-                    )
-                }
+                )}
                 className='selection'
                 style={{ top: 60 + (num * 25) }}>
             </div >

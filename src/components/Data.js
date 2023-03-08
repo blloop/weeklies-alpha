@@ -1,7 +1,3 @@
-const range = (num) => (
-    Array.from({ length: num }, (x, i) => i)
-);
-
 const colorNames = [
     'red',
     'orange',
@@ -34,6 +30,10 @@ const lightColors = [
     'rgb(103, 139, 255)'
 ];
 
+const range = (num) => (
+    Array.from({ length: num }, (x, i) => i)
+);
+
 const dayList = [
     'Sunday', 'Monday', 'Tuesday', 'Wednesday',
     'Thursday', 'Friday', 'Saturday'
@@ -44,7 +44,6 @@ const dayAbbrevList = [
 ]
 
 export {
-    range, colorNames,
-    darkColors, lightColors,
-    dayList, dayAbbrevList
+    colorNames, darkColors, lightColors,
+    range, dayList, dayAbbrevList
 };

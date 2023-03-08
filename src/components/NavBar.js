@@ -3,7 +3,7 @@ import ghLogo from '../img/github-mark.svg';
 import gearLogo from '../img/gear.svg';
 
 const NavBar = props => (
-    <div className='navbar' >
+    <div className='navbar'>
         <button
             type='button'
             className='accent'

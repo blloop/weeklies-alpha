@@ -85,9 +85,9 @@ class Calendar extends Component {
 
     // Remove event from calendar
     // Filters event list by ID
-    deleteEvent = (id) => {
+    deleteEvent = () => {
         let newList = this.state.events.filter(
-            event => event.id !== id
+            event => event.id !== this.state.oldid
         );
         this.updateEvents(newList);
     }
@@ -254,7 +254,6 @@ class Calendar extends Component {
     }
 
     render() {
-        console.log(this.state.upcoming)
         return (
             <div className='calendar'>
                 <NavBar

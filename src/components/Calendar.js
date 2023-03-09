@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { colorNames, dayList } from './Data';
 import { lightColors, darkColors } from './Data';
 import NavBar from './NavBar';
@@ -7,46 +7,34 @@ import SettingsDialog from './SettingsDialog';
 import EventList from './EventList';
 import WarningDialog from './WarningDialog';
 
-class Calendar extends Component {
+const Calendar = () => {
+    // Loads events and settings from browser storage
+    let getList = localStorage.getItem('weeklies');
+    let getInfo = localStorage.getItem('weeklies-info');
+    const [events, setEvents] = useState(getList ?
+        JSON.parse(getList) : []
+    );
+    const [accent, setAccent] = useState(getInfo ?
+        JSON.parse(getInfo)['accent'] : 'orange'
+    );
+    const [format, setFormat] = useState(getInfo ?
+        JSON.parse(getInfo)['format'] : false
+    );
 
-    constructor(props) {
-        // Import weeklies data from browser storage
-        let getList = localStorage.getItem('weeklies');
-        let getInfo = localStorage.getItem('weeklies-info');
-        super(props);
-        this.state = {
-            events: (getList ?
-                JSON.parse(getList) : []
-            ),
-            accent: (getInfo ?
-                JSON.parse(getInfo)['accent'] : 'orange'
-            ),
-            format: (getInfo ?
-                JSON.parse(getInfo)['format'] : false
-            ),
-            upcoming: {
-                title: '',
-                day: 'Sunday',
-                start: 0,
-                end: 0
-            },
-            oldid: 0,
-            dialog: '',
-            warning: '',
-            monoDay: 0
-        };
-    }
-
-    // Update UI accent color upon page load
-    componentDidMount() {
-        this.setAccent(
-            colorNames.indexOf(this.state.accent)
-        );
-    }
+    const [upcoming, setUpcoming] = useState({
+        title: '',
+        day: 'Sunday',
+        start: 0,
+        end: 0
+    });
+    const [oldid, setOldid] = useState(0);
+    const [dialog, setDialog] = useState('');
+    const [warning, setWarning] = useState('');
+    const [mono, setMono] = useState(0);
 
     // Calculates event ID based on start time
-    // Returns the event with ID
-    addID = (event) => {
+    // Returns the event with ID added
+    const addID = (event) => {
         return {
             ...event,
             end: event.end === 0 ? 48 : event.end,
@@ -56,57 +44,48 @@ class Calendar extends Component {
     }
 
     // Add upcoming event to calendar
-    // Checks for valid argument and checks for overlap
-    addEvent = () => {
-        let newList = this.state.events;
-        if (this.parseEvent(
-            this.state.upcoming, this.state.events
-        )) {
-            newList.push(this.addID(this.state.upcoming));
+    const addEvent = () => {
+        let newList = events;
+        if (parseEvent(upcoming, events)) {
+            newList.push(addID(upcoming));
             newList.sort((a, b) => a.id - b.id);
-            this.updateEvents(newList);
-        };
+            updateEvents(newList);
+        }
     }
 
-    // Edit event in calendar
+    // Edit existing event in calendar
     // Removes old event and adds in new one
-    editEvent = () => {
-        let newList = this.state.events.filter(
-            event => event.id !== this.state.oldid
+    const editEvent = () => {
+        let newList = events.filter(
+            event => event.id !== oldid
         );
-        if (this.parseEvent(
-            this.state.upcoming, newList
-        )) {
-            newList.push(this.addID(this.state.upcoming));
+        if (parseEvent(upcoming, newList)) {
+            newList.push(addID(upcoming));
             newList.sort((a, b) => a.id - b.id);
-            this.updateEvents(newList);
-        };
+            updateEvents(newList);
+        }
     }
 
     // Remove event from calendar
-    // Filters event list by ID
-    deleteEvent = () => {
-        let newList = this.state.events.filter(
-            event => event.id !== this.state.oldid
+    // Uses local id saved of last event clicked
+    const deleteEvent = () => {
+        let newList = events.filter(
+            event => event.id !== oldid
         );
-        this.updateEvents(newList);
+        updateEvents(newList);
     }
 
-    // Remove all events from calendar
-    clearEvents = () => {
-        this.updateEvents([]);
-    }
-
-    // Helper method that verifies an
-    // event can be added to the calendar
-    parseEvent = (event, list) => {
+    // Helper method that verifies an event can be added
+    // Validates arguments and checks for overlaps
+    const parseEvent = (event, list) => {
         if (!event.title || event.title.length === 0) {
-            this.setWarning('Event title cannot be empty!');
+            setWarning('Event title cannot be empty!');
             return false;
         };
-        if ((event.start > event.end && event.end !== 0) ||
+        if ((event.start > event.end && 
+            event.end !== 0) ||
             event.start === event.end) {
-            this.setWarning('Invalid event duration!');
+            setWarning('Invalid event duration!');
             return false;
         };
         if (list.some(
@@ -119,190 +98,136 @@ class Calendar extends Component {
                     (curr.end > event.start &&
                         curr.start < event.end)))
         )) {
-            this.setWarning('Event overlaps with a current event!');
+            setWarning(
+                'Time overlaps with another event!'
+            );
             return false;
         };
         return true;
     }
 
     // Helper method that updates events
-    // and saves to local browser storage
-    updateEvents = (list) => {
-        let newState = {
-            ...this.state,
-            events: list,
-            dialog: ''
-        };
-        this.setState(newState);
+    // Saves new list of events to browser storage
+    const updateEvents = (list) => {
+        setEvents(list);
+        setDialog('');
         localStorage.setItem(
             'weeklies',
             JSON.stringify(list)
         );
     }
 
-    // Imports event selection data
-    // into the edit event dialog
-    editUpcoming = (id) => {
-        let index = this.state.events.findIndex(
+    // Imports event data for edit event dialog
+    const editUpcoming = (id) => {
+        let index = events.findIndex(
             event => event.id === id
         );
-        let newState = {
-            ...this.state,
-            oldid: id,
-            upcoming: {
-                title: this.state.events[index].title,
-                day: this.state.events[index].day,
-                start: this.state.events[index].start,
-                end: this.state.events[index].end
-            },
-            dialog: 'edit'
-        };
-        this.setState(newState);
+        setOldid(id);
+        setUpcoming({
+            title: events[index].title,
+            day: events[index].day,
+            start: events[index].start,
+            end: events[index].end
+        });
+        setDialog('edit');
     }
 
-    // Sets selected time slot to be displayed
-    // in the add event dialog
-    addUpcoming = (day, time) => {
-        let newState = {
-            ...this.state,
-            upcoming: {
-                title: '',
-                day: day,
-                start: time,
-                end: (time + 2) % 48
-            },
-            dialog: 'add'
-        };
-        this.setState(newState);
+    // Imports time data for add event dialog
+    const addUpcoming = (day, time) => {
+        setUpcoming({
+            title: '',
+            day: day,
+            start: time,
+            end: (time + 2) % 48
+        });
+        setDialog('add');
     }
 
-    // Updates the upcoming event details
-    // for the add and edit event dialogs
-    changeUpcoming = (event) => {
-        let newState = {
-            ...this.state,
-            upcoming: event
-        };
-        this.setState(newState);
-    }
-
-    // Changes the open dialog by name
-    setDialog = (name) => {
-        let newState = {
-            ...this.state,
-            dialog: name
-        };
-        this.setState(newState);
-    }
-
-    // Updates the selected day in a mono-view
-    // for smaller screens
-    setMono = (num) => {
-        let newState = {
-            ...this.state,
-            monoDay: num
-        };
-        this.setState(newState);
-    }
-
-    // Set accent color
-    setAccent = (index) => {
+    // Changes accent color and updates UI
+    const changeAccent = useCallback((index) => {
         document.body.style.setProperty(
             '--light-accent', lightColors[index]
         );
         document.body.style.setProperty(
             '--dark-accent', darkColors[index]
         );
-        let newState = {
-            ...this.state,
-            accent: colorNames[index]
-        };
-        this.setState(newState);
+        setAccent(colorNames[index]);
         localStorage.setItem(
             'weeklies-info',
             JSON.stringify({
-                accent: newState.accent,
-                format: newState.format
+                accent: colorNames[index],
+                format: format
+            })
+        );
+    }, [format]);
+
+    // Toggles time format used
+    const changeFormat = () => {
+        setFormat(!format);
+        localStorage.setItem(
+            'weeklies-info',
+            JSON.stringify({
+                accent: accent,
+                format: !format
             })
         );
     }
 
-    // Toggle military time usage (24 hour time)
-    toggleFormat = () => {
-        let newState = {
-            ...this.state,
-            format: !this.state.format
-        }
-        this.setState(newState);
-        localStorage.setItem(
-            'weeklies-info',
-            JSON.stringify({
-                accent: newState.accent,
-                format: newState.format
-            })
-        );
-    }
+    useEffect(() => {changeAccent(
+            colorNames.indexOf(accent)
+        )}, [accent, changeAccent]
+    );
 
-    // Toggle warning overlay above all other dialogs
-    setWarning = (text) => {
-        let newState = {
-            ...this.state,
-            warning: text
-        }
-        this.setState(newState);
-    }
-
-    render() {
-        return (
-            <div className='calendar'>
-                <NavBar
-                    setDialog={this.setDialog}>
-                </NavBar>
-                <EventDialog
-                    type={'add'}
-                    addEvent={this.addEvent}
-                    tempEvent={this.state.upcoming}
-                    changeUpcoming={this.changeUpcoming}
-                    isOpen={this.state.dialog === 'add'}
-                    setDialog={this.setDialog}
-                    format={this.state.format}>
-                </EventDialog>
-                <EventDialog
-                    type={'edit'}
-                    addEvent={this.addEvent}
-                    editEvent={this.editEvent}
-                    deleteEvent={this.deleteEvent}
-                    tempEvent={this.state.upcoming}
-                    changeUpcoming={this.changeUpcoming}
-                    isOpen={this.state.dialog === 'edit'}
-                    setDialog={this.setDialog}
-                    format={this.state.format}>
-                </EventDialog>
-                <SettingsDialog
-                    clearEvents={this.clearEvents}
-                    isOpen={this.state.dialog === 'settings'}
-                    setDialog={this.setDialog}
-                    accentColor={this.state.accentColor}
-                    changeColor={this.setAccent}
-                    format={this.state.format}
-                    toggleFormat={this.toggleFormat}>
-                </SettingsDialog>
-                <WarningDialog
-                    text={this.state.warning}
-                    setWarning={this.setWarning}>
-                </WarningDialog>
-                <EventList
-                    allEvents={this.state.events}
-                    addUpcoming={this.addUpcoming}
-                    editUpcoming={this.editUpcoming}
-                    monoDay={this.state.monoDay}
-                    setMono={this.setMono}
-                    setDialog={this.setDialog}
-                    format={this.state.format}>
-                </EventList>
-            </div>
-        );
-    }
+    console.log(events);
+    return (
+        <div className='calendar'>
+            <NavBar
+                setDialog={setDialog}>
+            </NavBar>
+            <EventDialog
+                type={'add'}
+                addEvent={addEvent}
+                tempEvent={upcoming}
+                setUpcoming={setUpcoming}
+                isOpen={dialog === 'add'}
+                setDialog={setDialog}
+                format={format}>
+            </EventDialog>
+            <EventDialog
+                type={'edit'}
+                addEvent={addEvent}
+                editEvent={editEvent}
+                deleteEvent={deleteEvent}
+                tempEvent={upcoming}
+                setUpcoming={setUpcoming}
+                isOpen={dialog === 'edit'}
+                setDialog={setDialog}
+                format={format}>
+            </EventDialog>
+            <SettingsDialog
+                clearEvents={() => {updateEvents([]);}}
+                isOpen={dialog === 'settings'}
+                setDialog={setDialog}
+                accentColor={accent}
+                changeColor={changeAccent}
+                format={format}
+                toggleFormat={changeFormat}>
+            </SettingsDialog>
+            <WarningDialog
+                text={warning}
+                setWarning={setWarning}>
+            </WarningDialog>
+            <EventList
+                allEvents={events}
+                addUpcoming={addUpcoming}
+                editUpcoming={editUpcoming}
+                monoDay={mono}
+                setMono={setMono}
+                setDialog={setDialog}
+                format={format}>
+            </EventList>
+        </div>
+    );
 }
 
 export default Calendar;

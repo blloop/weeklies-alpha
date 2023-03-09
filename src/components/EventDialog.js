@@ -29,7 +29,7 @@ const EventDialog = props => {
                         <div className='text-container'>
                             <p> Name of Event: </p>
                             <input
-                                onChange={(event) => props.changeUpcoming({
+                                onChange={(event) => props.setUpcoming({
                                     ...props.tempEvent,
                                     title: event.target.value
                                 })}
@@ -43,7 +43,7 @@ const EventDialog = props => {
                                     setMenu('') :
                                     setMenu('day')
                                 }}
-                                changeDay={(day) => props.changeUpcoming({
+                                changeDay={(day) => props.setUpcoming({
                                     ...props.tempEvent,
                                     day: day
                                 })}
@@ -56,10 +56,10 @@ const EventDialog = props => {
                                         setMenu('') :
                                         setMenu('hour1')
                                     }}
-                                    changeHour={(hour) => props.changeUpcoming({
+                                    changeHour={(hour) => props.setUpcoming({
                                         ...props.tempEvent,
                                         start:
-                                            hour +
+                                            (props.format ? hour * 2 : hour) +
                                             (props.tempEvent.start % 2)
                                     })}
                                     hour={
@@ -70,7 +70,7 @@ const EventDialog = props => {
                                 </HourDropdown>
                                 <button
                                     className='drop-box top-button square small'
-                                    onClick={() => props.changeUpcoming({
+                                    onClick={() => props.setUpcoming({
                                         ...props.tempEvent,
                                         start:
                                             (props.tempEvent.start % 2 === 0 ?
@@ -82,7 +82,7 @@ const EventDialog = props => {
                                 {!props.format &&
                                     <button
                                         className='drop-box top-button square small'
-                                        onClick={() => props.changeUpcoming({
+                                        onClick={() => props.setUpcoming({
                                             ...props.tempEvent,
                                             start: (props.tempEvent.start + 24) % 48
                                         })}>
@@ -102,10 +102,10 @@ const EventDialog = props => {
                                         setMenu('') :
                                         setMenu('hour2')
                                     }}
-                                changeHour={(hour) => props.changeUpcoming({
+                                changeHour={(hour) => props.setUpcoming({
                                     ...props.tempEvent,
                                     end:
-                                        hour +
+                                        (props.format ? hour * 2 : hour) +
                                         (props.tempEvent.end % 2)
                                 })}
                                 hour={
@@ -116,7 +116,7 @@ const EventDialog = props => {
                             </HourDropdown>
                             <button
                                 className='drop-box top-button square small'
-                                onClick={() => props.changeUpcoming({
+                                onClick={() => props.setUpcoming({
                                     ...props.tempEvent,
                                     end:
                                         (props.tempEvent.end % 2 === 0 ?
@@ -128,7 +128,7 @@ const EventDialog = props => {
                             {!props.format &&
                                 <button
                                     className='drop-box top-button square small'
-                                    onClick={() => props.changeUpcoming({
+                                    onClick={() => props.setUpcoming({
                                         ...props.tempEvent,
                                         end: (props.tempEvent.end + 24) % 48
                                     })}>

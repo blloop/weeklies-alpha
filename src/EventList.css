@@ -115,13 +115,9 @@
 .grid-lines * {
     position: relative;
     width: 100%;
-    height: 0px;
+    height: 0.8px;
     z-index: 6;
     background-color: var(--base-dark-grey);
-}
-
-.grid-lines .bold {
-    height: 0.8px;
 }
 
 .switch {

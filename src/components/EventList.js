@@ -29,10 +29,8 @@ const EventList = props => {
                 {scaleTime(props.format)}
             </div>
             <div className='grid-lines'>
-                {range(47).map(num => (
-                    <hr className={num % 2 === 0 ? '' : 'bold'} 
-                        key={num}>
-                    </hr>
+                {range(23).map(num => (
+                    <hr key={num}></hr>
                 ))}
             </div>
             <div className='column utility mono-show'>

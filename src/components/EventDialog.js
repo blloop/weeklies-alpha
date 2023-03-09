@@ -12,7 +12,7 @@ const EventDialog = props => {
                     <div
                         className='modal-bg'
                         style={{ zIndex: 12 }}
-                        onClick={() => props.setDialog(null)}>
+                        onClick={() => props.setDialog('')}>
                     </div>
                     <div className='addevents overlay rounded'>
                         <p className='header rounded'>
@@ -22,7 +22,7 @@ const EventDialog = props => {
                             }
                         </p>
                         <button
-                            onClick={() => props.setDialog(null)}
+                            onClick={() => props.setDialog('')}
                             className='close-button'>
                             &#10005;
                         </button>

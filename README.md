@@ -36,6 +36,8 @@ Simple event addition with cell selection
 - Integration of 'regular' events among weeklies
 - Confirmation dialog before event deletion
 - Custom error messages
+- Option for night mode
+- Start of day option with horizontal line
 
 ### Dependencies
 

@@ -31,7 +31,7 @@ class Calendar extends Component {
                 end: 0
             },
             oldid: 0,
-            dialog: null,
+            dialog: '',
             warning: '',
             monoDay: 0
         };
@@ -131,7 +131,7 @@ class Calendar extends Component {
         let newState = {
             ...this.state,
             events: list,
-            dialog: null
+            dialog: ''
         };
         this.setState(newState);
         localStorage.setItem(
@@ -187,7 +187,6 @@ class Calendar extends Component {
     }
 
     // Changes the open dialog by name
-    // Can be passed null as a valid value
     setDialog = (name) => {
         let newState = {
             ...this.state,

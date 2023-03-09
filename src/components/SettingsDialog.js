@@ -8,11 +8,11 @@ const SettingsDialog = props => (
                 <div
                     className='modal-bg'
                     style={{ zIndex: 12 }}
-                    onClick={() => props.setDialog(null)}>
+                    onClick={() => props.setDialog('')}>
                 </div>
                 <div className='settings overlay rounded'>
                     <button
-                        onClick={() => props.setDialog(null)}
+                        onClick={() => props.setDialog('')}
                         className='close-button'>
                         &#10005;
                     </button>

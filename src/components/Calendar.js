@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { colorNames, dayList } from './Data';
 import { lightColors, darkColors } from './Data';
 import NavBar from './NavBar';
@@ -20,7 +21,6 @@ const Calendar = () => {
     const [format, setFormat] = useState(getInfo ?
         JSON.parse(getInfo)['format'] : false
     );
-
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',

@@ -8,23 +8,23 @@ const DayDropdown = props => (
             onClick={props.toggleMenu}>
             {props.day}
         </button>
-        {
-            props.isOpen && (
-                <ul className='dropdown'>
-                    {dayList.map((day) =>
-                        <div
-                            key={day} 
-                            onClick={props.toggleMenu}>
-                            <button
-                                className='drop-box square'
-                                onClick={() => props.changeDay(day)}>
-                                {day}
-                            </button>
-                        </div>
-                    )}
-                </ul>
-            )
-        }
+        {props.isOpen && (
+            <ul className='dropdown'> 
+                {dayList.map((day) =>
+                    <div
+                        key={day} 
+                        onClick={props.toggleMenu}>
+                        <button
+                            className='drop-box square'
+                            onClick={() => 
+                                props.changeDay(day)
+                            }>
+                            {day}
+                        </button>
+                    </div>
+                )}
+            </ul>
+        )}
     </>
 );
 

@@ -25,7 +25,9 @@ const NavBar = props => (
             <button
                 type='button'
                 className='contrast settings-button'
-                onClick={() => props.setDialog('settings')}>
+                onClick={() => 
+                    props.setDialog('settings')
+                }>
                 <img
                     src={gearLogo}
                     alt='Settings Button'>

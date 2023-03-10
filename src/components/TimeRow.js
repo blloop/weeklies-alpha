@@ -10,10 +10,18 @@ const TimeRow = props => {
                 1, 2, 3, 4, 5, 6, 7,
                 8, 9, 10, 11, 12
     ]);
-    const toggleMenu = () => {
+    const toggleHour = () => {
         props.menu === (props.field) ? 
             props.setMenu('') :
             props.setMenu(props.field)
+    }
+    const getHour = (format, time) => {
+        return (format ?
+            (time - (time % 2)) / 2 : 
+            (((time - (time % 2))/ 2) % 12 === 0 ? 
+                12 : 
+                ((time -(time % 2)) / 2) % 12)
+        );
     }
     const changeHour = (hour) => {
         let newEvent = props.tempEvent;
@@ -22,20 +30,48 @@ const TimeRow = props => {
             (props.tempEvent[props.field] % 2); 
         props.setUpcoming(newEvent);
     }
+    const toggleMin = () => {    
+        props.setUpcoming(
+            (props.field === 'start') ?
+            {            
+            ...props.tempEvent,
+            start: (props.tempEvent.start % 2 === 0 ?
+                props.tempEvent.start + 1 % 48:
+                props.tempEvent.start - 1 % 48),
+            } :
+            {            
+            ...props.tempEvent,
+            end: (props.tempEvent.end % 2 === 0 ?
+                props.tempEvent.end + 1 % 48:
+                props.tempEvent.end - 1 % 48)
+            }
+        )
+    }
+    const toggleAM = () => {
+        props.setUpcoming(
+            (props.field === 'start' ? 
+            {
+                ...props.tempEvent,
+                start: (props.tempEvent.start + 24) % 48
+            } :
+            {
+                ...props.tempEvent,
+                end: (props.tempEvent.end + 24) % 48
+            }
+            )
+        )
+    }
+
     return (
         <div className='time-items'>
             <div className='drop-container'>
                 <button
                     className='drop-box top-button square small'
-                    onClick={toggleMenu}>
-                    {props.format ?
-                        (props.tempEvent[props.field] -
-                            (props.tempEvent[props.field] % 2)) / 2 :
-                        ((props.tempEvent[props.field] -
-                            (props.tempEvent[props.field] % 2))/ 2) % 12 === 0 ?
-                            12 : ((props.tempEvent[props.field] -
-                                (props.tempEvent[props.field] % 2)) / 2) % 12
-                    }
+                    onClick={toggleHour}>
+                    {getHour(
+                        props.format, 
+                        props.tempEvent[props.field]
+                    )}
                 </button>
                 {props.menu === (props.field) && (
                     <ul className='dropdown wide'>
@@ -44,7 +80,7 @@ const TimeRow = props => {
                                 key={hour}
                                 className='drop-box square small'
                                 onClick={() => {
-                                    toggleMenu();
+                                    toggleHour();
                                     changeHour(
                                         props.format ?
                                             hour :
@@ -60,25 +96,13 @@ const TimeRow = props => {
             </div>
             <button
                 className='drop-box top-button square small'
-                onClick={() => {
-                    let newEvent = props.tempEvent;
-                    newEvent[props.field] = 
-                        (props.tempEvent[props.field] % 2 === 0 ?
-                        props.tempEvent[props.field] + 1 :
-                        props.tempEvent[props.field] - 1) % 48;
-                    props.setUpcoming(newEvent);
-                }}>
+                onClick={() => toggleMin()}>
                 {props.tempEvent[props.field] % 2 === 0 ? '00' : '30'}
             </button>                               
             {!props.format &&
                 <button
                     className='drop-box top-button square small'
-                    onClick={() => {
-                        let newEvent = props.tempEvent;
-                        newEvent[props.field] = 
-                            (props.tempEvent[props.field] + 24) % 48
-                        props.setUpcoming(newEvent);
-                    }}>
+                    onClick={() => {toggleAM()}}>
                     {(
                         props.tempEvent[props.field] < 24 || 
                         props.tempEvent[props.field] === 48) ? 

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import TimeRow from './TimeRow';
-import DayDropdown from './DayDropdown';
+import { dayList } from './Data';
 
 const EventDialog = props => {
     const [menu, setMenu] = useState('');
+    const toggleMenu = (name) => {
+        setMenu(menu === name ? '' : name);
+    }
+
     return ( <>
         {props.isOpen && <>
             <div
@@ -25,30 +29,45 @@ const EventDialog = props => {
                 </button>
                 <div className='text-container'>
                     <p> Name of Event: </p>
-                    <input
-                        onChange={(event) => 
-                            props.setUpcoming({
-                                ...props.tempEvent,
-                                title: event.target.value
+                    <input onChange={(event) => 
+                        props.setUpcoming({
+                            ...props.tempEvent,
+                            title: event.target.value
                         })}
                         value={props.tempEvent.title}>
                     </input>
                 </div>
                 <div className='row-items'>
-                    <DayDropdown
-                        isOpen={menu === 'day'}
-                        toggleMenu={() => {
-                            menu === 'day' ? 
-                                setMenu('') :
-                                setMenu('day')
-                        }}
-                        changeDay={(day) => 
-                            props.setUpcoming({
-                                ...props.tempEvent,
-                                day: day
-                        })}
-                        day={props.tempEvent.day}>
-                    </DayDropdown>
+                    <button
+                        className='drop-box top-button square'
+                        onClick={() => 
+                            setMenu(menu === 'day' ? 
+                                '' : 
+                                'day'
+                            )}>
+                        {props.tempEvent.day}
+                    </button>
+                    {menu === 'day' && (
+                        <ul className='dropdown'> 
+                            {dayList.map((day) =>
+                                <button
+                                    hidden={day === 
+                                        props.tempEvent.day
+                                    }
+                                    key={day}
+                                    className='drop-box square'
+                                    onClick={() => {
+                                        toggleMenu('day');
+                                        props.setUpcoming({
+                                            ...props.tempEvent,
+                                            day: day
+                                        });
+                                    }}>
+                                {day}
+                                </button>
+                            )}
+                        </ul>
+                    )}
                     <TimeRow
                         field={'start'}
                         menu={menu}

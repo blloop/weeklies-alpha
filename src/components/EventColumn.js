@@ -1,3 +1,4 @@
+import React from "react";
 import { range, dayList, dayAbbrevList } from "./Data";
 
 const EventColumn = props => (

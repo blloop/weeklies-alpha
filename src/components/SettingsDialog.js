@@ -10,7 +10,7 @@ const SettingsDialog = props => (
                     style={{ zIndex: 12 }}
                     onClick={() => props.setDialog('')}>
                 </div>
-                <div className='settings overlay rounded'>
+                <div className='settings overlay'>
                     <button
                         onClick={() => props.setDialog('')}
                         className='close-button'>

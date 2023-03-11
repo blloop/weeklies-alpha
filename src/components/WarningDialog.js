@@ -8,7 +8,7 @@ const WarningDialog = props => (
                 style={{ zIndex: 14 }}
                 onClick={() => props.setWarning('')}>
             </div>
-            <div className='addevents overlay rounded'>
+            <div className='dialog overlay'>
                 <button
                     onClick={() => props.setWarning('')}
                     className='close-button'>

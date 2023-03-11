@@ -15,7 +15,7 @@ const EventDialog = props => {
                 style={{ zIndex: 12 }}
                 onClick={() => props.setDialog('')}>
             </div>
-            <div className='addevents overlay rounded'>
+            <div className='addevents overlay'>
                 <p className='header rounded'>
                     {props.type === 'add' ?
                         'Add Event' :

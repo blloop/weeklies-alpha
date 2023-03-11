@@ -79,10 +79,6 @@ input {
   color: var(--base-white);
 }
 
-.rounded {
-  border-radius: 12px;
-}
-
 .square {
   padding: 4px;
   border-collapse: collapse;

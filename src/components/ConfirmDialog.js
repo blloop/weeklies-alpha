@@ -14,7 +14,7 @@ const ConfirmDialog = props => {
                     className='close-button'>
                     &#10005;
                 </button>
-                <p className='warning subtitle'> Warning! </p>
+                <p className='warning'> Warning! </p>
                 <p> Are you sure you want to delete 
                     {props.allEvents ? 
                         ' all events?' : 

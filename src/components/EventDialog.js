@@ -22,7 +22,7 @@ const EventDialog = props => {
                 onClick={() => props.setDialog('')}>
             </div>
             <div className='addevents overlay'>
-                <p className='header rounded'>
+                <p className='header'>
                     {props.type === 'add' ?
                         'Add Event' :
                         'Edit Event'

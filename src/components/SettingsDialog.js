@@ -22,8 +22,7 @@ const SettingsDialog = props => {
                     className='close-button'>
                     &#10005;
                 </button>
-                <p className='subtitle'> Settings </p>
-                <hr></hr>
+                <p className='header'> Settings </p>
                 <div className='settings-row'>
                     <p> Use 24 Hour Time </p>
                     <input

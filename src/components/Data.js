@@ -41,7 +41,7 @@ const dayList = [
 
 const dayAbbrevList = [
     'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
-]
+];
 
 export {
     colorNames, darkColors, lightColors,

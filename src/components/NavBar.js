@@ -10,7 +10,7 @@ const NavBar = props => (
             onClick={() => props.setDialog('add')}>
             Add Event
         </button>
-        <p className='title rounded'> Weeklies </p>
+        <p className='title'> Weeklies </p>
         <div className='subbar'>
             <a
                 href='https://github.com/blloop/weeklies'

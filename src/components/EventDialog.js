@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import TimeRow from './TimeRow';
+import ConfirmDialog from './ConfirmDialog';
 import { dayList } from './Data';
 
 const EventDialog = props => {
     const [menu, setMenu] = useState('');
+    const [confirm, setConfirm] = useState(false);
     const toggleMenu = (name) => {
         setMenu(menu === name ? '' : name);
-    }
+    };
+    const confirmDel = () => {
+        setConfirm(false);
+        props.deleteEvent();
+    };
 
     return ( <>
         {props.isOpen && <>
@@ -93,28 +99,31 @@ const EventDialog = props => {
                     tempEvent={props.tempEvent}
                     format={props.format}
                 />
-                {
-                    props.type === 'add' ?
-                        <button
-                            className='contrast-light thin-button'
-                            onClick={props.addEvent}>
-                            Add Event
-                        </button> :
+                { props.type === 'add' ?
+                    <button
+                        className='contrast-light thin-button'
+                        onClick={props.addEvent}>
+                        Add Event
+                    </button> :
+                    <>
                         <button
                             className='contrast-light thin-button'
                             onClick={props.editEvent}>
                             Edit Event
                         </button>
-                }
-                {
-                    props.type === 'edit' &&
-                    <button
-                        className='contrast thin-button'
-                        onClick={props.deleteEvent}>
-                        Delete Event
-                    </button>
+                        <button
+                            className='contrast thin-button'
+                            onClick={() => setConfirm(true)}>
+                            Delete Event
+                        </button>
+                    </>
                 }
             </div>
+            <ConfirmDialog
+                allEvents={false}
+                isOpen={confirm}
+                close={() => setConfirm(false)}
+                clickEvent={confirmDel}/>
         </>}
     </>
     );

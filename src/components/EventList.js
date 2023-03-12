@@ -61,7 +61,8 @@ const EventList = props => {
                     numDay={num}
                     events={props.allEvents.filter(
                         event => event.day === dayList[num]
-                    )}></EventColumn>
+                    )}
+                />
             )}
             <div className='time-scale scale-right mono-hide'>
                 {scaleTime(props.format)}

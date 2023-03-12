@@ -3,9 +3,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { colorNames, dayList } from './Data';
 import { lightColors, darkColors } from './Data';
 import NavBar from './NavBar';
+import EventList from './EventList';
 import EventDialog from './EventDialog';
 import SettingsDialog from './SettingsDialog';
-import EventList from './EventList';
 import WarningDialog from './WarningDialog';
 
 const Calendar = () => {
@@ -34,14 +34,12 @@ const Calendar = () => {
 
     // Calculates event ID based on start time
     // Returns the event with ID added
-    const addID = (event) => {
-        return {
-            ...event,
-            end: event.end === 0 ? 48 : event.end,
-            id: (dayList.indexOf(event.day) * 48) +
-                event.start
-        };
-    }
+    const addID = (event) => ({
+        ...event,
+        end: event.end === 0 ? 48 : event.end,
+        id: (dayList.indexOf(event.day) * 48) +
+            event.start
+    });
 
     // Add upcoming event to calendar
     const addEvent = () => {
@@ -51,7 +49,7 @@ const Calendar = () => {
             newList.sort((a, b) => a.id - b.id);
             updateEvents(newList);
         }
-    }
+    };
 
     // Edit existing event in calendar
     // Removes old event and adds in new one
@@ -64,7 +62,7 @@ const Calendar = () => {
             newList.sort((a, b) => a.id - b.id);
             updateEvents(newList);
         }
-    }
+    };
 
     // Remove event from calendar
     // Uses local id saved of last event clicked
@@ -73,7 +71,7 @@ const Calendar = () => {
             event => event.id !== oldid
         );
         updateEvents(newList);
-    }
+    };
 
     // Helper method that verifies an event can be added
     // Validates arguments and checks for overlaps
@@ -104,7 +102,7 @@ const Calendar = () => {
             return false;
         };
         return true;
-    }
+    };
 
     // Helper method that updates events
     // Saves new list of events to browser storage
@@ -115,7 +113,7 @@ const Calendar = () => {
             'weeklies',
             JSON.stringify(list)
         );
-    }
+    };
 
     // Imports event data for edit event dialog
     const editUpcoming = (id) => {
@@ -130,7 +128,7 @@ const Calendar = () => {
             end: events[index].end
         });
         setDialog('edit');
-    }
+    };
 
     // Imports time data for add event dialog
     const addUpcoming = (day, time) => {
@@ -141,7 +139,7 @@ const Calendar = () => {
             end: (time + 2) % 48
         });
         setDialog('add');
-    }
+    };
 
     // Changes accent color and updates UI
     const changeAccent = useCallback((index) => {
@@ -171,19 +169,17 @@ const Calendar = () => {
                 format: !format
             })
         );
-    }
+    };
 
     useEffect(() => {changeAccent(
             colorNames.indexOf(accent)
         )}, [accent, changeAccent]
     );
 
-    console.log(events);
     return (
         <div className='calendar'>
             <NavBar
-                setDialog={setDialog}>
-            </NavBar>
+                setDialog={setDialog}/>
             <EventDialog
                 type={'add'}
                 addEvent={addEvent}
@@ -191,8 +187,7 @@ const Calendar = () => {
                 setUpcoming={setUpcoming}
                 isOpen={dialog === 'add'}
                 setDialog={setDialog}
-                format={format}>
-            </EventDialog>
+                format={format}/>
             <EventDialog
                 type={'edit'}
                 addEvent={addEvent}
@@ -202,8 +197,7 @@ const Calendar = () => {
                 setUpcoming={setUpcoming}
                 isOpen={dialog === 'edit'}
                 setDialog={setDialog}
-                format={format}>
-            </EventDialog>
+                format={format}/>
             <SettingsDialog
                 clearEvents={() => {updateEvents([]);}}
                 isOpen={dialog === 'settings'}
@@ -211,12 +205,10 @@ const Calendar = () => {
                 accentColor={accent}
                 changeColor={changeAccent}
                 format={format}
-                toggleFormat={changeFormat}>
-            </SettingsDialog>
+                toggleFormat={changeFormat}/>
             <WarningDialog
                 text={warning}
-                setWarning={setWarning}>
-            </WarningDialog>
+                setWarning={setWarning}/>
             <EventList
                 allEvents={events}
                 addUpcoming={addUpcoming}
@@ -224,10 +216,9 @@ const Calendar = () => {
                 monoDay={mono}
                 setMono={setMono}
                 setDialog={setDialog}
-                format={format}>
-            </EventList>
+                format={format}/>
         </div>
     );
-}
+};
 
 export default Calendar;

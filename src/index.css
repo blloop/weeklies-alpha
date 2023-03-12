@@ -122,6 +122,7 @@ input {
   border-color: var(--base-lightgrey);
   border-style: solid;
   border-width: 0px 8px;
+  border-radius: 12px;
   transition: all 0.1s ease-in-out;
 }
 

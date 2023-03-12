@@ -3,18 +3,18 @@ import React from 'react';
 const TimeRow = props => {
     const HoursList = (format) => (
         format ? [
-                0, 1, 2, 3, 4, 5, 6, 7,
-                8, 9, 10, 11, 12, 13, 14, 15,
-                16, 17, 18, 19, 20, 21, 22, 23
-            ] : [
-                1, 2, 3, 4, 5, 6, 7,
-                8, 9, 10, 11, 12
+            0, 1, 2, 3, 4, 5, 6, 7,
+            8, 9, 10, 11, 12, 13, 14, 15,
+            16, 17, 18, 19, 20, 21, 22, 23
+        ] : [
+            1, 2, 3, 4, 5, 6, 7,
+            8, 9, 10, 11, 12
     ]);
     const toggleHour = () => {
         props.menu === (props.field) ? 
             props.setMenu('') :
             props.setMenu(props.field)
-    }
+    };
     const getHour = (format, time) => {
         return (format ?
             (time - (time % 2)) / 2 : 
@@ -22,45 +22,41 @@ const TimeRow = props => {
                 12 : 
                 ((time -(time % 2)) / 2) % 12)
         );
-    }
+    };
     const changeHour = (hour) => {
         let newEvent = props.tempEvent;
         newEvent[props.field] = 
             (props.format ? hour * 2 : hour) +
             (props.tempEvent[props.field] % 2); 
         props.setUpcoming(newEvent);
-    }
+    };
     const toggleMin = () => {    
         props.setUpcoming(
             (props.field === 'start') ?
-            {            
-            ...props.tempEvent,
+            { ...props.tempEvent,
             start: (props.tempEvent.start % 2 === 0 ?
                 props.tempEvent.start + 1 % 48:
                 props.tempEvent.start - 1 % 48),
             } :
-            {            
-            ...props.tempEvent,
+            { ...props.tempEvent,
             end: (props.tempEvent.end % 2 === 0 ?
                 props.tempEvent.end + 1 % 48:
                 props.tempEvent.end - 1 % 48)
             }
-        )
-    }
+        );
+    };
     const toggleAM = () => {
         props.setUpcoming(
             (props.field === 'start' ? 
-            {
-                ...props.tempEvent,
+            { ...props.tempEvent,
                 start: (props.tempEvent.start + 24) % 48
             } :
-            {
-                ...props.tempEvent,
+            { ...props.tempEvent,
                 end: (props.tempEvent.end + 24) % 48
             }
             )
-        )
-    }
+        );
+    };
 
     return (
         <div className='time-items'>

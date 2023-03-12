@@ -6,23 +6,32 @@ const ConfirmDialog = props => {
             <div
                 className='modal-bg'
                 style={{ zIndex: 14 }}
-                onClick={() => props.setDialog('')}>
+                onClick={() => props.close()}>
             </div>
-            <div className='dialog overlay'>
+            <div className='dialog overlay confirm'>
                 <button
-                    onClick={() => props.clickEvent()}
+                    onClick={() => props.close()}
                     className='close-button'>
                     &#10005;
                 </button>
-                <p className='warning'> Warning! </p>
+                <p className='warning subtitle'> Warning! </p>
                 <p> Are you sure you want to delete 
-                    {props.allEvents ? ' all events?' : ' this event?'}
+                    {props.allEvents ? 
+                        ' all events?' : 
+                        ' this event?'
+                    }
                 </p>
-                {props.text}
+                <button
+                    onClick={props.clickEvent}
+                    className='contrast thin-button'>
+                    {props.allEvents ? 
+                    'Clear events' : 
+                    'Delete event'}
+                </button>
             </div>
         </>}
     </>
     );
-}
+};
 
 export default ConfirmDialog;

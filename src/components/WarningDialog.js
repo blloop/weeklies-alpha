@@ -1,14 +1,14 @@
 import React from "react";
 
 const WarningDialog = props => (
-    (props.text &&
+    props.text &&
         <>
             <div
                 className='modal-bg'
                 style={{ zIndex: 14 }}
                 onClick={() => props.setWarning('')}>
             </div>
-            <div className='dialog overlay'>
+            <div className='dialog overlay confirm'>
                 <button
                     onClick={() => props.setWarning('')}
                     className='close-button'>
@@ -18,7 +18,6 @@ const WarningDialog = props => (
                 {props.text}
             </div>
         </>
-    )
 );
 
 export default WarningDialog;

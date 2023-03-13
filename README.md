@@ -15,33 +15,28 @@ and then plan regular events around them!
 
 ## Usage
 
-Visit <a target="_blank" href="https://bill-yu.dev/weeklies"> this </a> link to visit the current deployment!
+Visit <a target="_blank" href="https://bill-yu.dev/weeklies"> this </a> link to visit the latest deployment!
 
 ## Development
 
-### v1.1
+### v1.2
 
-Simple event addition with cell selection
+Improved interface with warnings
 
-- You can now add an event by selection the cell in the calendar
-- Modified the color choices for improved contrast
-- Expanded the color choices to 7 different colors
-- Improved 
-- Simple event handling with easy to use UI
-- Add, modify, and delete events with ease
-- Choose between 4 accent colors with an option for 24 hour time
+- Added confirmation dialogs for all event deletions
+- Created custom warning dialog for invalid events
+- Overhauled component structure (class -> functional)
+- Style improvements, such as reduced number of time lines
 
 ### Upcoming Changes
 
 - Integration of 'regular' events among weeklies
-- Confirmation dialog before event deletion
-- Custom error messages
 - Option for night mode
 - Start of day option with horizontal line
 
 ### Dependencies
 
-- npm (9.0+)
+- Node.js (16.0 or lower)
 
 ## Contributing
 
@@ -58,6 +53,7 @@ or fork this repository and create a pull request to directly contribute:
 
 ## Version History
 
+* 1.2: Improved interface with warnings
 * 1.1: Simple event addition with cell selection
 * 1.0: Initial release with basic features
 

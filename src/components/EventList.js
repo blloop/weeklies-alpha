@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EventColumn from './EventColumn';
 import { dayList, range } from './Data';
 
@@ -22,11 +22,26 @@ const EventList = props => {
                 <p>08:00</p><p>09:00</p><p>10:00</p><p>11:00</p>
             </>
     );
+
+    const [barPos, setBarPos] = useState(0);
     
     return (
         <div className='eventlist'>
             <div className='time-scale scale-left mono-hide'>
                 {scaleTime(props.format)}
+            </div>
+            <div className='start-line'>
+                <hr style={{ top: 25 * barPos}}></hr>
+                <div 
+                    className='drag'
+                    onMouseMove={(event) => {
+                        let pos = Math.floor((event.pageY - 185) / 25)
+                        setBarPos(pos > 0 ? pos : 0);
+                    }}
+                    style={{ top: (25 * barPos) - 52}}>
+                    <div className='box'></div>
+                    <div className='arrow'></div>
+                </div>
             </div>
             <div className='grid-lines'>
                 {range(23).map(num => (

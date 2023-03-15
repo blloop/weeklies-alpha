@@ -27,6 +27,7 @@ const Calendar = () => {
         start: 0,
         end: 0
     });
+    const [start, setStart] = useState(0);
     const [oldid, setOldid] = useState(0);
     const [dialog, setDialog] = useState('');
     const [warning, setWarning] = useState('');
@@ -154,10 +155,11 @@ const Calendar = () => {
             'weeklies-info',
             JSON.stringify({
                 accent: colorNames[index],
-                format: format
+                format: format,
+                start: start
             })
         );
-    }, [format]);
+    }, [format, start]);
 
     // Toggles time format used
     const changeFormat = () => {
@@ -166,10 +168,24 @@ const Calendar = () => {
             'weeklies-info',
             JSON.stringify({
                 accent: accent,
-                format: !format
+                format: !format,
+                start: start
             })
         );
     };
+
+    // Changes daily start time
+    const changeStart = (num) => {
+        setStart(num);
+        localStorage.setItem(
+            'weeklies-info',
+            JSON.stringify({
+                accent: accent,
+                format: format,
+                start: num
+            })
+        );
+    }
 
     useEffect(() => {changeAccent(
             colorNames.indexOf(accent)
@@ -214,6 +230,8 @@ const Calendar = () => {
                 addUpcoming={addUpcoming}
                 editUpcoming={editUpcoming}
                 monoDay={mono}
+                start={start}
+                changeStart={changeStart}
                 setMono={setMono}
                 setDialog={setDialog}
                 format={format}/>

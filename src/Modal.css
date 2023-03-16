@@ -37,7 +37,8 @@
 }
 
 .settings .thin-button {
-  margin: 8px;
+  margin: 8px auto;
+  width: 200px;
 }
 
 .settings-button img {

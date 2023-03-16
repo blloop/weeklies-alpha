@@ -54,7 +54,7 @@
     background: repeating-linear-gradient(135deg,
             var(--light-accent),
             var(--light-accent) 8px,
-            var(--dark-accent) 8px,
+            var(--dark-accent) 4px,
             var(--dark-accent) 12px);
     background-color: var(--dark-accent);
 }
@@ -131,11 +131,11 @@
 
 .start-line {
     height: 4px;
+    z-index: 9;
 }
 
 .start-line hr {
     position: relative;
-    z-index: 9;
     background-color: var(--dark-accent);
 }
 
@@ -171,8 +171,9 @@
 
 .switch {
     position: absolute;
-    height: 60px;
+    height: 56px;
     top: 12px;
+    z-index: 9;
     padding: 4px 20px;
     border-radius: 12px;
     transition: all 0.2s ease-in-out;
@@ -187,11 +188,11 @@
 }
 
 .move-left {
-    left: -70px;
+    left: 0;
 }
 
 .move-right {
-    right: -70px;
+    right: 0;
 }
 
 .settings-row {
@@ -223,6 +224,21 @@
 
     .scale-left {
         left: -65px;
+    }
+
+    .drag {
+        left: -98px;
+        width: 120px;
+    }
+
+    .drag .box {
+        width: 70px;
+    }
+
+    .shade {
+        width: 70%;
+        margin-left: 15%;
+        margin-top: 12px;
     }
 }
 

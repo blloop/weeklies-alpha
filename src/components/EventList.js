@@ -55,8 +55,14 @@ const EventList = props => {
             </div>
             <div className='column utility mono-show'>
                 <button
-                    onClick={() =>
-                        props.setMono((props.monoDay - 1) % 7)
+                    onClick={() =>{
+                        console.log(props.monoDay)
+                        props.setMono(
+                            props.monoDay === 0 ? 6 :
+                            props.monoDay - 1
+                        )
+                    }
+                        
                     }
                     className='switch move-left'>
                     &lt;

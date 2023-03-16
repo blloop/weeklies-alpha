@@ -21,7 +21,9 @@ const Calendar = () => {
     const [format, setFormat] = useState(getInfo ?
         JSON.parse(getInfo)['format'] : false
     );
-    const [start, setStart] = useState(0)
+    const [start, setStart] = useState(getInfo ?
+        JSON.parse(getInfo)['start'] : 0
+    );
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',

@@ -23,22 +23,27 @@ const EventList = props => {
             </>
     );
 
-    const [barPos, setBarPos] = useState(0);
+    const [clicked, setClicked] = useState(false);
     
     return (
         <div className='eventlist'>
             <div className='time-scale scale-left mono-hide'>
                 {scaleTime(props.format)}
             </div>
-            <div className='start-line'>
-                <hr style={{ top: 25 * barPos}}></hr>
+            <div className='shade'
+                style={{height: 25 * props.start}}>
+            </div>
+            <div className='start-line'
+                style={{ top: (25 * props.start) + 56}}>
+                <hr/>
                 <div 
                     className='drag'
+                    onMouseDown={() => setClicked(true)}
+                    onMouseUp={() => setClicked(false)}
                     onMouseMove={(event) => {
-                        let pos = Math.floor((event.pageY - 185) / 25)
-                        setBarPos(pos > 0 ? pos : 0);
-                    }}
-                    style={{ top: (25 * barPos) - 52}}>
+                        let pos = Math.floor((event.pageY - 180) / 25)
+                        if (clicked) props.changeStart(pos > 0 ? pos : 0);
+                    }}>
                     <div className='box'></div>
                     <div className='arrow'></div>
                 </div>

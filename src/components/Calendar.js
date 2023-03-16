@@ -21,13 +21,13 @@ const Calendar = () => {
     const [format, setFormat] = useState(getInfo ?
         JSON.parse(getInfo)['format'] : false
     );
+    const [start, setStart] = useState(0)
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',
         start: 0,
         end: 0
     });
-    const [start, setStart] = useState(0);
     const [oldid, setOldid] = useState(0);
     const [dialog, setDialog] = useState('');
     const [warning, setWarning] = useState('');

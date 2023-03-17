@@ -6,19 +6,23 @@ const InfoDialog = props => (props.isOpen &&
             className='modal-bg'
             style={{ zIndex: 14 }}
             onClick={() => props.setDialog('')}/>
-        <div className='dialog overlay confirm'>
+        <div className='dialog overlay info'>
             <button
                 onClick={() => props.setDialog('')}
                 className='close-button'>
                 &#10005;
             </button>
             <p className='header'> How to use this app </p>
-            <ul>
-                <li>1. </li>
-                <li>1. </li>
-                <li>1. </li>
-                <div className='info-sel'></div>
-            </ul>
+            <p> Select a time cell </p>
+            <div className='sel'></div>
+            <p> Enter the event details </p>
+            <input readOnly value={'Meeting'}/>
+            <p> Click the add event button</p>
+            <button
+                className='add contrast-light thin-button'>
+                Add Event
+            </button>
+            <p> Next &gt; &gt; </p>
         </div>
     </>
 );

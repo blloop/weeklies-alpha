@@ -119,7 +119,7 @@
     width: 100%;
     height: 0.8px;
     z-index: 6;
-    background-color: var(--base-dark-grey);
+    background-color: var(--base-darkgrey);
 }
 
 .shade {
@@ -245,7 +245,9 @@
 @media only screen and (max-width: 500px) {
 
     .column,
-    .grid-lines {
+    .grid-lines,
+    .shade,
+    .start-line {
         width: 60%;
         margin: 12px 20%;
     }

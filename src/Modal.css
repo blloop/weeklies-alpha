@@ -13,6 +13,25 @@
   border-radius: 12px;
 }
 
+.warning {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--dark-accent);
+}
+
+.confirm {
+  width: 450px;
+  gap: 24px;
+}
+
+.info {
+  width: 400px;
+  gap: 12px;
+  align-items: center;
+}
+
 .thin-button {
   padding: 6px 12px;
 }
@@ -30,19 +49,9 @@
   background-color: var(--base-grey);
 }
 
-.settings-button {
-  vertical-align: bottom;
-  padding: 4px;
-  margin-left: 24px;
-}
-
 .settings .thin-button {
   margin: 8px auto;
   width: 200px;
-}
-
-.settings-button img {
-  height: 48px;
 }
 
 .settings-row {
@@ -60,7 +69,6 @@
 }
 
 .color-palette {
-  /* width: 65px; */
   display: flex;
   flex-wrap: wrap;
 }
@@ -76,6 +84,21 @@
 
 .color-palette div:hover {
   border: 4px solid var(--base-grey);
+}
+
+.info .sel {
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+  background-color: var(--light-accent);
+}
+
+.info .sel:hover {
+  background-color: var(--dark-accent);
+}
+
+.info input, .info .add {
+  width: 240px;
 }
 
 .addevents {
@@ -168,19 +191,6 @@
   display: flex;
 }
 
-.warning {
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  font-size: 30px;
-  color: var(--dark-accent);
-}
-
-.confirm {
-  width: 450px;
-  gap: 24px;
-}
-
 @media only screen and (max-width: 1000px) {
 
   .overlay {
@@ -191,6 +201,15 @@
   .settings-row {
     align-items: center;
     gap: 6px;
+  }
+
+  .settings-row p {
+    display: block;
+    width: 100%;
+  }
+
+  .settings-row input {
+    margin: 0 auto;
   }
 
   .color-palette {

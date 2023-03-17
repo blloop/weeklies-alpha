@@ -6,8 +6,7 @@ const WarningDialog = props => (
             <div
                 className='modal-bg'
                 style={{ zIndex: 14 }}
-                onClick={() => props.setWarning('')}>
-            </div>
+                onClick={() => props.setWarning('')}/>
             <div className='dialog overlay confirm'>
                 <button
                     onClick={() => props.setWarning('')}

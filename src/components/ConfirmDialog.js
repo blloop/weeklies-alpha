@@ -6,8 +6,7 @@ const ConfirmDialog = props => {
             <div
                 className='modal-bg'
                 style={{ zIndex: 14 }}
-                onClick={() => props.close()}>
-            </div>
+                onClick={() => props.close()}/>
             <div className='dialog overlay confirm'>
                 <button
                     onClick={() => props.close()}

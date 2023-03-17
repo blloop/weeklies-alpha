@@ -42,7 +42,7 @@ const EventList = props => {
                     onMouseUp={() => setClicked(false)}
                     onMouseLeave={() => setClicked(false)}
                     onMouseMove={(event) => {
-                        let pos = Math.floor((event.pageY - 180) / 25)
+                        let pos = Math.floor((event.pageY - 185) / 25)
                         if (clicked) props.changeStart(pos > 0 ? pos : 0);
                     }}>
                     <div className='box'></div>

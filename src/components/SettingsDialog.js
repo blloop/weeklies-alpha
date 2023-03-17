@@ -14,8 +14,7 @@ const SettingsDialog = props => {
             <div
                 className='modal-bg'
                 style={{ zIndex: 12 }}
-                onClick={() => props.setDialog('')}>
-            </div>
+                onClick={() => props.setDialog('')}/>
             <div className='settings overlay'>
                 <button
                     onClick={() => props.setDialog('')}

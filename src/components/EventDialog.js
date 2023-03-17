@@ -19,8 +19,7 @@ const EventDialog = props => {
             <div
                 className='modal-bg'
                 style={{ zIndex: 12 }}
-                onClick={() => props.setDialog('')}>
-            </div>
+                onClick={() => props.setDialog('')}/>
             <div className='addevents overlay'>
                 <p className='header'>
                     {props.type === 'add' ?

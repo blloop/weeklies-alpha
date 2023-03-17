@@ -6,9 +6,11 @@ const NavBar = props => (
     <div className='navbar'>
         <button
             type='button'
-            className='accent'
-            onClick={() => props.setDialog('add')}>
-            Add Event
+            className='info-button'
+            onClick={() => 
+                props.setDialog('info')
+            }>
+            i
         </button>
         <p className='title'> Weeklies </p>
         <div className='subbar'>

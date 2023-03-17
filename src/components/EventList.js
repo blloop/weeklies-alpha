@@ -40,6 +40,7 @@ const EventList = props => {
                     className='drag'
                     onMouseDown={() => setClicked(true)}
                     onMouseUp={() => setClicked(false)}
+                    onMouseLeave={() => setClicked(false)}
                     onMouseMove={(event) => {
                         let pos = Math.floor((event.pageY - 180) / 25)
                         if (clicked) props.changeStart(pos > 0 ? pos : 0);

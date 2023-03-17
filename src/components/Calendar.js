@@ -7,6 +7,7 @@ import EventList from './EventList';
 import EventDialog from './EventDialog';
 import SettingsDialog from './SettingsDialog';
 import WarningDialog from './WarningDialog';
+import InfoDialog from './InfoDialog';
 
 const Calendar = () => {
     // Loads events and settings from browser storage
@@ -199,21 +200,16 @@ const Calendar = () => {
             <NavBar
                 setDialog={setDialog}/>
             <EventDialog
-                type={'add'}
-                addEvent={addEvent}
-                tempEvent={upcoming}
-                setUpcoming={setUpcoming}
-                isOpen={dialog === 'add'}
-                setDialog={setDialog}
-                format={format}/>
-            <EventDialog
-                type={'edit'}
+                type={dialog}
                 addEvent={addEvent}
                 editEvent={editEvent}
                 deleteEvent={deleteEvent}
                 tempEvent={upcoming}
                 setUpcoming={setUpcoming}
-                isOpen={dialog === 'edit'}
+                isOpen={
+                    dialog === 'edit' ||
+                    dialog === 'add'
+                }
                 setDialog={setDialog}
                 format={format}/>
             <SettingsDialog
@@ -227,6 +223,9 @@ const Calendar = () => {
             <WarningDialog
                 text={warning}
                 setWarning={setWarning}/>
+            <InfoDialog
+                isOpen={dialog === 'info'}
+                setDialog={setDialog}/>
             <EventList
                 allEvents={events}
                 addUpcoming={addUpcoming}

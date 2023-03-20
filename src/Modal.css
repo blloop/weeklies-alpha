@@ -191,6 +191,16 @@
   display: flex;
 }
 
+.page-row button {
+  width: 40px;
+  margin: 0 12px;
+  border: none;
+}
+
+.page-row button:not(.nil):hover {
+  background-color: var(--base-grey);
+}
+
 @media only screen and (max-width: 1000px) {
 
   .overlay {

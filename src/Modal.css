@@ -22,14 +22,20 @@
 }
 
 .confirm {
-  width: 450px;
+  width: 420px;
   gap: 24px;
 }
 
 .info {
-  width: 400px;
-  gap: 12px;
+  width: 420px;
+  height: 420px;
+  gap: 18px;
   align-items: center;
+  justify-content: space-between;
+}
+
+.settings {
+  width: 420px;
 }
 
 .thin-button {
@@ -97,8 +103,37 @@
   background-color: var(--dark-accent);
 }
 
-.info input, .info .add {
-  width: 240px;
+.info-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-row input {
+  width: 120px;
+}
+
+.info-row button {
+  width: 170px;
+}
+
+.event-sel {
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+  background-color: var(--dark-accent);
+  border: 2px solid var(--dark-accent);
+  font-size: 18px;
+}
+
+.event-sel:hover {
+  background: repeating-linear-gradient(135deg,
+          var(--light-accent),
+          var(--light-accent) 8px,
+          var(--dark-accent) 4px,
+          var(--dark-accent) 12px);
+  background-color: var(--dark-accent);
 }
 
 .addevents {

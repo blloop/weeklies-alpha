@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ConfirmDialog = props => {
     return ( <>
@@ -23,9 +23,7 @@ const ConfirmDialog = props => {
                 <button
                     onClick={props.clickEvent}
                     className='contrast thin-button'>
-                    {props.allEvents ? 
-                    'Clear events' : 
-                    'Delete event'}
+                    Confirm
                 </button>
             </div>
         </>}

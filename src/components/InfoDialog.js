@@ -1,28 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { pageOne, pageTwo } from './Info';
+import { pageThree, pageFour } from './Info';
 
 const InfoDialog = props => {
     const [page, setPage] = useState(1);
-    const pageOne = () => ( <>
-            <p> Select a time cell </p>
-            <div className='sel'></div>
-            <p> Enter the event details </p>
-            <input readOnly value={'Meeting'}/>
-            <p> Click the add event button</p>
-            <button
-                className='add contrast-light thin-button'>
-                Add Event
-            </button>
-    </> );
-    const pageTwo = () => (
-        <div></div>
-    )
-    const pageThree = () => (
-        <div></div>
-    )
-    const pageFour = () => (
-        <div></div>
-    )
     return ( props.isOpen &&
         <>
             <div
@@ -43,13 +24,13 @@ const InfoDialog = props => {
                         )
                     )
                 }
-                <div className="page-row">
+                <div className='page-row'>
                     {page > 1 ?
                         <button 
                             onClick={() => setPage(page - 1)}>
                             &lt;
                         </button> :
-                        <button className="nil"></button>
+                        <button className='nil'></button>
                     }
                     {page}
                     {page < 4 ? 
@@ -57,7 +38,7 @@ const InfoDialog = props => {
                             onClick={() => setPage(page + 1)}>
                             &gt;
                         </button> :
-                        <button className="nil"></button>
+                        <button className='nil'></button>
                     }
                 </div>
             </div>

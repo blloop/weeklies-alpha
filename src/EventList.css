@@ -35,6 +35,7 @@
 
 .event {
     position: absolute;
+    cursor: pointer;
     left: 0;
     right: 0;
     z-index: 8;
@@ -49,8 +50,6 @@
 }
 
 .event:hover {
-    cursor: pointer;
-    color: black;
     background: repeating-linear-gradient(135deg,
             var(--light-accent),
             var(--light-accent) 8px,

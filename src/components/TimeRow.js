@@ -16,18 +16,24 @@ const TimeRow = props => {
             props.setMenu(props.field)
     };
     const getHour = (format, time) => {
+        let rounded = (time - (time % 2)) / 2;
         return (format ?
-            (time - (time % 2)) / 2 : 
-            (((time - (time % 2))/ 2) % 12 === 0 ? 
+            rounded : 
+            ((rounded) % 12 === 0 ? 
                 12 : 
-                ((time -(time % 2)) / 2) % 12)
+                (rounded) % 12)
         );
     };
     const changeHour = (hour) => {
         let newEvent = props.tempEvent;
+        console.log(newEvent);
         newEvent[props.field] = 
-            (props.format ? hour * 2 : hour) +
-            (props.tempEvent[props.field] % 2); 
+            (hour % 24 == 0 ?
+                (props.tempEvent[props.field] > 24 ?
+                    0 : 24) :
+                (props.format ? hour * 2 : hour) +
+                (props.tempEvent[props.field] % 2)
+            );
         props.setUpcoming(newEvent);
     };
     const toggleMin = () => {    

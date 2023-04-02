@@ -25,6 +25,8 @@ const Calendar = () => {
     const [start, setStart] = useState(getInfo ?
         JSON.parse(getInfo)['start'] : 0
     );
+    const [end, setEnd] = useState(getInfo ?
+        JSON.parse(getInfo)['end'] : 48)
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',
@@ -159,10 +161,11 @@ const Calendar = () => {
             JSON.stringify({
                 accent: colorNames[index],
                 format: format,
-                start: start
+                start: start,
+                end: end
             })
         );
-    }, [format, start]);
+    }, [format, start, end]);
 
     // Toggles time format used
     const changeFormat = () => {
@@ -172,7 +175,8 @@ const Calendar = () => {
             JSON.stringify({
                 accent: accent,
                 format: !format,
-                start: start
+                start: start,
+                end: end
             })
         );
     };
@@ -185,9 +189,25 @@ const Calendar = () => {
             JSON.stringify({
                 accent: accent,
                 format: format,
-                start: num
+                start: num, 
+                end: end
             })
         );
+    }
+
+    // Changes daily end time
+    const changeEnd = (num) => {
+        setEnd(num);
+        localStorage.setItem(
+            'weeklies-info',
+            JSON.stringify({
+                accent: accent,
+                format: format,
+                start: start,
+                end: num
+            })
+        );
+        console.log("change end to " + end);
     }
 
     useEffect(() => {changeAccent(
@@ -233,6 +253,8 @@ const Calendar = () => {
                 monoDay={mono}
                 start={start}
                 changeStart={changeStart}
+                end={end}
+                changeEnd={changeEnd}
                 setMono={setMono}
                 setDialog={setDialog}
                 format={format}/>

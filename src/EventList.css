@@ -123,9 +123,16 @@
 
 .shade {
     position: absolute;
-    top: 60px;
     z-index: 9;
     background-color: rgba(144, 144, 144, 0.5);
+}
+
+.shade:not(.bottom) {
+    top: 60px;
+}
+
+.bottom {
+    bottom: 0px;
 }
 
 .start-line {

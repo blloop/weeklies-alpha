@@ -33,6 +33,9 @@ const EventList = props => {
             <div className='shade'
                 style={{height: 25 * props.start}}>
             </div>
+            <div className='shade bottom'
+                style={{position: 'absolute', bottom: 0, height: 25 * (48 - props.end)}}>
+            </div>
             <div className='start-line'
                 style={{ top: (25 * props.start) + 56}}>
                 <hr/>
@@ -44,6 +47,22 @@ const EventList = props => {
                     onMouseMove={(event) => {
                         let pos = Math.floor((event.pageY - 185) / 25)
                         if (clicked) props.changeStart(pos > 0 ? pos : 0);
+                    }}>
+                    <div className='box'></div>
+                    <div className='arrow'></div>
+                </div>
+            </div>
+            <div className='start-line'
+                style={{ top: (25 * props.end) + 56}}>
+                <hr/>
+                <div 
+                    className='drag'
+                    onMouseDown={() => setClicked(true)}
+                    onMouseUp={() => setClicked(false)}
+                    onMouseLeave={() => setClicked(false)}
+                    onMouseMove={(event) => {
+                        let pos = Math.floor((event.pageY - 185) / 25)
+                        if (clicked) props.changeEnd(pos > 0 ? pos : 0);
                     }}>
                     <div className='box'></div>
                     <div className='arrow'></div>

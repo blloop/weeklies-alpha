@@ -124,14 +124,11 @@
 .shade {
     position: absolute;
     z-index: 9;
+    top: 60px;
     background-color: rgba(144, 144, 144, 0.5);
 }
 
-.shade:not(.bottom) {
-    top: 60px;
-}
-
-.bottom {
+.shade.bottom {
     bottom: 0px;
 }
 

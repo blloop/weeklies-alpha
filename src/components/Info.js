@@ -84,6 +84,29 @@ const pageFour = () => ( <>
   </div>
 </> );
 
+const pageFive = () => ( <>
+  <p> Set End Time </p>
+  <hr/>
+  <div className="info-row">
+    <p> Drag the end slider </p>
+    <div className='sel'></div>
+  </div>
+  <div className="info-row">
+    <p> Drag the end... </p>
+    <button
+        className='add contrast thin-button'>
+        Confirm
+    </button>
+  </div>
+  <div className="info-row">
+    <p> Drag the end... </p>
+    <button
+        className='add contrast thin-button'>
+        Confirm
+    </button>
+  </div>
+</> );
+
 export {
-  pageOne, pageTwo, pageThree, pageFour
+  pageOne, pageTwo, pageThree, pageFour, pageFive
 }

@@ -232,6 +232,10 @@
   border: none;
 }
 
+.nil {
+  background: transparent;
+}
+
 .page-row button:not(.nil):hover {
   background-color: var(--base-grey);
 }

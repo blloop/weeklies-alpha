@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { pageOne, pageTwo } from './Info';
-import { pageThree, pageFour, pageFive } from './Info';
+import { pageOne, pageTwo, pageThree } from './Info';
+import { pageFour, pageFive, pageSiz } from './Info';
 
 const InfoDialog = props => {
     const [page, setPage] = useState(1);
@@ -21,7 +21,8 @@ const InfoDialog = props => {
                     (page === 2 ? pageTwo() :
                         (page === 3 ? pageThree() : 
                             (page === 4 ? pageFour() : 
-                                pageFive()
+                                page === 5 ? pageFive() :
+                                    pageSix()
                             )
                         )
                     )
@@ -35,7 +36,7 @@ const InfoDialog = props => {
                         <button className='nil'></button>
                     }
                     {page}
-                    {page < 5 ? 
+                    {page < 6 ? 
                         <button 
                             onClick={() => setPage(page + 1)}>
                             &gt;

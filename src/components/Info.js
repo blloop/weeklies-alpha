@@ -107,6 +107,30 @@ const pageFive = () => ( <>
   </div>
 </> );
 
+const pageSix = () => ( <>
+  <p> Tag Event </p>
+  <hr/>
+  <div className="info-row">
+    <p>  </p>
+    <div className='sel'></div>
+  </div>
+  <div className="info-row">
+    <p> Tag an event by type </p>
+    <button
+        className='add contrast thin-button'>
+        Tag
+    </button>
+  </div>
+  <div className="info-row">
+    <p> Tag an event by type </p>
+    <button
+        className='add contrast thin-button'>
+        Tag
+    </button>
+  </div>
+</> );
+
 export {
-  pageOne, pageTwo, pageThree, pageFour, pageFive
+  pageOne, pageTwo, pageThree,
+  pageFour, pageFive, pageSix
 }

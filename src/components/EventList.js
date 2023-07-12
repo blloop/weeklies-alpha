@@ -30,7 +30,7 @@ const EventList = props => {
             <div className='time-scale scale-left mono-hide'>
                 {scaleTime(props.format)}
             </div>
-            <div className='shade'
+            <div className='shade top'
                 style={{height: 25 * props.start}}>
             </div>
             <div className='shade bottom'

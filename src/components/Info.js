@@ -10,7 +10,7 @@ const pageOne = () => ( <>
     <input readOnly value={'Meeting'}/>
   </div>
   <div className="info-row">
-    <p> Add the event </p>
+    <p> Confirm Addition </p>
     <button
         className='add contrast-light thin-button'>
         Add Event
@@ -30,7 +30,7 @@ const pageTwo = () => ( <>
     <input readOnly value={'Naptime'}/>
   </div>
   <div className="info-row">
-    <p> Edit the event </p>
+    <p> Confirm Edit </p>
     <button
         className='add contrast-light thin-button'>
         Edit Event
@@ -69,14 +69,14 @@ const pageFour = () => ( <>
     <div className='sel'></div>
   </div>
   <div className="info-row">
-    <p> Drag the start... </p>
+    <p> ... </p>
     <button
         className='add contrast thin-button'>
         Confirm
     </button>
   </div>
   <div className="info-row">
-    <p> Drag the start... </p>
+    <p> ... </p>
     <button
         className='add contrast thin-button'>
         Confirm
@@ -92,14 +92,14 @@ const pageFive = () => ( <>
     <div className='sel'></div>
   </div>
   <div className="info-row">
-    <p> Drag the end... </p>
+    <p> ... </p>
     <button
         className='add contrast thin-button'>
         Confirm
     </button>
   </div>
   <div className="info-row">
-    <p> Drag the end... </p>
+    <p> ... </p>
     <button
         className='add contrast thin-button'>
         Confirm
@@ -108,21 +108,21 @@ const pageFive = () => ( <>
 </> );
 
 const pageSix = () => ( <>
-  <p> Tag Event </p>
+  <p> Tag an event </p>
   <hr/>
   <div className="info-row">
-    <p>  </p>
+    <p> Select an event </p>
     <div className='sel'></div>
   </div>
   <div className="info-row">
-    <p> Tag an event by type </p>
+    <p> Tag the event </p>
     <button
         className='add contrast thin-button'>
         Tag
     </button>
   </div>
   <div className="info-row">
-    <p> Tag an event by type </p>
+    <p> Confirm Tag </p>
     <button
         className='add contrast thin-button'>
         Tag

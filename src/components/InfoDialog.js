@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { pageOne, pageTwo, pageThree } from './Info';
-import { pageFour, pageFive, pageSiz } from './Info';
+import { pageFour, pageFive, pageSix } from './Info';
 
 const InfoDialog = props => {
     const [page, setPage] = useState(1);

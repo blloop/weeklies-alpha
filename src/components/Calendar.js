@@ -23,7 +23,7 @@ const Calendar = () => {
         JSON.parse(getInfo)['format'] : false
     );
     const [start, setStart] = useState(getInfo ?
-        JSON.parse(getInfo)['start'] : 0
+        JSON.parse(getInfo)['start'] : 12
     );
     const [end, setEnd] = useState(getInfo ?
         JSON.parse(getInfo)['end'] : 48)

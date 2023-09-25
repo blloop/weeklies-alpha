@@ -1,7 +1,5 @@
-import React from 'react';
-import { useState, useEffect, useCallback } from 'react';
-import { colorNames, dayList } from './Data';
-import { lightColors, darkColors } from './Data';
+import React, { useState } from 'react';
+import { dayList } from './Data';
 import NavBar from './NavBar';
 import EventList from './EventList';
 import EventDialog from './EventDialog';
@@ -15,9 +13,6 @@ const Calendar = () => {
     let getInfo = localStorage.getItem('weeklies-info');
     const [events, setEvents] = useState(getList ?
         JSON.parse(getList) : []
-    );
-    const [accent, setAccent] = useState(getInfo ?
-        JSON.parse(getInfo)['accent'] : 'orange'
     );
     const [format, setFormat] = useState(getInfo ?
         JSON.parse(getInfo)['format'] : false
@@ -147,33 +142,12 @@ const Calendar = () => {
         setDialog('add');
     };
 
-    // Changes accent color and updates UI
-    const changeAccent = useCallback((index) => {
-        document.body.style.setProperty(
-            '--light-accent', lightColors[index]
-        );
-        document.body.style.setProperty(
-            '--dark-accent', darkColors[index]
-        );
-        setAccent(colorNames[index]);
-        localStorage.setItem(
-            'weeklies-info',
-            JSON.stringify({
-                accent: colorNames[index],
-                format: format,
-                start: start,
-                end: end
-            })
-        );
-    }, [format, start, end]);
-
     // Toggles time format used
     const changeFormat = () => {
         setFormat(!format);
         localStorage.setItem(
             'weeklies-info',
             JSON.stringify({
-                accent: accent,
                 format: !format,
                 start: start,
                 end: end
@@ -187,7 +161,6 @@ const Calendar = () => {
         localStorage.setItem(
             'weeklies-info',
             JSON.stringify({
-                accent: accent,
                 format: format,
                 start: num, 
                 end: end
@@ -201,7 +174,6 @@ const Calendar = () => {
         localStorage.setItem(
             'weeklies-info',
             JSON.stringify({
-                accent: accent,
                 format: format,
                 start: start,
                 end: num
@@ -209,11 +181,6 @@ const Calendar = () => {
         );
         console.log("change end to " + end);
     }
-
-    useEffect(() => {changeAccent(
-            colorNames.indexOf(accent)
-        )}, [accent, changeAccent]
-    );
 
     return (
         <div className='calendar'>
@@ -236,8 +203,6 @@ const Calendar = () => {
                 clearEvents={() => {updateEvents([]);}}
                 isOpen={dialog === 'settings'}
                 setDialog={setDialog}
-                accentColor={accent}
-                changeColor={changeAccent}
                 format={format}
                 toggleFormat={changeFormat}/>
             <WarningDialog

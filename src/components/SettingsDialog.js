@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ConfirmDialog from './ConfirmDialog';
-import { colorNames, darkColors, range } from './Data';
 
 const SettingsDialog = props => {
     const [confirm, setConfirm] = useState(false);
@@ -29,32 +28,6 @@ const SettingsDialog = props => {
                         checked={props.format}
                         onChange={props.toggleFormat}>
                     </input>
-                </div>
-                <div className='settings-row'>
-                    <p> Accent Color: </p>
-                    <div className='color-palette'>
-                        {range(colorNames.length).map((n) =>
-                            <div
-                                key={n}
-                                style={{
-                                    backgroundColor: darkColors[n]
-                                }}
-                                className={
-                                    props.accentColor ===
-                                        colorNames[n] ?
-                                        'current-color' :
-                                        ''
-                                }
-                                checked={
-                                    props.accentColor ===
-                                    colorNames[n]
-                                }
-                                onClick={() =>
-                                    props.changeColor(n)
-                                }>
-                            </div>
-                        )}
-                    </div>
                 </div>
                 <button
                     className='contrast thin-button'

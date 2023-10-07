@@ -17,11 +17,12 @@
     align-items: center;
     justify-content: right;
     height: 65px;
-    width: 200px;
+    width: 180px;
 }
 
 .subbar.left {
     justify-content: left;
+    gap: 8px;
 }
 
 .subbar.left button {
@@ -29,11 +30,20 @@
     padding: 0;
     width: 55px;
     height: 55px;
+    background-color: transparent;
+}
+
+.subbar.left button:hover {
+    background-color: var(--base-grey);
 }
 
 .subbar.left button img {
     width: 100%;
     height: 100%;
+}
+
+.info-use {
+    border-radius: 50%;
 }
 
 .logo {
@@ -45,7 +55,7 @@
 }
 
 .logo:hover {
-    background-color: var(--dark-accent);
+    background-color: var(--base-grey);
 }
 
 .settings-button {
@@ -59,42 +69,10 @@
 }
 
 @media only screen and (max-width: 700px) {
-
     .title {
+        position: absolute;
+        top: 20px;
         font-size: 32px;
-    }
-
-    .subbar {
-        height: 50px;
-    }
-
-    .info-use {
-        height: 40px;
-        width: 40px;
-        margin: 5px 80px 5px 5px;
-        font-size: 20px;
-        border-width: 3px;
-    }
-
-    .navbar>button {
-        padding: 4px;
-    }
-
-    button img {
-        height: 36px !important;
-    }
-
-    a .logo {
-        margin: 5px;
-        padding: 0;
-        height: 40px;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-
-    .info-use {
-        margin: 5px;
     }
 
     .navbar {
@@ -108,24 +86,31 @@
         width: 50%;
     }
 
-    .title {
-        position: absolute;
-        top: 20px;
+    .navbar > button {
+        padding: 4px;
+    }
+
+    button img {
+        height: 48px !important;
+    }
+
+    a .logo {
+        margin: 5px;
+        padding: 0;
+        height: 40px;
     }
 }
 
-@media only screen and (max-width: 369px) {
-
-    .navbar {
-        padding-top: 60px;
-    }
-
-    .navbar button {
-        font-size: 20px;
-    }
-
+@media only screen and (max-width: 400px) {
     .title {
         font-size: 24px;
-        padding: 0;
+    }
+
+    button img {
+        height: 36px !important;
+    }
+
+    .settings-button {
+        height: 50px;
     }
 }

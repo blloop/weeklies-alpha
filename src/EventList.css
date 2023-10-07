@@ -258,6 +258,7 @@
 
     .switch {
         padding: 0 12px;
+        border-radius: 12px;
     }
 
     .move-left {

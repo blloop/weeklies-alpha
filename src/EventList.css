@@ -1,5 +1,5 @@
 .calendar {
-    width: 1200px;
+    width: 1400px;
     max-width: 84vw;
     margin: 0 auto;
     background-color: var(--base-white);
@@ -96,7 +96,7 @@
 
 .grid-lines, .start-line, .shade {
     position: absolute;
-    width: 1200px;
+    width: 1400px;
     max-width: 84vw;
 }  
 

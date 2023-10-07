@@ -33,6 +33,16 @@ const Calendar = () => {
     const [warning, setWarning] = useState('');
     const [mono, setMono] = useState(0);
 
+    // Imports events JSON
+    const importEvents = () => {
+        return;
+    };
+
+    // Export events as JSON
+    const exportEvents = () => {
+        return;
+    };
+
     // Calculates event ID based on start time
     // Returns the event with ID added
     const addID = (event) => ({
@@ -185,7 +195,9 @@ const Calendar = () => {
     return (
         <div className='calendar'>
             <NavBar
-                setDialog={setDialog}/>
+                setDialog={setDialog}
+                import={importEvents}
+                export={exportEvents}/>
             <EventDialog
                 type={dialog}
                 addEvent={addEvent}

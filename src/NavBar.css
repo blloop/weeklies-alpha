@@ -14,8 +14,26 @@
 
 .subbar {
     display: flex;
+    align-items: center;
     justify-content: right;
     height: 65px;
+    width: 200px;
+}
+
+.subbar.left {
+    justify-content: left;
+}
+
+.subbar.left button {
+    border: 0;
+    padding: 0;
+    width: 55px;
+    height: 55px;
+}
+
+.subbar.left button img {
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
@@ -31,30 +49,13 @@
 }
 
 .settings-button {
-  padding: 4px;
-  margin-left: 24px;
+    height: 65px;
+    padding: 4px;
+    margin-left: 24px;
 }
 
 .settings-button img {
   height: 48px;
-}
-
-.info-button {
-    width: 50px;
-    height: 50px;
-    margin: 10px 90px 10px 10px;
-    padding: 0;
-    border-radius: 50%;
-    font-size: 32px;
-    font-weight: bold;
-    background-color: transparent;
-    border: 4px solid var(--base-darkgrey);
-    color: var(--base-darkgrey);
-}
-
-.info-button:hover {
-    background-color: var(--base-darkgrey);
-    color: white;
 }
 
 @media only screen and (max-width: 700px) {
@@ -67,7 +68,7 @@
         height: 50px;
     }
 
-    .info-button {
+    .info-use {
         height: 40px;
         width: 40px;
         margin: 5px 80px 5px 5px;
@@ -92,7 +93,7 @@
 
 @media only screen and (max-width: 500px) {
 
-    .info-button {
+    .info-use {
         margin: 5px;
     }
 

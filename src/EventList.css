@@ -10,7 +10,7 @@
     height: 1260px;
     width: 13%;
     border-radius: 12px 12px 0 0;
-    background-color: var(--light-accent);
+    background-color: var(--base-grey);
     transition: all 0.2s ease-in-out;
     position: relative;
 }
@@ -45,16 +45,12 @@
     justify-content: center;
     overflow: hidden;
     border: 4px solid var(--dark-accent);
-    background-color: var(--dark-accent);
-    transition: 0.2s all ease-in;
+    /* TODO: Add custom bg color for event tag */
+    background-color: var(--light-accent);
+    transition: 0.1s all ease-in;
 }
 
 .event:hover {
-    background: repeating-linear-gradient(135deg,
-            var(--light-accent),
-            var(--light-accent) 8px,
-            var(--dark-accent) 4px,
-            var(--dark-accent) 12px);
     background-color: var(--dark-accent);
 }
 
@@ -181,16 +177,16 @@
     top: 12px;
     z-index: 9;
     padding: 4px 20px;
-    border-radius: 12px;
-    transition: all 0.2s ease-in-out;
+    border-radius: 12px 12px 0 0;
+    transition: all 0.1s ease-in-out;
     font-weight: bold;
     border: none;
-    background-color: var(--light-accent);
+    background-color: var(--base-grey);
 }
 
 .switch:hover {
     cursor: pointer;
-    background-color: var(--dark-accent);
+    background-color: var(--base-darkgrey);
 }
 
 .move-left {
@@ -207,7 +203,6 @@
 
 
 @media only screen and (max-width: 1000px) {
-
     .eventlist {
         flex-direction: column;
         margin: 12px 0;
@@ -249,7 +244,6 @@
 }
 
 @media only screen and (max-width: 500px) {
-
     .column,
     .grid-lines,
     .shade,
@@ -280,7 +274,6 @@
 }
 
 @media only screen and (max-width: 369px) {
-
     .time-scale p {
         font-size: 16px;
     }

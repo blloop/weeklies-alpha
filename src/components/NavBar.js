@@ -20,17 +20,17 @@ const NavBar = props => (
                 type='button'
                 className='json-move'
                 onClick={() => 
-                    props.export()
+                    props.import()
                 }>
-                <img src={exLogo} alt={'Export JSON'}/>  
+                <img src={exLogo} alt={'Export JSON'}/>
             </button>
             <button
                 type='button'
                 className='json-move'
                 onClick={() => 
-                    props.import()
+                    props.export()
                 }>
-                <img src={imLogo} alt={'Import JSON'}/>              
+                <img src={imLogo} alt={'Import JSON'}/>
             </button>
         </div>
         <p className='title'> Weeklies </p>

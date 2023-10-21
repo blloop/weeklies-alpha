@@ -9,19 +9,18 @@ import InfoDialog from './InfoDialog';
 
 const Calendar = () => {
     // Loads events and settings from browser storage
-    let getList = localStorage.getItem('weeklies');
-    let getInfo = localStorage.getItem('weeklies-info');
-    const [events, setEvents] = useState(getList ?
-        JSON.parse(getList) : []
+    let getInfo = localStorage.getItem('weeklies-1.3');
+    const [events, setEvents] = useState(getInfo ?
+        JSON.parse(getInfo)['events'] : []
     );
     const [format, setFormat] = useState(getInfo ?
-        JSON.parse(getInfo)['format'] : false
+        JSON.parse(getInfo)['settings'][0] : false
     );
     const [start, setStart] = useState(getInfo ?
-        JSON.parse(getInfo)['start'] : 12
+        JSON.parse(getInfo)['settings'][1] : 12
     );
     const [end, setEnd] = useState(getInfo ?
-        JSON.parse(getInfo)['end'] : 48)
+        JSON.parse(getInfo)['settings'][2] : 48)
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',
@@ -35,16 +34,51 @@ const Calendar = () => {
 
     // Imports events JSON
     const importEvents = () => {
-        return;
+        const file = document.createElement('input');
+        file.type = 'file';
+        file.hidden = true;
+        document.body.appendChild(file);
+        file.click();
+        file.addEventListener('cancel', () => {
+            file.remove();
+        });
+        file.addEventListener('change', () => {
+            // Check for valid file type
+            if (file.files[0].type === 'application/json') {
+                // Read in file as text
+                const reader = new FileReader();
+                reader.addEventListener("load",() => {
+                    const content = JSON.parse(reader.result);
+                    // Parse as JSON and load in data
+                    if (content.events) {
+                        setEvents(content.events);
+                    }
+                    if (content.settings) {
+                        setFormat(content.settings[0]);
+                        setStart(content.settings[1]);
+                        setEnd(content.settings[2]);
+                    }
+                });
+                reader.readAsText(file.files[0]);
+            } else {
+                setWarning('Please import a valid JSON file');
+            }
+            file.remove();
+        });
     };
 
     // Export events as JSON
     const exportEvents = () => {
-        const output = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(events))}`;
-        const link = document.getElementById('download-link');
+        const output = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify({
+            events: events,
+            settings: [format, start, end]
+        }))}`;
+        const link = document.createElement('a');
         link.setAttribute('href', output);
         link.setAttribute('download', 'weeklies.json');
+        document.body.appendChild(link);
         link.click();
+        link.remove();
     };
 
     // Calculates event ID based on start time
@@ -193,7 +227,6 @@ const Calendar = () => {
                 end: num
             })
         );
-        console.log("change end to " + end);
     }
 
     return (
@@ -239,7 +272,6 @@ const Calendar = () => {
                 setMono={setMono}
                 setDialog={setDialog}
                 format={format}/>
-            <a id='download-link'/>
         </div>
     );
 };

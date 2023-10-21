@@ -40,7 +40,11 @@ const Calendar = () => {
 
     // Export events as JSON
     const exportEvents = () => {
-        return;
+        const output = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(events))}`;
+        const link = document.getElementById('download-link');
+        link.setAttribute('href', output);
+        link.setAttribute('download', 'weeklies.json');
+        link.click();
     };
 
     // Calculates event ID based on start time
@@ -235,6 +239,7 @@ const Calendar = () => {
                 setMono={setMono}
                 setDialog={setDialog}
                 format={format}/>
+            <a id='download-link'/>
         </div>
     );
 };

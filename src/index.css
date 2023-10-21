@@ -130,3 +130,9 @@ input {
   font-size: 30px !important;
   padding: 0 0 12px;
 }
+
+#download-link {
+  display: none;
+  position: absolute;
+  top: 0;
+}

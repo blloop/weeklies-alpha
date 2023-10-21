@@ -1,17 +1,20 @@
 {
   "files": {
-    "main.css": "/weeklies/static/css/main.e42e8293.css",
-    "main.js": "/weeklies/static/js/main.dc0de9e8.js",
-    "static/js/787.cbb0a079.chunk.js": "/weeklies/static/js/787.cbb0a079.chunk.js",
+    "main.css": "/weeklies/static/css/main.5f479402.css",
+    "main.js": "/weeklies/static/js/main.f6602074.js",
+    "static/js/787.c2b135d0.chunk.js": "/weeklies/static/js/787.c2b135d0.chunk.js",
+    "static/media/upload.svg": "/weeklies/static/media/upload.a2dfe23708e477b333a603f46a99faa2.svg",
+    "static/media/download.svg": "/weeklies/static/media/download.2d00a8ea8fcaf61bdeeed002fe6a3806.svg",
     "static/media/gear.svg": "/weeklies/static/media/gear.1605e791db6d270a90f08b5027ac683a.svg",
     "static/media/github-mark.svg": "/weeklies/static/media/github-mark.6fa18895f6e6c7772cab7049f7e05f59.svg",
     "index.html": "/weeklies/index.html",
-    "main.e42e8293.css.map": "/weeklies/static/css/main.e42e8293.css.map",
-    "main.dc0de9e8.js.map": "/weeklies/static/js/main.dc0de9e8.js.map",
-    "787.cbb0a079.chunk.js.map": "/weeklies/static/js/787.cbb0a079.chunk.js.map"
+    "static/media/info.svg": "/weeklies/static/media/info.750fd0e499f3e298572af15815fa256f.svg",
+    "main.5f479402.css.map": "/weeklies/static/css/main.5f479402.css.map",
+    "main.f6602074.js.map": "/weeklies/static/js/main.f6602074.js.map",
+    "787.c2b135d0.chunk.js.map": "/weeklies/static/js/787.c2b135d0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e42e8293.css",
-    "static/js/main.dc0de9e8.js"
+    "static/css/main.5f479402.css",
+    "static/js/main.f6602074.js"
   ]
 }

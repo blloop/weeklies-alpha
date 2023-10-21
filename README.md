@@ -7,36 +7,36 @@ and then plan regular events around them!
 
 ## Features
 
-- Simple calendar week layout with event blocks displayed
-- Add an event from the navigation bar or by selecting a cell
-- Edit or delete an event by selecting the existing event
+- Simple calendar week layout with time displayed in blocks
+- Easily add an event by selecting a cell
+- Edit or delete an event by selecting an existing event
 - Delete all events with a single click in the options menu
-- Choose between 7 different accent colors with an option for 24 hour time
+- Option for 24 hour time
 
 ## Usage
 
-Visit <a target="_blank" href="https://bill-yu.dev/weeklies"> this </a> link to visit the latest deployment!
+Visit <a target="_blank" href="https://blloop.github.io/weeklies"> this </a> link to visit the latest deployment!
 
 ## Development
 
-### v1.2
+### v1.3
 
-Improved interface with warnings
+Add import/export features and daily start/end times
 
-- Added confirmation dialogs for all event deletions
-- Created custom warning dialog for invalid events
-- Overhauled component structure (class -> functional)
-- Style improvements, such as reduced number of time lines
+- Add new import/export features (JSON) directly accessible via buttons
+- Introduce horizontal time dividers for visualizing daily start/end times
+- Remove interface accent color options (will transition into tags feature)
 
 ### Upcoming Changes
 
+- Event tags with color coding and filtering
 - Integration of 'regular' events among weeklies
-- Option for night mode
-- Start of day option with horizontal line
+- Setting for night mode
+- Manual time divider input rather than sliders
 
 ### Dependencies
 
-- Node.js (16.0 or lower)
+- Node.js (16.0 or higher)
 
 ## Contributing
 
@@ -53,6 +53,7 @@ or fork this repository and create a pull request to directly contribute:
 
 ## Version History
 
+* 1.3: Add import/export features and daily start/end times
 * 1.2: Improved interface with warnings
 * 1.1: Simple event addition with cell selection
 * 1.0: Initial release with basic features

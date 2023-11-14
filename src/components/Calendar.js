@@ -7,7 +7,7 @@ import SettingsDialog from './SettingsDialog';
 import WarningDialog from './WarningDialog';
 import InfoDialog from './InfoDialog';
 
-const VER_NUM = 'weeklies-1.3.1';
+const VER_NUM = 'weeklies_1.3.1';
 
 const Calendar = () => {
     // Loads events and settings from browser storage
@@ -53,12 +53,10 @@ const Calendar = () => {
                     const content = JSON.parse(reader.result);
                     // Parse as JSON and load in data
                     if (content.events) {
-                        setEvents(content.events);
+                        updateEvents(content.events);
                     }
                     if (content.settings) {
-                        setFormat(content.settings[0]);
-                        setStart(content.settings[1]);
-                        setEnd(content.settings[2]);
+                        setSettings(content.settings);
                     }
                 });
                 reader.readAsText(file.files[0]);
@@ -162,7 +160,10 @@ const Calendar = () => {
         setDialog('');
         localStorage.setItem(
             VER_NUM,
-            JSON.stringify(list)
+            JSON.stringify({
+                events: list,
+                settings: [format, start, end]
+            })
         );
     };
 
@@ -192,15 +193,30 @@ const Calendar = () => {
         setDialog('add');
     };
 
-    // Toggles time format used
-    const changeFormat = () => {
-        setFormat(!format);
+    // Set all 3 settings via import
+    const setSettings = (settings) => {
+        // TODO: Validate settings?
+        setFormat(settings[0]);
+        setStart(settings[1]);
+        setEnd(settings[2]);
         localStorage.setItem(
-            'weeklies-info',
+            VER_NUM,
             JSON.stringify({
-                format: !format,
-                start: start,
-                end: end
+                events: events,
+                settings: settings
+            })
+        );
+    }
+
+    // Toggles time format used
+    const changeFormat = (inForm) => {
+        let newForm = inForm ? inForm : !format;
+        setFormat(newForm);
+        localStorage.setItem(
+            VER_NUM,
+            JSON.stringify({
+                events: events,
+                settings: [newForm, start, end]
             })
         );
     };
@@ -209,11 +225,10 @@ const Calendar = () => {
     const changeStart = (num) => {
         setStart(num);
         localStorage.setItem(
-            'weeklies-info',
+            VER_NUM,
             JSON.stringify({
-                format: format,
-                start: num, 
-                end: end
+                events: events,
+                settings: [format, num, end]
             })
         );
     }
@@ -222,11 +237,10 @@ const Calendar = () => {
     const changeEnd = (num) => {
         setEnd(num);
         localStorage.setItem(
-            'weeklies-info',
+            VER_NUM,
             JSON.stringify({
-                format: format,
-                start: start,
-                end: num
+                events: events,
+                settings: [format, start, num]
             })
         );
     }
@@ -255,7 +269,7 @@ const Calendar = () => {
                 isOpen={dialog === 'settings'}
                 setDialog={setDialog}
                 format={format}
-                toggleFormat={changeFormat}/>
+                toggleFormat={() => changeFormat(null)}/>
             <WarningDialog
                 text={warning}
                 setWarning={setWarning}/>

@@ -7,9 +7,11 @@ import SettingsDialog from './SettingsDialog';
 import WarningDialog from './WarningDialog';
 import InfoDialog from './InfoDialog';
 
+const VER_NUM = 'weeklies-1.3.1';
+
 const Calendar = () => {
     // Loads events and settings from browser storage
-    let getInfo = localStorage.getItem('weeklies-1.3');
+    let getInfo = localStorage.getItem(VER_NUM);
     const [events, setEvents] = useState(getInfo ?
         JSON.parse(getInfo)['events'] : []
     );
@@ -159,7 +161,7 @@ const Calendar = () => {
         setEvents(list);
         setDialog('');
         localStorage.setItem(
-            'weeklies',
+            VER_NUM,
             JSON.stringify(list)
         );
     };

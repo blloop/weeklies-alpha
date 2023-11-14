@@ -11,6 +11,7 @@ and then plan regular events around them!
 - Easily add an event by selecting a cell
 - Edit or delete an event by selecting an existing event
 - Delete all events with a single click in the options menu
+- Import and export Weeklies via JSON files
 - Option for 24 hour time
 
 ## Usage
@@ -19,7 +20,11 @@ Visit <a target="_blank" href="https://blloop.github.io/weeklies"> this </a> lin
 
 ## Development
 
-### v1.3
+### v1.3.1
+
+Fix bug with browser not reading stored values properly
+
+### v1.3.0
 
 Add import/export features and daily start/end times
 

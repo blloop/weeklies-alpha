@@ -29,6 +29,7 @@ const SettingsDialog = props => {
                         onChange={props.toggleFormat}>
                     </input>
                 </div>
+                <p className='small-text'>Version: 1.3.1</p>
                 <button
                     className='contrast thin-button'
                     onClick={() => setConfirm(true)}>

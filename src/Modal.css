@@ -31,7 +31,7 @@
   height: 420px;
   padding-bottom: 72px !important;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .settings {

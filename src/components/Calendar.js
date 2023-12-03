@@ -22,12 +22,15 @@ const Calendar = () => {
         JSON.parse(getInfo)['settings'][1] : 12
     );
     const [end, setEnd] = useState(getInfo ?
-        JSON.parse(getInfo)['settings'][2] : 48)
+        JSON.parse(getInfo)['settings'][2] : 48
+    );
+    // TODO: Add variable to maintain custom user colors
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',
         start: 0,
-        end: 0
+        end: 0,
+        color: 1
     });
     const [oldid, setOldid] = useState(0);
     const [dialog, setDialog] = useState('');
@@ -177,7 +180,8 @@ const Calendar = () => {
             title: events[index].title,
             day: events[index].day,
             start: events[index].start,
-            end: events[index].end
+            end: events[index].end,
+            color: events[index].color
         });
         setDialog('edit');
     };
@@ -188,7 +192,8 @@ const Calendar = () => {
             title: '',
             day: day,
             start: time,
-            end: (time + 2) % 48
+            end: (time + 2) % 48,
+            color: 1
         });
         setDialog('add');
     };

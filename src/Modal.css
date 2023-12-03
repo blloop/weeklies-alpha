@@ -183,6 +183,11 @@
   margin-top: -2px;
 }
 
+.dropdown.scroll {
+  height: 200px;
+  overflow-y: auto;
+}
+
 .drop-box {
   width: 100%;
   height: 50px;

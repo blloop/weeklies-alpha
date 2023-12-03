@@ -24,13 +24,13 @@ const Calendar = () => {
     const [end, setEnd] = useState(getInfo ?
         JSON.parse(getInfo)['settings'][2] : 48
     );
-    // TODO: Add variable to maintain custom user colors
+    // TODO: Add variable to maintain custom user tags
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',
         start: 0,
         end: 0,
-        color: 1
+        tag: 1
     });
     const [oldid, setOldid] = useState(0);
     const [dialog, setDialog] = useState('');
@@ -101,6 +101,7 @@ const Calendar = () => {
             newList.sort((a, b) => a.id - b.id);
             updateEvents(newList);
         }
+        console.log(newList)
     };
 
     // Edit existing event in calendar
@@ -181,7 +182,7 @@ const Calendar = () => {
             day: events[index].day,
             start: events[index].start,
             end: events[index].end,
-            color: events[index].color
+            tag: events[index].tag
         });
         setDialog('edit');
     };
@@ -193,7 +194,7 @@ const Calendar = () => {
             day: day,
             start: time,
             end: (time + 2) % 48,
-            color: 1
+            tag: 1
         });
         setDialog('add');
     };

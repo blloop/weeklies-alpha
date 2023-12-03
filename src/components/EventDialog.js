@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TimeRow from './TimeRow';
 import ConfirmDialog from './ConfirmDialog';
-import { dayList } from './Data';
+import { tagList, dayList } from './Data';
 
 const EventDialog = props => {
     const [menu, setMenu] = useState('');
@@ -45,15 +45,11 @@ const EventDialog = props => {
                 <div className='row-items'>
                     <button
                         className='drop-box top-button square'
-                        onClick={() => 
-                            setMenu(menu === 'day' ? 
-                                '' : 
-                                'day'
-                            )}>
+                        onClick={() => toggleMenu('day')}>
                         {props.tempEvent.day}
                     </button>
                     {menu === 'day' && (
-                        <ul className='dropdown'> 
+                        <ul className='dropdown scroll'> 
                             {dayList.map((day) =>
                                 <button
                                     hidden={day === 
@@ -86,18 +82,52 @@ const EventDialog = props => {
                         format={props.format}
                     />
                 </div>
-                <TimeRow
-                    field={'end'}
-                    menu={menu}
-                    hour={
-                        props.tempEvent.end -
-                        (props.tempEvent.end % 2)
-                    }
-                    setMenu={setMenu}
-                    setUpcoming={props.setUpcoming}
-                    tempEvent={props.tempEvent}
-                    format={props.format}
-                />
+                <div className='row-items'>
+                    <button
+                        className={
+                            `drop-box top-button square tag-${
+                                props.tempEvent.tag
+                            }`
+                        }
+                        onClick={() => toggleMenu('tag')}>
+                        {tagList[props.tempEvent.tag]}
+                    </button>
+                    {menu === 'tag' && (
+                        <ul className='dropdown scroll'> 
+                            {tagList.map((tag, i) =>
+                                <button
+                                    hidden={i === 
+                                        props.tempEvent.tag
+                                    }
+                                    key={i}
+                                    className={
+                                        `drop-box square tag-${i}`
+                                    }
+                                    onClick={() => {
+                                        toggleMenu('tag');
+                                        props.setUpcoming({
+                                            ...props.tempEvent,
+                                            tag: i
+                                        });
+                                    }}>
+                                {tagList[i]}
+                                </button>
+                            )}
+                        </ul>
+                    )}
+                    <TimeRow
+                        field={'end'}
+                        menu={menu}
+                        hour={
+                            props.tempEvent.end -
+                            (props.tempEvent.end % 2)
+                        }
+                        setMenu={setMenu}
+                        setUpcoming={props.setUpcoming}
+                        tempEvent={props.tempEvent}
+                        format={props.format}
+                    />
+                </div>
                 { props.type === 'add' ?
                     <button
                         className='contrast-light thin-button'

@@ -10,7 +10,7 @@ const darkColors = [
     'rgb(79, 209, 220)',
     'rgb(103, 139, 255)',
     'rgb(167, 99, 219)',
-    'rgb(103, 139, 255)'
+    'rgb(153, 153, 153)',
 ];
 
 const lightColors = [
@@ -21,18 +21,30 @@ const lightColors = [
     'rgb(146, 236, 243)',
     'rgb(167, 188, 255)',
     'rgb(205, 169, 234)',
-    'rgb(103, 139, 255)'
+    'rgb(179, 179, 179)',
+];
+
+const tagList = [
+    'Tag 1',
+    'Tag 2',
+    'Tag 3',
+    'Tag 4',
+    'Tag 5',
+    'Tag 6',
+    'Tag 7',
+    'Tag 8',
 ];
 
 const dayList = [
     'Sunday', 'Monday', 'Tuesday', 'Wednesday',
-    'Thursday', 'Friday', 'Saturday'
+    'Thursday', 'Friday', 'Saturday',
 ];
 
 const dayAbbrevList = [
-    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'
+    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT',
 ];
 
 export {
-    darkColors, lightColors, range, dayList, dayAbbrevList
+    range, darkColors, lightColors, 
+    tagList, dayList, dayAbbrevList
 };

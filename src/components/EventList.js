@@ -114,6 +114,6 @@ const EventList = props => {
             </div>
         </div>
     );
-};
+}
 
 export default EventList;

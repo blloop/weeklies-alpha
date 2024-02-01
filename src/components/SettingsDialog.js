@@ -6,7 +6,7 @@ const SettingsDialog = props => {
     const confirmDel = () => {
         setConfirm(false);
         props.clearEvents();
-    };
+    }
 
     return ( <>
         {props.isOpen && <>
@@ -29,7 +29,7 @@ const SettingsDialog = props => {
                         onChange={props.toggleFormat}>
                     </input>
                 </div>
-                <p className='small-text'>Version: 1.3.1</p>
+                <p className='small-text'>Version: 1.4.0</p>
                 <button
                     className='contrast thin-button'
                     onClick={() => setConfirm(true)}>
@@ -46,6 +46,6 @@ const SettingsDialog = props => {
     
     </>
     );
-};
+}
 
 export default SettingsDialog;

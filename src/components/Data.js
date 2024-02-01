@@ -47,4 +47,4 @@ const dayAbbrevList = [
 export {
     range, darkColors, lightColors, 
     tagList, dayList, dayAbbrevList
-};
+}

@@ -20,6 +20,14 @@ Visit <a target="_blank" href="https://blloop.github.io/weeklies"> this </a> lin
 
 ## Development
 
+### v1.4.0
+
+Add color tags to events for visual categorization
+
+- Introduce 4 basic tag colors selectable in event dialog
+- Sync tag color with events shown on calendar
+- Upcoming: Tag color and name customization
+
 ### v1.3.1
 
 Fix bug with browser not reading stored values properly

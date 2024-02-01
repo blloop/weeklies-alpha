@@ -8,11 +8,11 @@ const EventDialog = props => {
     const [confirm, setConfirm] = useState(false);
     const toggleMenu = (name) => {
         setMenu(menu === name ? '' : name);
-    };
+    }
     const confirmDel = () => {
         setConfirm(false);
         props.deleteEvent();
-    };
+    }
 
     return ( <>
         {props.isOpen && <>
@@ -157,6 +157,6 @@ const EventDialog = props => {
         </>}
     </>
     );
-};
+}
 
 export default EventDialog;

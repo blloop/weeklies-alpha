@@ -47,7 +47,7 @@ const InfoDialog = props => {
             </div>
         </>
     );
-};
+}
 
 
 export default InfoDialog;

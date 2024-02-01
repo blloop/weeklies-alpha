@@ -14,7 +14,7 @@ const TimeRow = props => {
         props.menu === (props.field) ? 
             props.setMenu('') :
             props.setMenu(props.field)
-    };
+    }
     const getHour = (format, time) => {
         let rounded = (time - (time % 2)) / 2;
         return (format ?
@@ -23,7 +23,7 @@ const TimeRow = props => {
                 12 : 
                 (rounded) % 12)
         );
-    };
+    }
     const changeHour = (hour) => {
         let newEvent = props.tempEvent;
         newEvent[props.field] = 
@@ -34,7 +34,7 @@ const TimeRow = props => {
                 (props.tempEvent[props.field] % 2)
             );
         props.setUpcoming(newEvent);
-    };
+    }
     const toggleMin = () => {    
         props.setUpcoming(
             (props.field === 'start') ?
@@ -49,7 +49,7 @@ const TimeRow = props => {
                 props.tempEvent.end - 1 % 48)
             }
         );
-    };
+    }
     const toggleAM = () => {
         props.setUpcoming(
             (props.field === 'start' ? 
@@ -61,7 +61,7 @@ const TimeRow = props => {
             }
             )
         );
-    };
+    }
 
     return (
         <div className='time-items'>
@@ -113,6 +113,6 @@ const TimeRow = props => {
             }
         </div>
     );
-};
+}
 
 export default TimeRow;

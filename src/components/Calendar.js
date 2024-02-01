@@ -7,7 +7,7 @@ import SettingsDialog from './SettingsDialog';
 import WarningDialog from './WarningDialog';
 import InfoDialog from './InfoDialog';
 
-const VER_NUM = 'weeklies_1.3.1';
+const VER_NUM = 'weeklies_1.4.0';
 
 const Calendar = () => {
     // Loads events and settings from browser storage
@@ -72,7 +72,7 @@ const Calendar = () => {
             }
             file.remove();
         });
-    };
+    }
 
     // Export events as JSON
     const exportEvents = () => {
@@ -86,7 +86,7 @@ const Calendar = () => {
         document.body.appendChild(link);
         link.click();
         link.remove();
-    };
+    }
 
     // Calculates event ID based on start time
     // Returns the event with ID added
@@ -105,7 +105,7 @@ const Calendar = () => {
             newList.sort((a, b) => a.id - b.id);
             updateEvents(newList);
         }
-    };
+    }
 
     // Edit existing event in calendar
     // Removes old event and adds in new one
@@ -118,7 +118,7 @@ const Calendar = () => {
             newList.sort((a, b) => a.id - b.id);
             updateEvents(newList);
         }
-    };
+    }
 
     // Remove event from calendar
     // Uses local id saved of last event clicked
@@ -127,7 +127,7 @@ const Calendar = () => {
             event => event.id !== oldid
         );
         updateEvents(newList);
-    };
+    }
 
     // Helper method that verifies an event can be added
     // Validates arguments and checks for overlaps
@@ -135,13 +135,13 @@ const Calendar = () => {
         if (!event.title || event.title.length === 0) {
             setWarning('Event title cannot be empty!');
             return false;
-        };
+        }
         if ((event.start > event.end && 
             event.end !== 0) ||
             event.start === event.end) {
             setWarning('Invalid event duration!');
             return false;
-        };
+        }
         if (list.some(
             curr =>
             ((curr.day === event.day) &&
@@ -156,9 +156,9 @@ const Calendar = () => {
                 'Time overlaps with another event!'
             );
             return false;
-        };
+        }
         return true;
-    };
+    }
 
     // Helper method that updates events
     // Saves new list of events to browser storage
@@ -172,7 +172,7 @@ const Calendar = () => {
                 settings: [format, start, end, tagMap]
             })
         );
-    };
+    }
 
     // Imports event data for edit event dialog
     const editUpcoming = (id) => {
@@ -188,7 +188,7 @@ const Calendar = () => {
             tag: events[index].tag
         });
         setDialog('edit');
-    };
+    }
 
     // Imports time data for add event dialog
     const addUpcoming = (day, time) => {
@@ -200,7 +200,7 @@ const Calendar = () => {
             tag: 0
         });
         setDialog('add');
-    };
+    }
 
     // Set all 3 settings via import
     const setSettings = (settings) => {
@@ -230,7 +230,7 @@ const Calendar = () => {
                 settings: [newForm, start, end, tagMap]
             })
         );
-    };
+    }
 
     // Changes daily start time
     const changeStart = (num) => {
@@ -325,6 +325,6 @@ const Calendar = () => {
                 format={format}/>
         </div>
     );
-};
+}
 
 export default Calendar;

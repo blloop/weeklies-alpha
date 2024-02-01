@@ -7,10 +7,15 @@
   --base-lightgrey: rgb(201, 201, 201);
   --base-grey: rgb(183, 183, 183);
   --base-darkgrey: rgb(144, 144, 144);
-  --tag-0: rgb(237, 237, 237);
-  --tag-1: rgb(250, 154, 141);
-  --tag-2: rgb(172, 233, 178);
-  --tag-3: rgb(146, 236, 243);
+  /* Color placeholders, modified in Calendar.js */
+  --t0-bg: rgb(237, 237, 237);
+  --t1-bg: rgb(237, 237, 237);
+  --t2-bg: rgb(237, 237, 237);
+  --t3-bg: rgb(237, 237, 237);
+  --t0-border: rgb(144, 144, 144);
+  --t1-border: rgb(144, 144, 144);
+  --t2-border: rgb(144, 144, 144);
+  --t3-border: rgb(144, 144, 144);
 }
 
 * {
@@ -139,18 +144,38 @@ input {
   font-size: 18px;
 }
 
+.tag-0 {
+  background-color: var(--t0-bg) !important;
+  border-color: var(--t0-border) !important;
+}
+
 .tag-1 {
-  background-color: var(--tag-1);
+  background-color: var(--t1-bg) !important;
+  border-color: var(--t1-border) !important;
 }
 
 .tag-2 {
-  background-color: var(--tag-2);
+  background-color: var(--t2-bg) !important;
+  border-color: var(--t2-border) !important;
 }
 
 .tag-3 {
-  background-color: var(--tag-3);
+  background-color: var(--t3-bg) !important;
+  border-color: var(--t3-border) !important;
 }
 
-.tag-4 {
-  background-color: var(--tag-4);
+.tag-0:hover {
+  background-color: var(--t0-border) !important;
+}
+
+.tag-1:hover {
+  background-color: var(--t1-border) !important;
+}
+
+.tag-2:hover {
+  background-color: var(--t2-border) !important;
+}
+
+.tag-3:hover {
+  background-color: var(--t3-border) !important;
 }

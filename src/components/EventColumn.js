@@ -20,7 +20,7 @@ const EventColumn = props => (
                         height:
                             (event.end - event.start) * 25
                     }}
-                    className={'event'}
+                    className={`event tag-${event.tag}`}
                     onClick={() => 
                         props.editUpcoming(event.id)
                     }

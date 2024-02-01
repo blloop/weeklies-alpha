@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { dayList } from './Data';
+import { lightColors, darkColors, dayList } from './Data';
 import NavBar from './NavBar';
 import EventList from './EventList';
 import EventDialog from './EventDialog';
@@ -36,10 +36,18 @@ const Calendar = () => {
     const [dialog, setDialog] = useState('');
     const [warning, setWarning] = useState('');
     const [mono, setMono] = useState(0);
+    const [tagMapping, setTagMapping] = useState([1, 0, 3, 4]);
     
-    // TODO: Import tag colors into DOM
-    // let s = document.querySelector(':root').style;
-    // s.setProperty('--tag-1', 'black');
+    // TODO: Add function to manage color mapping
+    let d = document.querySelector(':root').style;
+    d.setProperty('--t0-bg', lightColors[tagMapping[0]]);
+    d.setProperty('--t1-bg', lightColors[tagMapping[1]]);
+    d.setProperty('--t2-bg', lightColors[tagMapping[2]]);
+    d.setProperty('--t3-bg', lightColors[tagMapping[3]]);
+    d.setProperty('--t0-border', darkColors[tagMapping[0]]);
+    d.setProperty('--t1-border', darkColors[tagMapping[1]]);
+    d.setProperty('--t2-border', darkColors[tagMapping[2]]);
+    d.setProperty('--t3-border', darkColors[tagMapping[3]]);
 
     // Imports events JSON
     const importEvents = () => {
@@ -105,7 +113,6 @@ const Calendar = () => {
             newList.sort((a, b) => a.id - b.id);
             updateEvents(newList);
         }
-        console.log(newList)
     };
 
     // Edit existing event in calendar

@@ -76,7 +76,6 @@ const EventList = props => {
             <div className='column utility mono-show'>
                 <button
                     onClick={() =>{
-                        console.log(props.monoDay)
                         props.setMono(
                             props.monoDay === 0 ? 6 :
                             props.monoDay - 1

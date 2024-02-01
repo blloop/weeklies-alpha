@@ -26,7 +26,6 @@ const TimeRow = props => {
     };
     const changeHour = (hour) => {
         let newEvent = props.tempEvent;
-        console.log(newEvent);
         newEvent[props.field] = 
             (hour % 24 === 0 ?
                 (props.tempEvent[props.field] > 24 ?

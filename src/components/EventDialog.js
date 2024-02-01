@@ -28,6 +28,7 @@ const EventDialog = props => {
                     }
                 </p>
                 <button
+                    // TODO: Close all menus when dialog closes
                     onClick={() => props.setDialog('')}
                     className='close-button'>
                     &#10005;

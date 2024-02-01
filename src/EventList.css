@@ -45,7 +45,6 @@
     justify-content: center;
     overflow: hidden;
     border: 4px solid var(--dark-accent);
-    /* TODO: Add custom bg color for event tag */
     background-color: var(--light-accent);
     transition: 0.1s all ease-in;
 }

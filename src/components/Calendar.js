@@ -30,12 +30,16 @@ const Calendar = () => {
         day: 'Sunday',
         start: 0,
         end: 0,
-        tag: 1
+        tag: 0
     });
     const [oldid, setOldid] = useState(0);
     const [dialog, setDialog] = useState('');
     const [warning, setWarning] = useState('');
     const [mono, setMono] = useState(0);
+    
+    // TODO: Import tag colors into DOM
+    // let s = document.querySelector(':root').style;
+    // s.setProperty('--tag-1', 'black');
 
     // Imports events JSON
     const importEvents = () => {
@@ -194,7 +198,7 @@ const Calendar = () => {
             day: day,
             start: time,
             end: (time + 2) % 48,
-            tag: 1
+            tag: 0
         });
         setDialog('add');
     };

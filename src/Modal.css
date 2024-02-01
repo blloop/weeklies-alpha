@@ -171,8 +171,6 @@
 
 .dropdown {
   position: absolute;
-  display: flex;
-  flex-direction: column;
   margin-top: 48px;
 }
 
@@ -184,7 +182,8 @@
 }
 
 .dropdown.scroll {
-  height: 200px;
+  /* Height: 4px (borders) + 50px per option > 1 */
+  height: 154px;
   overflow-y: auto;
 }
 

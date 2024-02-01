@@ -7,6 +7,10 @@
   --base-lightgrey: rgb(201, 201, 201);
   --base-grey: rgb(183, 183, 183);
   --base-darkgrey: rgb(144, 144, 144);
+  --tag-0: rgb(237, 237, 237);
+  --tag-1: rgb(250, 154, 141);
+  --tag-2: rgb(172, 233, 178);
+  --tag-3: rgb(146, 236, 243);
 }
 
 * {
@@ -133,4 +137,20 @@ input {
 
 .small-text {
   font-size: 18px;
+}
+
+.tag-1 {
+  background-color: var(--tag-1);
+}
+
+.tag-2 {
+  background-color: var(--tag-2);
+}
+
+.tag-3 {
+  background-color: var(--tag-3);
+}
+
+.tag-4 {
+  background-color: var(--tag-4);
 }

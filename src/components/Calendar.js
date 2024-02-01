@@ -24,7 +24,11 @@ const Calendar = () => {
     const [end, setEnd] = useState(getInfo ?
         JSON.parse(getInfo)['settings'][2] : 48
     );
-    // TODO: Add variable to maintain custom user tags
+    const [tagMap, setTagMap] = useState(getInfo ? 
+        JSON.parse(getInfo)['settings'][3] : [1, 0, 3, 4]
+    );
+
+    // Setup local interface variables
     const [upcoming, setUpcoming] = useState({
         title: '',
         day: 'Sunday',
@@ -36,18 +40,6 @@ const Calendar = () => {
     const [dialog, setDialog] = useState('');
     const [warning, setWarning] = useState('');
     const [mono, setMono] = useState(0);
-    const [tagMapping, setTagMapping] = useState([1, 0, 3, 4]);
-    
-    // TODO: Add function to manage color mapping
-    let d = document.querySelector(':root').style;
-    d.setProperty('--t0-bg', lightColors[tagMapping[0]]);
-    d.setProperty('--t1-bg', lightColors[tagMapping[1]]);
-    d.setProperty('--t2-bg', lightColors[tagMapping[2]]);
-    d.setProperty('--t3-bg', lightColors[tagMapping[3]]);
-    d.setProperty('--t0-border', darkColors[tagMapping[0]]);
-    d.setProperty('--t1-border', darkColors[tagMapping[1]]);
-    d.setProperty('--t2-border', darkColors[tagMapping[2]]);
-    d.setProperty('--t3-border', darkColors[tagMapping[3]]);
 
     // Imports events JSON
     const importEvents = () => {
@@ -177,7 +169,7 @@ const Calendar = () => {
             VER_NUM,
             JSON.stringify({
                 events: list,
-                settings: [format, start, end]
+                settings: [format, start, end, tagMap]
             })
         );
     };
@@ -216,6 +208,8 @@ const Calendar = () => {
         setFormat(settings[0]);
         setStart(settings[1]);
         setEnd(settings[2]);
+        setTagMap(settings[3]);
+        updateTagMap(settings[3]);
         localStorage.setItem(
             VER_NUM,
             JSON.stringify({
@@ -233,7 +227,7 @@ const Calendar = () => {
             VER_NUM,
             JSON.stringify({
                 events: events,
-                settings: [newForm, start, end]
+                settings: [newForm, start, end, tagMap]
             })
         );
     };
@@ -245,7 +239,7 @@ const Calendar = () => {
             VER_NUM,
             JSON.stringify({
                 events: events,
-                settings: [format, num, end]
+                settings: [format, num, end, tagMap]
             })
         );
     }
@@ -257,10 +251,34 @@ const Calendar = () => {
             VER_NUM,
             JSON.stringify({
                 events: events,
-                settings: [format, start, num]
+                settings: [format, start, num, tagMap]
             })
         );
     }
+
+    const changeMap = (num, val) => {
+        let tempMap = tagMap;
+        tempMap[num] = val;
+        setTagMap(tempMap);
+        updateTagMap(tempMap);
+        localStorage.setItem(
+            VER_NUM,
+            JSON.stringify({
+                events: events,
+                settings: [format, start, end, tempMap]
+            })
+        );
+    }
+
+    const updateTagMap = (map) => {
+        let d = document.querySelector(':root').style;
+        for (let i = 0; i < 4; i++) {
+            d.setProperty(`--t${i}-bg`, lightColors[map[i]]);
+            d.setProperty(`--t${i}-border`, darkColors[map[i]]);
+        }
+    }
+    
+    updateTagMap(tagMap);
 
     return (
         <div className='calendar'>

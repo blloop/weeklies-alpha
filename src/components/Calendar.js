@@ -8,6 +8,7 @@ import WarningDialog from './WarningDialog';
 import InfoDialog from './InfoDialog';
 
 const VER_NUM = 'weeklies_1.4.0';
+// TODO: Add previous version retrieval feature
 
 const Calendar = () => {
     // Loads events and settings from browser storage

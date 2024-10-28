@@ -1,9 +1,11 @@
-# Weeklies
+# Weeklies (alpha)
 
 A simple app to organize your weekly events!
 
 Create your recurring weekly events, or "weeklies", 
 and then plan regular events around them! 
+
+Note: This project will no longer be maintained
 
 ## Features
 
@@ -16,7 +18,7 @@ and then plan regular events around them!
 
 ## Usage
 
-Visit <a target="_blank" href="https://blloop.github.io/weeklies"> this </a> link to visit the latest deployment!
+Visit <a target="_blank" href="https://blloop.github.io/weeklies-alpha"> this </a> link to visit the latest deployment!
 
 ## Development
 
@@ -39,13 +41,6 @@ Add import/export features and daily start/end times
 - Add new import/export features (JSON) directly accessible via buttons
 - Introduce horizontal time dividers for visualizing daily start/end times
 - Remove interface accent color options (will transition into tags feature)
-
-### Upcoming Changes
-
-- Event tags with color coding and filtering
-- Integration of 'regular' events among weeklies
-- Setting for night mode
-- Manual time divider input rather than sliders
 
 ### Dependencies
 
@@ -74,4 +69,4 @@ or fork this repository and create a pull request to directly contribute:
 ## License
 
 This project is licensed under the MIT License - 
-see the <a href="https://github.com/blloop/weeklies/blob/main/LICENSE" target="_blank">LICENSE</a> file for details
+see the <a href="https://github.com/blloop/weeklies-alpha/blob/main/LICENSE" target="_blank">LICENSE</a> file for details

@@ -210,7 +210,6 @@ const Calendar = () => {
         setStart(settings[1]);
         setEnd(settings[2]);
         setTagMap(settings[3]);
-        updateTagMap(settings[3]);
         localStorage.setItem(
             VER_NUM,
             JSON.stringify({
@@ -257,29 +256,19 @@ const Calendar = () => {
         );
     }
 
-    const changeMap = (num, val) => {
-        let tempMap = tagMap;
-        tempMap[num] = val;
-        setTagMap(tempMap);
-        updateTagMap(tempMap);
-        localStorage.setItem(
-            VER_NUM,
-            JSON.stringify({
-                events: events,
-                settings: [format, start, end, tempMap]
-            })
-        );
-    }
-
-    const updateTagMap = (map) => {
+    const updateTagMap = () => {
+    // const updateTagMap = (map) => {
         let d = document.querySelector(':root').style;
         for (let i = 0; i < 4; i++) {
-            d.setProperty(`--t${i}-bg`, lightColors[map[i]]);
-            d.setProperty(`--t${i}-border`, darkColors[map[i]]);
+            // d.setProperty(`--t${i}-bg`, lightColors[map[i]]);
+            // d.setProperty(`--t${i}-border`, darkColors[map[i]]);
+            d.setProperty(`--t${i}-bg`, lightColors[i]);
+            d.setProperty(`--t${i}-border`, darkColors[i]);
         }
     }
     
-    updateTagMap(tagMap);
+    updateTagMap();
+    // updateTagMap(tagMap);
 
     return (
         <div className='calendar'>

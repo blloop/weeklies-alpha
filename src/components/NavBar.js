@@ -36,7 +36,7 @@ const NavBar = props => (
         <p className='title'> Weeklies </p>
         <div className='subbar'>
             <a
-                href='https://github.com/blloop/weeklies'
+                href='https://github.com/blloop/weeklies-alpha'
                 target='_blank'
                 rel='noopener noreferrer'>
                 <img

@@ -1,7 +1,7 @@
 {
-  "name": "weeklies",
+  "name": "weeklies-alpha",
   "version": "1.4.0",
-  "homepage": "https://blloop.github.io/weeklies",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@testing-library/react": "^13.4.0",
